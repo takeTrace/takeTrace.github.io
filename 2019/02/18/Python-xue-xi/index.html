@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,爬虫,Python,scrapy,正则,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python学习官方文档Python3中文手册 虚拟环境Pipenv 一般和其他语言是没什么太大的不同, 这里标一些不一样的地方, 方便速查, 以防搞混 定义类的格式 # 注释格式  class Dog(父类):  # 这里是类变量的声明和初始化, 类属性被每个实例共享 live = 10 # 这里传入的第一个参数其实是传入实例本身, 但是实例调用时候并不关心这个, 即: Dog.addtrick">
+<meta name="keywords" content="学习,爬虫,Python,scrapy,正则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python学习">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/Python-xue-xi/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="Python学习官方文档Python3中文手册 虚拟环境Pipenv 一般和其他语言是没什么太大的不同, 这里标一些不一样的地方, 方便速查, 以防搞混 定义类的格式 # 注释格式  class Dog(父类):  # 这里是类变量的声明和初始化, 类属性被每个实例共享 live = 10 # 这里传入的第一个参数其实是传入实例本身, 但是实例调用时候并不关心这个, 即: Dog.addtrick">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T18:20:06.762Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python学习">
+<meta name="twitter:description" content="Python学习官方文档Python3中文手册 虚拟环境Pipenv 一般和其他语言是没什么太大的不同, 这里标一些不一样的地方, 方便速查, 以防搞混 定义类的格式 # 注释格式  class Dog(父类):  # 这里是类变量的声明和初始化, 类属性被每个实例共享 live = 10 # 这里传入的第一个参数其实是传入实例本身, 但是实例调用时候并不关心这个, 即: Dog.addtrick">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/Python-xue-xi/">
+
+
+
+
+
+  <title>Python学习 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/Python-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:34:14+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/Python-xue-xi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/Python-xue-xi/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Python学习<br><a href="https://docs.python.org/3/" target="_blank" rel="noopener">官方文档</a><br><a href="http://docs.pythontab.com/python/python3.4/" target="_blank" rel="noopener">Python3中文手册</a></p>
+<h2 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h2><p><a href="http://forrestchang.com/15167955255016.html" target="_blank" rel="noopener">Pipenv</a></p>
+<p>一般和其他语言是没什么太大的不同, 这里标一些不一样的地方, 方便速查, 以防搞混</p>
+<p>定义类的格式</p>
+<pre><code># 注释格式
+</code></pre><p> class Dog(父类):</p>
+<pre><code> # 这里是类变量的声明和初始化, 类属性被每个实例共享
+live = 10
+# 这里传入的第一个参数其实是传入实例本身, 但是实例调用时候并不关心这个, 即: Dog.addtrick(x, 1) = x.addtrick(1)  // x 是一个Dog实例
+ def __init__(self, name):
+     self.name = name
+     self.tricks = []
+
+ def addTrick(self, trick):
+     self.tricks.append(trick)
+</code></pre><h2 id="这里的作用域是靠缩进来区分的-所以要比较注意这些缩进…"><a href="#这里的作用域是靠缩进来区分的-所以要比较注意这些缩进…" class="headerlink" title="这里的作用域是靠缩进来区分的, 所以要比较注意这些缩进…"></a>这里的作用域是靠缩进来区分的, 所以要比较注意这些缩进…</h2><h2 id="有多继承…"><a href="#有多继承…" class="headerlink" title="有多继承…"></a>有多继承…</h2><p>没有私有变量, 以下划线开头的变量, 方法会处理为Api的非公开部分</p>
+<p>它结构体是这么定义的…很不明白..</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Employee:</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">john = Employee() # Create an empty employee record</span><br><span class="line"></span><br><span class="line"># Fill the fields of the record</span><br><span class="line">john.name = &apos;John Doe&apos;</span><br><span class="line">john.dept = &apos;computer lab&apos;</span><br><span class="line">john.salary = 1000</span><br></pre></td></tr></table></figure>
+<h2 id="错误和异常处理栗子"><a href="#错误和异常处理栗子" class="headerlink" title="错误和异常处理栗子"></a>错误和异常处理栗子</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def divide(x, y):</span><br><span class="line">...     try:</span><br><span class="line">...         result = x / y</span><br><span class="line">...     except ZeroDivisionError:</span><br><span class="line">...         print(&quot;division by zero!&quot;)</span><br><span class="line">...     else:</span><br><span class="line">...         print(&quot;result is&quot;, result)</span><br><span class="line">...     finally:</span><br><span class="line">...         print(&quot;executing finally clause&quot;)</span><br></pre></td></tr></table></figure>
+<p>当try的东西出错时, 就会到except检查异常类型, 符合条件就拦截下来, 没出错就到else, else中的代码写到try的话, 就会妨碍需要保证正确的范围, 而finally的话是无论正确与否都会执行的.</p>
+<h1 id="在安装其他Python环境的时候-碰上一些问题"><a href="#在安装其他Python环境的时候-碰上一些问题" class="headerlink" title="在安装其他Python环境的时候, 碰上一些问题,"></a>在安装其他Python环境的时候, 碰上一些问题,</h1><p><a href="http://pythonguidecn.readthedocs.io/zh/latest/dev/virtualenvs.html" target="_blank" rel="noopener">安装参考</a><br><a href="https://segmentfault.com/a/1190000006118856" target="_blank" rel="noopener">安装参考2</a><br><a href="http://blog.csdn.net/cruise_h/article/details/60335423" target="_blank" rel="noopener">安装参考3</a><br><a href="http://www.jianshu.com/p/51140800e8b4" target="_blank" rel="noopener">安装科学计算环境</a><br><a href="http://stackoverflow.com/questions/29732235/error-message-for-virtualenvwrapper-on-mac-os-x-yosemite-10-10-3" target="_blank" rel="noopener">参考</a></p>
+<p>之前我使用brew安装了Python3的, 在安装virtualenv时,</p>
+<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p>就像一个Filter, 给定一个String, 符合给定的规则的话就返回它, 不然就忽略.<br>一般正则字符串是一些咧线性规则构成的字符串: “a至少出戏一次 -&gt; 后面出现 b 5次 -&gt; 后面跟着任意出现偶数次出现的 c “ 这么一种线性规则<br>相对的非正则字符串的话就是一些含有一些非线性规律的字符串, 在爬虫中一般不会用到</p>
+<p>正则表达式就是表达那样的线性规则的缩写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aa*bbbbb(cc)*(d | )</span><br></pre></td></tr></table></figure>
+<p>a后跟着的a<em>, 表示”a重复任意次, 包括0次”, 这样就保证a至少出现1次<br>(cc)是编组, 后面跟着</em> 表示就是这个组出现任意次, 这样就保证了偶数次出现的c,<br>(d | )表示最后一个的规则, “|”表示或逻辑, 栗子表示增加一个后面跟着空格的d, 或只有一个空格</p>
+<p>自我总结:<br>正则分为每段的规则<br>“()” : 括号表示里面的东西做一个整体包起来了, / 提取子串,  表示将符合括号内规则的字符串提取出来, 有满足的话就会被提取出来<br>“<em>“: 表示任意个, 类似于乘, 重复的意思<br>“|”: 或逻辑<br>“[]”: 其中一个规则的集合, 表示这一个[]里的规则符合一个就行, 也可以是一个区间, [1-9], [.**], 这里面是字符匹配, 所以”.</em>“在里面就没有了所含义, 就是字面上的字符<br>“-“: 范围, 如: A-Z, a-z…<br>“+”: 可出现多次, 至少一次<br>“{m,n}”: 匹配前面的字符, 子表达式或括号里的字符m到n次, 包括m,n.<br>“[^]”: 匹配任意一个不在[]中的字符, 相当于取反<br>“.”: 任意字符<br>“^”: 值字符串开始位置的字符或子表达式<br>“$”: 从字符串的末端匹配, 常出现在表达式的末尾<br>“?”: 一般使用正则的时候会进行贪婪匹配, 也是从后往前进行规则的匹配. 如”booobboobba” 要匹配b.*b 的话, 会只有bb得出, 不能得出booob, 加上问号后会要求问号后进行从前往后第一个匹配, 同时我们在最后一个字符规则也加问号, 表明湖面这个字符也进行匹配第一个<br>“{}”: 也是一个限定, 限定前面的字符出现几次, 形式如: {1}, {1, }, {1,5}<br>“\s”: space, 表示空格<br>“\S”: 非空格<br>“\w”: 相当于[A-Za-z0-9_]<br>“\W”: 与\w相反<br>“\u4E00-\u9FA5”: 汉字的unicode编码, 匹配汉字<br>“\d”: 匹配数字类型</p>
+<p>如果不想写完程序再验证正则表达式是否正确, 可以去”<a href="http://regexpal.com/&quot;" target="_blank" rel="noopener">http://regexpal.com/&quot;</a> 这类的网站上去测试正确性</p>
+<h1 id="scrapy"><a href="#scrapy" class="headerlink" title="scrapy:"></a>scrapy:</h1><p><a href="http://www.pythondoc.com/pythontutorial3/classes.html" target="_blank" rel="noopener">参考资料</a><br><a href="https://oner-wv.gitbooks.io/scrapy_zh/" target="_blank" rel="noopener">中文翻译</a></p>
+<h2 id="Have-a-Glance"><a href="#Have-a-Glance" class="headerlink" title="Have a Glance"></a>Have a Glance</h2><p>按照官方文档我们先建立一个 class, 继承自 scrapy.Spider, 在其框架下, 当然是充分利用它提供的东西啊~</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QuotesSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">"quotes"</span> <span class="comment"># 这个是对爬虫的命名, 'name'是自带就有的 prop</span></span><br><span class="line">    <span class="comment"># 这里</span></span><br><span class="line">    start_urls = [</span><br><span class="line">        <span class="string">'http://quotes.toscrape.com/tag/humor/'</span>,</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> quote <span class="keyword">in</span> response.css(<span class="string">'div.quote'</span>):</span><br><span class="line">            <span class="keyword">yield</span> &#123;</span><br><span class="line">                <span class="string">'text'</span>: quote.css(<span class="string">'span.text::text'</span>).extract_first(),</span><br><span class="line">                <span class="string">'author'</span>: quote.xpath(<span class="string">'span/small/text()'</span>).extract_first(),</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        next_page = response.css(<span class="string">'li.next a::attr("href")'</span>).extract_first()</span><br><span class="line">        <span class="keyword">if</span> next_page <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">yield</span> response.follow(next_page, self.parse)</span><br></pre></td></tr></table></figure>
+<p>保存到文件里, 名字自定, 如: <code>quotes_spider.py</code>, 然后在文件所在的文件夹运行 scrapy的命令 <code>scrapy runspider quotes_spider.py</code></p>
+<p>发生了什么?</p>
+<blockquote>
+<p>What just happened?<br>When you ran the command scrapy runspider quotes_spider.py, Scrapy looked for a Spider definition inside it and ran it through its crawler engine.<br>当你有耐心这个命令是, Scrapy 会去文件中找你定义的 Spider, 然后用它的 crawler 引擎来跑这个 spider<br>然后对定义在start_urls 中的链接发起请求, 然后 调用默认的 callback: <code>parse</code>, 用来解析这个 request’s response, 里面用 CSS 选择器来遍历所有的 quote, yield(异步抛出结果)一个包含了句子和作者的 Python 字典, 提起下一页的链接, 然后调度另一个请求并继续用这个 parse 函数来解析response, 直到yield 出的 request 结束.<br>注意到没, 这里体现 Scrapy 中之一: 请求是统一调度的且异步解析 response. 这意味着 Scrapy 不需要等待一个请求返回/解析完毕, 就可以发起另一个请求/解析的任务或者做其他什么事. 这也以为着其他请求在某个请求失败时 <code>或</code> handle 某个 error时, 还可以继续任务, 不受影响.</p>
+</blockquote>
+<h2 id="使用scrapy的命令"><a href="#使用scrapy的命令" class="headerlink" title="使用scrapy的命令"></a>使用scrapy的命令</h2><p>在终端中:</p>
+<ul>
+<li>创建项目: scrapy startproject myproject [project_dir]<br>进入到项目目录中</li>
+<li>创建新spider文件: scrapy genspider mydomain mydomain.com</li>
+</ul>
+<h3 id="Scrapy-提供了两种类型的命令。一种必须在-Scrapy-项目中运行-针对项目-Project-specific-的命令-，另外一种则不需要-全局命令-。全局命令在项目中运行时的表现可能会与在非项目中运行有些许差别-因为可能会使用项目的设定-。"><a href="#Scrapy-提供了两种类型的命令。一种必须在-Scrapy-项目中运行-针对项目-Project-specific-的命令-，另外一种则不需要-全局命令-。全局命令在项目中运行时的表现可能会与在非项目中运行有些许差别-因为可能会使用项目的设定-。" class="headerlink" title="Scrapy 提供了两种类型的命令。一种必须在 Scrapy 项目中运行(针对项目(Project-specific)的命令)，另外一种则不需要(全局命令)。全局命令在项目中运行时的表现可能会与在非项目中运行有些许差别(因为可能会使用项目的设定)。"></a>Scrapy 提供了两种类型的命令。一种必须在 Scrapy 项目中运行(针对项目(Project-specific)的命令)，另外一种则不需要(全局命令)。全局命令在项目中运行时的表现可能会与在非项目中运行有些许差别(因为可能会使用项目的设定)。</h3><p>全局命令：</p>
+<ul>
+<li>startproject</li>
+<li>genspider</li>
+<li>settings</li>
+<li>runspider</li>
+<li>shell</li>
+<li>fetch</li>
+<li>view</li>
+<li>version<br>项目（Project-only）命令：</li>
+<li>crawl</li>
+<li>check</li>
+<li>list</li>
+<li>edit</li>
+<li>parse</li>
+<li>bench</li>
+</ul>
+<h3 id="运行爬虫"><a href="#运行爬虫" class="headerlink" title="运行爬虫"></a>运行爬虫</h3><ul>
+<li>$ scrapy crawl myspider</li>
+</ul>
+<p>scrapy中默认是通过递归实现深度优先算法, 来爬去网站的URL<br>广度优先则是通过队列来实现</p>
+<h3 id="步奏"><a href="#步奏" class="headerlink" title="步奏"></a>步奏</h3><h4 id="新建虚拟环境"><a href="#新建虚拟环境" class="headerlink" title="新建虚拟环境"></a>新建虚拟环境</h4><p>技巧: 在pip安装时可以使用豆瓣源来加快安装过程, pip3 install -i <a href="https://pypi.douban.com/simple" target="_blank" rel="noopener">https://pypi.douban.com/simple</a> xxx</p>
+<ol>
+<li>使用Python3 来创建一个virtualenv    : 进入到项目目录后 -&gt; virtualenv 虚拟环境名 -开始使用虚拟环境&gt; source venv/bin/activate -&gt; 像平常一样安装使用, 不需要使用这个虚拟环境的时候 -&gt;  deactivate, 具体适应可以参考<a href="http://pythonguidecn.readthedocs.io/zh/latest/dev/virtualenvs.html" target="_blank" rel="noopener">使用参考</a><br>第一步可以不实用virtualenv, 直接使用virtualenvwrapper来管理, 参考文章同上<br>创建虚拟环境: mkvirtualenv venv -&gt; 在虚拟环境中工作: workon venv -&gt;<br> (在安装时, 到这步: source /usr/local/bin/virtualenvwrapper.sh  可能会碰到bug)<br> 使用教程安装的话, 我现在用的是Python3安装的, 其安装在3的目录下,但是他的source路径还是在Python2.7 , 只要export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3 , 将其指向Python3即可. 继续source /usr/local/bin/virtualenvwrapper.sh 成功</li>
+<li>进入到虚拟环境文件夹中安装scrapy</li>
+<li>启动虚拟环境</li>
+<li>使用scrapy新建项目 <a href="https://docs.scrapy.org/en/latest/intro/tutorial.html#creating-a-project" target="_blank" rel="noopener">官方文档</a></li>
+<li>进入项目中新建spider</li>
+<li>在项目根目录创建一个文件,  来调用命令行来Run这个scrapy项目 – 文件中要设置工程的目录, 设置执行命令</li>
+<li>对robot那个什么东西取消注释, 不然会根据网站的那个文件进行url过滤, 很多URL就没了, robottxt = FALSE</li>
+<li>运行, 在断点处可以看到需要的信息了</li>
+<li>response中的body即使返回的整个html文本, response中还有其他的一些属性<br>10.</li>
+</ol>
+<h4 id="xpath解析"><a href="#xpath解析" class="headerlink" title="xpath解析"></a>xpath解析</h4><p>在scrapy中, 使用xpath是比较普遍的, 而且也是官方支持的, 像其他支持很多CSS selector的库其实我知道的一些是转成xpath, 在进行查找的<br>所以直接使用xpath应该会快一点.<br><a href="http://www.w3school.com.cn/xpath/xpath_syntax.asp" target="_blank" rel="noopener">w3school教程</a><br>nodename: 选择nodename节点下的所有节点, nodename下的节点全部都要<br>/: 从根节点选取, 注释：假如路径起始于正斜杠( / )，则此路径始终代表到某元素的绝对路径！<br>//: 选择当前所在节点中的某个节点, 不管他们是嵌套的还是怎么样的, 只要是这个节点都可以, bb//xx: 选择bb下的所有cc, 不管是在bb下的任何地方. //xx, 选取所有xx, 不管在文档中的什么地方<br>.: 选取当前节点<br>..: 选取当前节点的父节点<br>@: 选取属性</p>
+<p>谓语（Predicates）<br>谓语用来查找某个特定的节点或者包含某个指定的值的节点。<br>谓语被嵌在方括号中。</p>
+<p>有时候我们用到的class里不止包含一个字段, 这时如果用=xxx, 就会找不到, 需要使用包含xxx才行, 有两个都要指定时, 可以”css(.nes.jjj)”</p>
+<p>| 路径表达式 |    结果 |<br>| /bookstore/book[1] |         选取属于 bookstore 子元素的第一个 book 元素。|<br>| /bookstore/book[last()] |        选取属于 bookstore 子元素的最后一个 book 元素。|<br>| /bookstore/book[last()-1] |    选取属于 bookstore 子元素的倒数第二个 book 元素。|<br>| /bookstore/book[position()&lt;3] |    选取最前面的两个属于 bookstore 元素的子元素的 book 元素。|<br>| //title[@lang] |   选取所有拥有名为 lang 的属性的 title 元素。|<br>| //title[@lang=’eng’] |    选取所有 title 元素，且这些元素拥有值为 eng 的 lang 属性。|<br>| /bookstore/book[price&gt;35.00] |    选取 bookstore 元素的所有 book 元素，且其中的 price 元素的值须大于 35.00。|<br>| /bookstore/book[price&gt;35.00]/title |    选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。|</p>
+<ul>
+<li>response 自带有xpath和CSS选择器, 直接调用.xpath(‘xpath表达式’)就可以进行解析.</li>
+<li>返回的是一个selectorList, 这样就能在继续使用.xpath语法</li>
+<li>.extract()[0]提取出其中的字符串, 如果里面有/r/n不想要的话, 可以用.strip(), 想替换其中的字符串的话可以用replace(“被替换的字符串”, “替换的字符串”)</li>
+<li>注意使用strip()只能去掉首尾的/r/n还有空格</li>
+<li>在限定属性的时候, 可以使用[@class = ‘’]. 有时候只想在属性中包含某些的时候, 可以使用一个韩式contain : //span[contains(@class, “xxxx”)]</li>
+</ul>
+<h4 id="通过解析获得的数据进行处理"><a href="#通过解析获得的数据进行处理" class="headerlink" title="通过解析获得的数据进行处理"></a>通过解析获得的数据进行处理</h4><ul>
+<li>使用yield可以一个一个将对象返回, 然后调用指定的函数去处理response.</li>
+<li>可以拿到一个url就递归返回自身, 然后提取数据, 返回给处理具体事情的函数,</li>
+<li>处理具体事情时, 可以是提取信息的过程</li>
+<li>使用item来声明一个结构, 最后返回的东西必须是一个可迭代的东西, yield这个可以看做是一个generator, 返回的url或者item满足要求</li>
+<li>返回item后会进入到pipeline进行处理</li>
+<li>要让这个生效的话需要在setting中将ITEM_PIPELINE那段取消注释</li>
+<li>pipeline主要用来将item放到数据库或者进行其他处理.</li>
+<li>scrapy提供了自动下载图片的机制 它是用一个已经做好的pipeline来处理下载图片的功能, 我们只需要配置好就行了. 需要在setting中将pipeline添加到列表中: ‘scrapy.pipelines.images.ImagePipeline’: 1,  pipeline后面跟的数字是东西进入pipeline里的顺序, 越小的越早进</li>
+<li>当item进入imagePipeline时, 会自动下载对应的图片链接, 我们需要在setting里声明在item中是哪个: IMAGES_URLS_FIELD = “图片链接的key”</li>
+<li>当然还能设置图片的保存位置: IMAGES_STORE = “保存的路径/ 可以是相对路劲个, 使用os.path.join(os.path.abspath(os.path.dirname(<strong>file</strong>)), ‘文件夹名’)”</li>
+<li>要保存图片还需要一个库: PIL, 不然运行会报错: pip3 install pillow</li>
+<li>在setting中设置的字段默认将值当做数组来处理, 所以需要将自动保存图片的key的value使用[]数组来赋值</li>
+<li>过滤图片:     IMAGE_MINt_HEIGHT = 100; 同理设置做小宽度: IMAGE_MINT_WIDTH = 100, 这些限制的参数可以字啊ImagePipeline中设置</li>
+<li>其自动保存的图片会自动根据URL生成指纹, 来作为文件名</li>
+<li>要像对保存图片时做更多的自定义操作, 可以继承这个imagepipeline,<br>-</li>
+</ul>
+<h4 id="Item"><a href="#Item" class="headerlink" title="Item"></a>Item</h4><p>使用item这个类的实例来保存你和结构化解析的数据, 当函数将itemyield时, scrapy会自动将item传到pipeline中, 进行后续更详细的处理</p>
+<h4 id="response传值"><a href="#response传值" class="headerlink" title="response传值"></a>response传值</h4><p>在我们拿到一个URL后, 发起request请求, 同时想在request的response中拿到之前处理好的一些值的时候, 可以使用meta这个属性来传递</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Request(meta=&#123;&apos;font&apos;: &apos;asfasfa&apos;&#125;)</span><br><span class="line">在response中: font = response.meta[&apos;font&apos;]  or  respose.meta.get(&apos;font&apos;, &apos;默认值&apos;)</span><br></pre></td></tr></table></figure>
+<p>取字典可以使用get(), 设置默认值以防发生错误</p>
+<p>在spider函数中导入这个item</p>
+<p>可以将URL做hash来保存, 可以节省空间, 但是不必要<br>方法: 导入hashlib -&gt; hashlib.md5.update(url).hexdigest()</p>
+<h4 id="抓去的数据进行持久化"><a href="#抓去的数据进行持久化" class="headerlink" title="抓去的数据进行持久化"></a>抓去的数据进行持久化</h4><h5 id="可以用json格式进行持久化"><a href="#可以用json格式进行持久化" class="headerlink" title="可以用json格式进行持久化"></a>可以用json格式进行持久化</h5><p>import json, json.dorm….<br>需要打开一个文件, 设置文件的格式和读写权限等等</p>
+<h5 id="将数据保存到数据库"><a href="#将数据保存到数据库" class="headerlink" title="将数据保存到数据库"></a>将数据保存到数据库</h5><p><del>环境需要装mysql的驱动: pip3 install -i <a href="https://pypi.douban.com/simple/" target="_blank" rel="noopener">https://pypi.douban.com/simple/</a> mysqlclient<br>出现问题: Command “python setup.py egg_info” failed with error code 1 in /private/var/folders/qp/zd_ttf394yxbkkb1s9tqvgth0000gn/T/pip-build-wjt0tzud/mysqlclient/<br>安转失败</del><br>创建表<br>添加字段</p>
+<p>######我们项目用的是PostgresSQL<br>安装PostgresSQL: 使用brew安装<code>brew install postgresql</code>(项目里使用服务器的pg, 所以在本地暂时没装), 还需要安装一个操作库: <code>pip3 install psycopg2</code>, 在Python中就能操作链接<br>安装redis: <code>brew install redis</code>, Python调用redis需要安装一个操作库, 这样在Python里才能识别: <code>pip3 install redis</code>, brew安装redis也可以装上</p>
+<p> 开启 redis:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server /usr/local/etc/redis.conf</span><br></pre></td></tr></table></figure></p>
+<p> 启动 postgrespl<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start</span><br></pre></td></tr></table></figure></p>
+<p> 查看当前数据库<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -l</span><br></pre></td></tr></table></figure></p>
+<p> 为数据库创建一个用户及密码<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createuser rent_house -P</span><br></pre></td></tr></table></figure></p>
+<p> 创建一个数据库<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createdb rent_house -O rent_house -E UTF8 -e</span><br></pre></td></tr></table></figure></p>
+<p>然后就能够通过 pgcons2来链接数据库进行操作了</p>
+<h6 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h6><p>首先需要在数据库中有一张表,<br>然后需要在将数据保存到数据库的pipeline的初始化中初始化数据库的链接, 设置号cursor: self.conn, self.corsor</p>
+<h5 id="异步操作数据库"><a href="#异步操作数据库" class="headerlink" title="异步操作数据库"></a>异步操作数据库</h5><p>有时候多线程抓去数据多的话, 会造成写入数据库速度跟不上解析的速度, 数据堆积.<br>scrapy有可以让他进行异步的操作 – 连接池</p>
+<h4 id="scrapy的调试方法"><a href="#scrapy的调试方法" class="headerlink" title="scrapy的调试方法"></a>scrapy的调试方法</h4><p>安装ipython之后, 可以在命令行里使用scrapy shell [网址], 就能拿到一个response, 进行css或xpath的解析调试</p>
+<h4 id="redis的操作命令"><a href="#redis的操作命令" class="headerlink" title="redis的操作命令"></a>redis的操作命令</h4><p><a href="https://pypi.python.org/pypi/redis" target="_blank" rel="noopener">python 中使用redis</a><br><a href="http://redisdoc.com/index.html" target="_blank" rel="noopener">官方</a><br><a href="https://maoxian.de/2015/08/1342.html" target="_blank" rel="noopener">参考</a></p>
+<h3 id="将项目通过scrapyd部署到服务器上"><a href="#将项目通过scrapyd部署到服务器上" class="headerlink" title="将项目通过scrapyd部署到服务器上"></a>将项目通过scrapyd部署到服务器上</h3><p>通过scrapyd, 我们可以通过部署在服务器上的web api 来进行爬虫的部署/ 启动/ 停止/ 并且查看运行日志<br><a href="https://scrapyd.readthedocs.io/en/stable/" target="_blank" rel="noopener">参考文档</a><br><a href="https://piaosanlang.gitbooks.io/spiders/05day/section5.3.html" target="_blank" rel="noopener">参考资料</a><br><a href="http://www.jianshu.com/p/f0077adb74bb" target="_blank" rel="noopener">使用上的参考资料</a></p>
+<h4 id="简单步奏概要-运行在本机测试时"><a href="#简单步奏概要-运行在本机测试时" class="headerlink" title="简单步奏概要(运行在本机测试时):"></a>简单步奏概要(运行在本机测试时):</h4><ul>
+<li>安装scrapyd(这个主要是在需要运行爬虫端的服务器安装): pip3 install scrapyd</li>
+<li>运行服务: scrapyd   (默认情况是:6800端口)</li>
+<li>安装部署工具(这个是在链接到的客户端安装, 用来将本地编辑的爬虫部署到服务器上): pip3 install scrapyd-client</li>
+<li>修改工程目录下的 scrapy.cfg 文件:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[deploy:scrapyd2]   #默认情况下并没有scrapyd2，它只是一个名字，可以在配置文件中写多个名字不同的deploy</span><br><span class="line">url = http://scrapyd.mydomain.com/api/scrapyd/  #要部署项目的服务器的地址</span><br><span class="line">username = john  #访问服务器所需的用户名和密码（如果不需要密码可以不写）</span><br><span class="line">password = secret</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>warning: 在.cfg文件中, 格式要严格, 即使一个空格也不能多出</p>
+</blockquote>
+<h4 id="使用scrapyd-client来将project部署到scarapyd上"><a href="#使用scrapyd-client来将project部署到scarapyd上" class="headerlink" title="使用scrapyd-client来将project部署到scarapyd上"></a>使用scrapyd-client来将project部署到scarapyd上</h4><p>开启scrapyd服务后, 进入到project的根目录(有scrapy.cfg文件同个地方) 运行scrapyd-deploy命令, 剩下的看文档就行.</p>
+<blockquote>
+<p>warning: 不要相信github上的readme…..scrapy-client命令根本就没有…直接用scrapyd-deploy来做部署就行, 仅做部署作用</p>
+</blockquote>
+<h4 id="在scrapyd上运行爬虫"><a href="#在scrapyd上运行爬虫" class="headerlink" title="在scrapyd上运行爬虫"></a>在scrapyd上运行爬虫</h4><p>参照文档, 调用Api传参就行</p>
+<h4 id="Python任务调度模块"><a href="#Python任务调度模块" class="headerlink" title="Python任务调度模块"></a>Python任务调度模块</h4><p><a href="http://debugo.com/apscheduler/" target="_blank" rel="noopener">参考资料</a><br>APScheduler是一个Python定时任务框架</p>
+<h4 id="在scrapy-shell-中给请求添加header"><a href="#在scrapy-shell-中给请求添加header" class="headerlink" title="在scrapy shell 中给请求添加header"></a>在scrapy shell 中给请求添加header</h4><p>there is no current way to add headers directly on cli, but you could do something like:</p>
+<p>$ scrapy shell<br>…<br>…</p>
+<p>from scrapy import Request<br>req = scrapy.Request(‘<a href="https://www.douban.com/group/topic/107785547&#39;" target="_blank" rel="noopener">https://www.douban.com/group/topic/107785547&#39;</a>, headers={‘User-Agent’: ‘Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/603.2.4 (KHTML, like Gecko) Version/10.1.1 Safari/603.2.4’})<br>fetch(req)</p>
+<p>In [1]: req = scrapy.Request(‘<a href="https://www.douban.com/group/pudongzufang/discussi" target="_blank" rel="noopener">https://www.douban.com/group/pudongzufang/discussi</a><br>   …: on?start=0’, headers={‘User-Agent’: ‘Mozilla/5.0 (Windows NT 6.1; Win64;<br>   …:  x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari<br>   …: /537.36’})</p>
+<p>In [2]: req<br>Out[2]: &lt;GET <a href="https://www.douban.com/group/pudongzufang/discussion?start=0&gt;" target="_blank" rel="noopener">https://www.douban.com/group/pudongzufang/discussion?start=0&gt;</a></p>
+<p>In [3]: fetch(req)</p>
+<p>re.match(‘.<em>?(徐家汇|湖南路|上海图书馆|武康路|乌鲁木齐|兴国路|幸福路|平武路|镇宁路|番禺路|愚园路|江苏路|地铁+).</em>‘, “华南医院有个湖南的人在湖南路”)</p>
+<h4 id="generator"><a href="#generator" class="headerlink" title="generator"></a>generator</h4><p>遍历 Generator 的话直接用 for 就可以</p>
+<h3 id="for-loop"><a href="#for-loop" class="headerlink" title="for loop"></a>for loop</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> sequence:</span><br><span class="line">    expressions</span><br></pre></td></tr></table></figure>
+<p>sequence 是一个可迭代对象</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(start, stop, step):</span><br><span class="line">  xxxx</span><br></pre></td></tr></table></figure>
+<p><strong>stop 不包括在内</strong></p>
+<h4 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h4><blockquote>
+<p>Python 中的 for 句法实际上实现了设计模式中的迭代器模式 ，所以我们自己也可以按照迭代器的要求自己生成迭代器对象，以便在 for 语句中使用。 只要类中实现了 <strong>iter</strong> 和 next 函数，那么对象就可以在 for 语句中使用。 现在创建 Fibonacci 迭代器对象</p>
+</blockquote>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># define a Fib class</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fib</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, max)</span>:</span></span><br><span class="line">        self.max = max</span><br><span class="line">        self.n, self.a, self.b = <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.n &lt; self.max:</span><br><span class="line">            r = self.b</span><br><span class="line">            self.a, self.b = self.b, self.a + self.b</span><br><span class="line">            self.n = self.n + <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> r</span><br><span class="line">        <span class="keyword">raise</span> StopIteration()</span><br><span class="line"></span><br><span class="line"><span class="comment"># using Fib object</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> Fib(<span class="number">5</span>):</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+<h4 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h4><blockquote>
+<p>除了使用迭代器以外，Python 使用 yield 关键字也能实现类似迭代的效果，yield 语句每次 执行时，立即返回结果给上层调用者，而当前的状态仍然保留，以便迭代器下一次循环调用。这样做的 好处是在于节约硬件资源，在需要的时候才会执行，并且每次只执行一次。</p>
+</blockquote>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib</span><span class="params">(max)</span>:</span></span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> max:</span><br><span class="line">        r = b</span><br><span class="line">        a, b = b, a+b</span><br><span class="line">        max -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">yield</span> r</span><br><span class="line"></span><br><span class="line"><span class="comment"># using generator</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> fib(<span class="number">5</span>):</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/scrapy/" rel="tag"># scrapy</a>
+          
+            <a href="/tags/正则/" rel="tag"># 正则</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/Test/" rel="next" title="Test">
+                <i class="fa fa-chevron-left"></i> Test
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/VSCodeConfig/" rel="prev" title="VSCodeConfig">
+                VSCodeConfig <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">187</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟环境"><span class="nav-number">1.</span> <span class="nav-text">虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这里的作用域是靠缩进来区分的-所以要比较注意这些缩进…"><span class="nav-number">2.</span> <span class="nav-text">这里的作用域是靠缩进来区分的, 所以要比较注意这些缩进…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有多继承…"><span class="nav-number">3.</span> <span class="nav-text">有多继承…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误和异常处理栗子"><span class="nav-number">4.</span> <span class="nav-text">错误和异常处理栗子</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#在安装其他Python环境的时候-碰上一些问题"><span class="nav-number"></span> <span class="nav-text">在安装其他Python环境的时候, 碰上一些问题,</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则表达式"><span class="nav-number"></span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scrapy"><span class="nav-number"></span> <span class="nav-text">scrapy:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Have-a-Glance"><span class="nav-number">1.</span> <span class="nav-text">Have a Glance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用scrapy的命令"><span class="nav-number">2.</span> <span class="nav-text">使用scrapy的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrapy-提供了两种类型的命令。一种必须在-Scrapy-项目中运行-针对项目-Project-specific-的命令-，另外一种则不需要-全局命令-。全局命令在项目中运行时的表现可能会与在非项目中运行有些许差别-因为可能会使用项目的设定-。"><span class="nav-number">2.1.</span> <span class="nav-text">Scrapy 提供了两种类型的命令。一种必须在 Scrapy 项目中运行(针对项目(Project-specific)的命令)，另外一种则不需要(全局命令)。全局命令在项目中运行时的表现可能会与在非项目中运行有些许差别(因为可能会使用项目的设定)。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行爬虫"><span class="nav-number">2.2.</span> <span class="nav-text">运行爬虫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步奏"><span class="nav-number">2.3.</span> <span class="nav-text">步奏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建虚拟环境"><span class="nav-number">2.3.1.</span> <span class="nav-text">新建虚拟环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xpath解析"><span class="nav-number">2.3.2.</span> <span class="nav-text">xpath解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过解析获得的数据进行处理"><span class="nav-number">2.3.3.</span> <span class="nav-text">通过解析获得的数据进行处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Item"><span class="nav-number">2.3.4.</span> <span class="nav-text">Item</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#response传值"><span class="nav-number">2.3.5.</span> <span class="nav-text">response传值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抓去的数据进行持久化"><span class="nav-number">2.3.6.</span> <span class="nav-text">抓去的数据进行持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#可以用json格式进行持久化"><span class="nav-number">2.3.6.1.</span> <span class="nav-text">可以用json格式进行持久化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#将数据保存到数据库"><span class="nav-number">2.3.6.2.</span> <span class="nav-text">将数据保存到数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#操作"><span class="nav-number">2.3.6.2.1.</span> <span class="nav-text">操作</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#异步操作数据库"><span class="nav-number">2.3.6.3.</span> <span class="nav-text">异步操作数据库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy的调试方法"><span class="nav-number">2.3.7.</span> <span class="nav-text">scrapy的调试方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis的操作命令"><span class="nav-number">2.3.8.</span> <span class="nav-text">redis的操作命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将项目通过scrapyd部署到服务器上"><span class="nav-number">2.4.</span> <span class="nav-text">将项目通过scrapyd部署到服务器上</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单步奏概要-运行在本机测试时"><span class="nav-number">2.4.1.</span> <span class="nav-text">简单步奏概要(运行在本机测试时):</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用scrapyd-client来将project部署到scarapyd上"><span class="nav-number">2.4.2.</span> <span class="nav-text">使用scrapyd-client来将project部署到scarapyd上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在scrapyd上运行爬虫"><span class="nav-number">2.4.3.</span> <span class="nav-text">在scrapyd上运行爬虫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python任务调度模块"><span class="nav-number">2.4.4.</span> <span class="nav-text">Python任务调度模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在scrapy-shell-中给请求添加header"><span class="nav-number">2.4.5.</span> <span class="nav-text">在scrapy shell 中给请求添加header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#generator"><span class="nav-number">2.4.6.</span> <span class="nav-text">generator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-loop"><span class="nav-number">2.5.</span> <span class="nav-text">for loop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代器"><span class="nav-number">2.5.1.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成器"><span class="nav-number">2.5.2.</span> <span class="nav-text">生成器</span></a></li></ol></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/Python-xue-xi/';
+          this.page.identifier = '2019/02/18/Python-xue-xi/';
+          this.page.title = 'Python学习';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="网易新闻练习 网易新闻从架构上来看, 史一个根控制器上有两个侧边视图, 还要一个导航控制器来显示主页, 之后回有更多的控制器, 点击跳转过去 左边视图的设计: view上创建几个按钮, (可以将按钮的创建方法封装起来, 创建按钮操作很频繁) 设置好大小和距离, 内容边距. 关于按钮背景色史选中才出现, 关于状态只能用image, 所以要用CG来创建一个纯色的图片返回来用 同样的在自己用的控制器要封">
+<meta name="keywords" content="iOS,学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网易新闻练习">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/wang-yi-xin-wen-lian-xi/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="网易新闻练习 网易新闻从架构上来看, 史一个根控制器上有两个侧边视图, 还要一个导航控制器来显示主页, 之后回有更多的控制器, 点击跳转过去 左边视图的设计: view上创建几个按钮, (可以将按钮的创建方法封装起来, 创建按钮操作很频繁) 设置好大小和距离, 内容边距. 关于按钮背景色史选中才出现, 关于状态只能用image, 所以要用CG来创建一个纯色的图片返回来用 同样的在自己用的控制器要封">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T18:05:56.808Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网易新闻练习">
+<meta name="twitter:description" content="网易新闻练习 网易新闻从架构上来看, 史一个根控制器上有两个侧边视图, 还要一个导航控制器来显示主页, 之后回有更多的控制器, 点击跳转过去 左边视图的设计: view上创建几个按钮, (可以将按钮的创建方法封装起来, 创建按钮操作很频繁) 设置好大小和距离, 内容边距. 关于按钮背景色史选中才出现, 关于状态只能用image, 所以要用CG来创建一个纯色的图片返回来用 同样的在自己用的控制器要封">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/wang-yi-xin-wen-lian-xi/">
+
+
+
+
+
+  <title>网易新闻练习 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/wang-yi-xin-wen-lian-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网易新闻练习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:33:03+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/wang-yi-xin-wen-lian-xi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/wang-yi-xin-wen-lian-xi/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>网易新闻练习</p>
+<h1 id="网易新闻"><a href="#网易新闻" class="headerlink" title="网易新闻"></a>网易新闻</h1><pre><code>从架构上来看, 史一个根控制器上有两个侧边视图, 还要一个导航控制器来显示主页, 之后回有更多的控制器, 点击跳转过去
+左边视图的设计: view上创建几个按钮, (可以将按钮的创建方法封装起来, 创建按钮操作很频繁) 设置好大小和距离, 内容边距. 关于按钮背景色史选中才出现, 关于状态只能用image, 所以要用CG来创建一个纯色的图片返回来用
+同样的在自己用的控制器要封装起来    关于title可以将一个button封装起来, 在本项目的其他的控制器中可以重复使用, 只是标题不同嘛
+点击显示左边菜单: 新闻控制器view应该右滑和菜单贴边高度一样, 要注意缩放时回将平移距离也缩放了, 要乘回来, 计算平移的距离比较麻烦
+控制器的切换:
+    在点击按钮的时候, 传出按钮的tag给代理, main控制器移除原来的控制器.view, add新的控制器.view
+    可以尝试设置一个showView属性, 切换时就切换showView所指的控制器, 不过要想同时看到隐藏一个显示一个的效果的化, 就不能这样
+    將設置子控制器抽出來放到main控制器里, 可以统一设置子控制器的主题, titleView, 左右按钮等, 并为其包装导航控制器, 添加到自己main控制器的子控制器中, 左右按钮的点击事件拿到main控制器中, 这样就从main控制器的层面来切换子控制器, 就想tabbarController一样
+    将要移除的控制器的transform赋值给要显示的控制器, 在用动画把transform清空, 就能有动画效果回到原位置
+    在需要清空transform的时候, 可以直接调用点击遮盖, 等同的效果, 不要重复做
+    需要对选择view中的按钮做适配, 让它点下去就显示背景, 取消按下高亮状态时系统对按钮做的操作,--自定义按钮中重写hight方法,什么都不做
+    bug: 当一个导航控制器的View首次显示到其父控件上时, 如果transform的缩放值被改来, 上面的20高度当时是不会出来的 ---- 调换下顺序就可以, 在修改值之前, 先添加到父控件上,
+    将按钮贴边: 遍历导航栏的子控件, 看按钮的x值来判断左右按钮, 再将按钮的x值更改, 应该在控制器的viewDidLayoutSubViews方法中更改
+        但是有点问题, 会看到按钮的移动
+        最终的解决方案: 自定义导航栏替换掉导航控制器自带的导航栏, 用KVC替换, 在自定义导航栏里设置子控件的位置
+        猜想: 导航栏中item有没有对应的设置来设置缩进位置的
+
+显示右边的菜单:
+    如果一个view里的业务逻辑比较多比较复杂, 我们可以用一个控制器来管理这些事件, 而不是将view的事件丢给底层的控制器
+    用xib将右边菜单做出来, 因为相对固定
+    菜单位置和左边菜单相似, 方向和宽度不一样, 最好用2个属性拥有这两个菜单, 当一个显示时, 另一个隐藏
+    菜单中图标的 反转:
+        CATransform矩阵
+        转场动画transition  (之后要把之前项目中的笔记搬到这里来) 从uiview来做的动画比较有限, 更多的化可以用transition这个类来做
+    按钮点击亮点, 自带的一个属性, showhighlightWhenTouched = yes 就行
+</code></pre><h1 id="bug-CUICatalog-Invalid-asset-name-supplied-null-or-invalid-scale-factor-2-000000-—–-This-one-appears-when-someone-is-trying-to-put-nil-eventually-in-UIImage-imageNamed-给UIImage-imageNamed-nil-传nil的话就会这样…-要判断一下"><a href="#bug-CUICatalog-Invalid-asset-name-supplied-null-or-invalid-scale-factor-2-000000-—–-This-one-appears-when-someone-is-trying-to-put-nil-eventually-in-UIImage-imageNamed-给UIImage-imageNamed-nil-传nil的话就会这样…-要判断一下" class="headerlink" title="bug: CUICatalog: Invalid asset name supplied: (null), or invalid scale factor: 2.000000 —– This one appears when someone is trying to put nil eventually in [UIImage imageNamed:] 给UIImage imageNamed:nil]传nil的话就会这样….要判断一下"></a>bug: CUICatalog: Invalid asset name supplied: (null), or invalid scale factor: 2.000000 —– This one appears when someone is trying to put nil eventually in [UIImage imageNamed:] 给UIImage imageNamed:nil]传nil的话就会这样….要判断一下</h1><h1 id="bug-当transform的时候-有时候直接make-a-b-c-d-不一定好使-在相同参数的情况下-分步来做的结果不一样"><a href="#bug-当transform的时候-有时候直接make-a-b-c-d-不一定好使-在相同参数的情况下-分步来做的结果不一样" class="headerlink" title="bug: 当transform的时候, 有时候直接make(a,b,c,d)不一定好使, 在相同参数的情况下, 分步来做的结果不一样,"></a>bug: 当transform的时候, 有时候直接make(a,b,c,d)不一定好使, 在相同参数的情况下, 分步来做的结果不一样,</h1><pre><code>    showView.transform = CGAffineTransformMake(scale, 0, 0, scale, -kRightMenuW*scale, 0);
+    上面这句就和下面的分步结果不一样
+CGAffineTransform scaleForm = CGAffineTransformMakeScale(scale, scale);
+// 平移
+CGAffineTransform translateForm = CGAffineTransformTranslate(scaleForm, -transX / scale, 0);
+
+showView.transform = translateForm;
+</code></pre><h1 id="bug-在自定义view的时候-void-layoutSubviews中设置self-frame中的属性-会死循环…-YCRightMenuMidView的时候-其他的倒是不会-应该用了enumerateObjectsUsingBlock-YCRightMenuMidViewRow-row-NSUInteger-idx-BOOL-stop-的原因-改成for循环问题解决"><a href="#bug-在自定义view的时候-void-layoutSubviews中设置self-frame中的属性-会死循环…-YCRightMenuMidView的时候-其他的倒是不会-应该用了enumerateObjectsUsingBlock-YCRightMenuMidViewRow-row-NSUInteger-idx-BOOL-stop-的原因-改成for循环问题解决" class="headerlink" title="bug: 在自定义view的时候, - (void)layoutSubviews中设置self.frame中的属性, 会死循环….YCRightMenuMidView的时候, 其他的倒是不会, 应该用了enumerateObjectsUsingBlock:^(YCRightMenuMidViewRow row, NSUInteger idx, BOOL stop) {的原因, 改成for循环问题解决"></a>bug: 在自定义view的时候, - (void)layoutSubviews中设置self.frame中的属性, 会死循环….YCRightMenuMidView的时候, 其他的倒是不会, 应该用了enumerateObjectsUsingBlock:^(YCRightMenuMidViewRow <em>row, NSUInteger idx, BOOL </em>stop) {的原因, 改成for循环问题解决</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/tui-song-tong-zhi/" rel="next" title="推送通知">
+                <i class="fa fa-chevron-left"></i> 推送通知
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/she-jiao-fen-xiang/" rel="prev" title="社交分享">
+                社交分享 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">187</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网易新闻"><span class="nav-number">1.</span> <span class="nav-text">网易新闻</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-CUICatalog-Invalid-asset-name-supplied-null-or-invalid-scale-factor-2-000000-—–-This-one-appears-when-someone-is-trying-to-put-nil-eventually-in-UIImage-imageNamed-给UIImage-imageNamed-nil-传nil的话就会这样…-要判断一下"><span class="nav-number">2.</span> <span class="nav-text">bug: CUICatalog: Invalid asset name supplied: (null), or invalid scale factor: 2.000000 —– This one appears when someone is trying to put nil eventually in [UIImage imageNamed:] 给UIImage imageNamed:nil]传nil的话就会这样….要判断一下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-当transform的时候-有时候直接make-a-b-c-d-不一定好使-在相同参数的情况下-分步来做的结果不一样"><span class="nav-number">3.</span> <span class="nav-text">bug: 当transform的时候, 有时候直接make(a,b,c,d)不一定好使, 在相同参数的情况下, 分步来做的结果不一样,</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-在自定义view的时候-void-layoutSubviews中设置self-frame中的属性-会死循环…-YCRightMenuMidView的时候-其他的倒是不会-应该用了enumerateObjectsUsingBlock-YCRightMenuMidViewRow-row-NSUInteger-idx-BOOL-stop-的原因-改成for循环问题解决"><span class="nav-number">4.</span> <span class="nav-text">bug: 在自定义view的时候, - (void)layoutSubviews中设置self.frame中的属性, 会死循环….YCRightMenuMidView的时候, 其他的倒是不会, 应该用了enumerateObjectsUsingBlock:^(YCRightMenuMidViewRow row, NSUInteger idx, BOOL stop) {的原因, 改成for循环问题解决</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/wang-yi-xin-wen-lian-xi/';
+          this.page.identifier = '2019/02/18/wang-yi-xin-wen-lian-xi/';
+          this.page.title = '网易新闻练习';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

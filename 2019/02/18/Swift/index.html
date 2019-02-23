@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,学习,Swift,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Swift ==========下面这个是从上面剪切过来的swift* 同时间距脚本语言的的灵活性和编译语言的高性能 * 和 OC 的很多方法名, 函数名一样, 就是语法的格式不一样, 应该容易上手 * swift 和 OC 开发异同: developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/buildin">
+<meta name="keywords" content="iOS,学习,Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/Swift/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="Swift ==========下面这个是从上面剪切过来的swift* 同时间距脚本语言的的灵活性和编译语言的高性能 * 和 OC 的很多方法名, 函数名一样, 就是语法的格式不一样, 应该容易上手 * swift 和 OC 开发异同: developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/buildin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T18:03:56.756Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift">
+<meta name="twitter:description" content="Swift ==========下面这个是从上面剪切过来的swift* 同时间距脚本语言的的灵活性和编译语言的高性能 * 和 OC 的很多方法名, 函数名一样, 就是语法的格式不一样, 应该容易上手 * swift 和 OC 开发异同: developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/buildin">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/Swift/">
+
+
+
+
+
+  <title>Swift | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/Swift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Swift</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:32:36+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/Swift/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/Swift/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Swift</p>
+<h1 id="下面这个是从上面剪切过来的"><a href="#下面这个是从上面剪切过来的" class="headerlink" title="==========下面这个是从上面剪切过来的"></a>==========下面这个是从上面剪切过来的</h1><h1 id="swift"><a href="#swift" class="headerlink" title="swift"></a>swift</h1><pre><code>* 同时间距脚本语言的的灵活性和编译语言的高性能
+* 和 OC 的很多方法名, 函数名一样, 就是语法的格式不一样, 应该容易上手
+* swift 和 OC 开发异同: developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/buildingcocoaApps/buildingCocoaApps.pdf    或者  swiftchina.org
+
+* 不用写main 函数, 从上往下执行, 最前面的代码会自动作为程序的入口
+* 不用写分号, 可以写, 在一行里有多条语句时必须写
+* 注释: 差不多, 但是多行注释可以嵌套多行注释
+</code></pre><h2 id="playGround"><a href="#playGround" class="headerlink" title="playGround"></a>playGround</h2><pre><code>* 能让代码在不运行程序的情况下就能看到执行的效果, 可以看基本变量的最终值, 可以看控件的执行效果
+</code></pre><h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><pre><code>* let 来赋值常量(之后不可改变)  var 来赋值变量(之后可改变, 但是类型改变需要强转)
+* 字符串拼接: 在字符串间 + 即可, 用加号连接拼接的字符串
+* 字符串插值: OC 中字符串插值的话要拼接, swift 在字符串中&quot;&quot;&quot;\(变量/常量)&quot;&quot;即可, 相当占位符里放东西, 类似文字修改中的V填东西
+*  不能&quot;字符串&quot; + int + &quot;字符串&quot; :swift 是类型安全的 语言, 不同类型是不能相加的, 需要转换: &quot;\(xxx)&quot; OR String(xxx)
+*  基本上可以使用任何字符类作为常量/变量名(包括中文和 emoji 表情)(但是不能包含.数学符号.箭头.非法 unicode 字符.不能是关键字.以数字开头.单独下划线...)
+*  常用数据类型(开头都大写): Int,Float,Double,Bool,Character,String,Array,Dictionary,元组类型Tuple,可选类型Optional
+*  声明变量/常量数据类型: let/var xxx : 数据类型 = ???  一般不需要特别声明, 会根据第一次赋值来自动识别.定义时不赋值可以声明类型待用
+*  swift 是类型安全的强类型的语言, 在变量使用之前必须进行初始化, 仅仅是定义的变量在使用的时候会报错
+*  整数中有有符号sign和无符号unsign, 然后又有Int8,Int16,Int32,Int64位的整型, 组合起来就有8种, 用 min 和 max 函数可以得到某类型的最大最小值
+*  特殊的 Int 和 UInt: 其长度位数和当前系统平台一样 (**推荐使用这种类型, 会根据平台适应,免得在不同平台上 Int64会有不对的状况**)
+*  开发中不要计较 int 类型哪个更合适, swift 是强类型的语言,而且不会自动进行隐式的数据类型转换, 类型不一致不能进行运算操作, 需要强转低位到高位, 这就在后期会很麻烦, 所以统一使用一个类型就行 Int(*那就是不用写, 在赋值时会自动判断这个类型**)
+*  存储范围: 强类型的语言, 如果常量或变量的赋值溢出会直接报错不予通过, 不像 C 只是警告和建议, Swift 直接不允许, 类型安全
+*  进制: 和其他语言一样, 二进制:0b, 8进制:0o, 十六进制:0x
+*  浮点数: 默认是 Double 64位, Float 32位, 精度不同, 声明类型需要:类型, 不能在赋值后面加 f, 不同浮点型一样不能计算
+*  浮点数可以用十进制和十六进制来表示, 十进制可以用指数形式 xxxex, 十六进制的话用0x 前缀且一定要指数形式, xxxpx, p 是2的次方, e 是10的次方
+*  数字格式, 数字的表示可以增加额外的格式来增加可读性,可以增加额外的0或者下划线
+*  类型转换: 类型(变量), 数值相加在赋值给变量是先相加再赋值的. 系统会根据计算后的类型来判断
+*  类型别名: typealias,和 C 的 typedef 作用类似, 给类型其别名 typealias 新类型 = 原类型 ---&gt;  typedef 原类型 新类型,,原类型能用在什么地方, 新类型就能用在什么地方
+*  运算符: 除了一般的运算符外, 还有范围运算符: ..&lt; | ... , 溢出运算符:&amp;+,&amp;-,&amp;*,&amp;/,&amp;%
+*  = 可以 n 对 n 赋值:let (x,y) = (1,2), 完成了对应位置的赋值, 其实是(括号里的是元组)
+*  赋值运算符没有返回值, 即 a = 2;这个语句是没有返回值的, a 有值, 但是这条语句没有值, 在 C/OC 中, 这条语句返回 a 的值即赋值后的值
+*  取余运算符: %, 求余结果的正负和%左边的正负一样, swift 的还可以对浮点数取余:8 % 2.5 = 0.5
+*  BOOL: 取值是 false/ture, 不认整形类型, C 是非0即真,认整形类型.   且 if 的判断语句必须是 BOOL
+*  比较/逻辑运算符返回 BOOL 类型,  三目运算符的条件必须是 bool 类型
+*  *
+*  *范围运算符*:两种:闭合/半闭合, a...b : [a,b], a..&lt;b : [a,b), 用在 for 循环中的条件
+*  *
+*  *溢出运算符*:默认情况下, 赋予超出取值范围的值会报错, swift 为整型提供了5个&amp;开头的溢出运算符, 能对超出取值范围的数值进行灵活处理, var x = UInt.max; let y = x + 1 == 0, 会把溢出的都不算, 直接算回起点, 物极必反, 下溢出&amp;-也是会到最大值; 除零移除, 除以模以0都会得0, 不用溢出运算符的话会报错
+*  *
+*  *元组类型*: 由N 个任意类型的数据组成, (N&gt;0), 这些数据可称为元素, 元组可以为空
+*  元组中的元素访问: 简直就是结构体和数组的杂交, 可以.元素, 也可以.下标索引
+*  注意: 如果是用 let 来定义元素, 就要遵循 let 的限制, 那就是常量, 无法修改其中的元素
+*  元组可以直接打印
+*  元组在定义时可以指定元素类型, 但是这样就不能在设置元素的时候设置元素名
+*  可以使用多个变量接收元组数据, 相当于用元组来给多个变量赋值
+*  在取值/赋值的时候可以用下划线_来忽略某个元素的值, 取出其他元素的值: var (_, name) = (20, &quot;jack&quot;), 20赋值给_, 就被忽略了
+*  *
+*  流程控制
+*  循环/选择/switch 后面一定要有{}, 不然会报错
+*  和 C 不一样的关注点: for-in, switch
+*  for i in 1...4 {xxxxxx} 结合范围..., 分别将范围中的值赋值给 i, 赋值一次调用一次循环, 如果不需要使用变量 i, 可以用_代替
+*  在 for 循环数组里去索引, 要这样: for i in aaa.enumerate(){  i.index;  i.element  }
+*  switch 中没有 break, 条件可以是任何类型 执行完对应的 case 之后会默认自动退出 switch, C 则是没有 break 就接着执行下一个 case. 而且 Swift 中每个 case 都要有一个可执行的语句, 空语句是不行的
+*  多条件匹配: 那要进行几个条件都是执行一样的事情的时候, 不能像 C 那样用空语句, 就用这种方法,1个 case 后面跟多个匹配条件, 用都好隔开
+*  case 的范围匹配: case 后面可以拿个范围作为匹配条件, 如果判断条件在这个范围里, 就符合条件
+*  注意: switch 要保证处理所有可能的情况, 如果没有条件符合判断条件的话, 会报错, 所以要有 default:, 来作为其他判断之外的条件
+*  case 匹配元组: 判断条件可以是元组, case (元组) 元组对上了就是 case 对上了, 元组中依然使用于元组的规则, case(_, x) 忽略第一个元素, _几乎是空占位符的概念, 匹配任何, 忽略任何. 元组中可以有范围(-2...2, 1...5), 就限定了一个矩形
+*  case 的数值绑定: 在 case 匹配的同时, 没有限制条件的那个元素位置是定义一个变量/常量的话, 就会把那个对应的值赋值过去, e.g. case(let x, 0) 0就是限定的那个元素条件, 另外一个没有限定就是什么都不要紧, 而且会赋值给 x, 如果 case let (x, y) 就是匹配任何二元组了, 没有限定条件, 其他 case 没有符合条件到这里, 就会直接匹配并赋值到对应的 x,y. 也就满足了处理所有情况, 就不必有 default 了
+*  case可以使用 where 来增加判断条件: case 就像一个事件, 所以不管是什么条件都可以, 匹配条件也可以是一个赋值判断:case let(x, y) where x == y: 无限制条件赋值后, 再用 where 来判断 xy 符合什么条件, 这个 case 才算是匹配了,where 可以看成&quot;当&quot;
+*  fallthrough: 作用, 当执行完当前 case 后,会接着执行fallthrough 后面的case/default, 但是这后面的 case/default 不能定义变量/常量(就是 case let xxx 之类的)
+*  标签: 其中一个作用: 可以明确指定要退出哪个循环  waiXunHuan: for _ in 1...6 { neiXunHuan: for _ in 1...3 { break waiXunHuan}} 指定 break 哪个循环
+*  *
+*  函数
+*  函数格式 : func 函数名(形参 list) -&gt; 返回类型 { xxxx   ;   return xxx   }
+*  没有返回值类型的话可以 -&gt; Void, -&gt; (), 或者不写-&gt; xx 直接是 func haha(){xxx}
+*  可以返回元组类型: -&gt; (Int, Int) { return (3, 5)}
+*  返回元组类型的返回类型中可以给类型设置名字 func find(id: Int) -&gt; (name: String, age: Int){ return (&quot;hahha&quot;, 10)}
+*  外部参数名: 形参名在对函数内部可见, 可知道其参数的意义, 但是外部使用后不可见(使用时可见), 想要外部知道参数意义, 可以设置外部参数名 func haha(外参名 形参名: 类型), 在赋值时就会有外参名显示在要传的参数前. 类似 OC 定义方法中方法名每个参数前都会说下这参数是什么, 一旦定义了外参名, 在调用函数时*必须*加上外参名
+*  外参名简便写法: 一个形参写两个参数名太啰嗦, 可以用(#参数名: 类型), 这样参数名既是形参名, 又是外参名不用写两个意思一样的参数名
+*  默认参数值: 在设定函数形参的时候可以设定默认参数值, 调用时不传这个参数就会使用默认值. (age: Int = 20), 设有默认值的形参 swift 会自动给它添加一个和形参名一样的外参名, 等于是形参名前加了&quot;#&quot;
+*  在其自动添加的外参名的位置用下划线_替代占位, 就会忽略掉那个位置的外参名, 这样就没有外参名了, 调用函数时就不用写外参名
+*  常量参数和变量参数: 默认情况下, 形参都是常量参数, 内部不可修改, 要修改的话, 在设置形参时要声明它是变量参数 var. 如 func hah(var age: Int){age = 29}, 不写就是默认 let, 函数中修改会报错
+*  输入输出参数: inout. 有时候想象 C 一样办到可以传入一个地址, 函数内部通过指针修改传入的地址指向的外部变量的值, swift 没有指针的概念, 修改外面的变量需要设置 inout 形参, 传值时要&amp;, 可以认为是函数这个体与外部的交流, 输入输出值.
+*  不用第三方变量来交换两个变量的值: 1,2,1 = +, -, -; OR 1,2,1 = ^,^,^
+*  注意: 传入实参的时候必须要&amp;, 不能传入常量(因为不可更改), inout 参数不能有默认值, 因为是改外面的变量形参设默认干嘛/ inout 参数不能是可变参数/ inout 参数不能在用 let var 修饰
+*  价值: 实现多返回值: 传入一个 inout, 函数中对这个 inout 赋值, 相当于外界拿到了函数中传出的值, 用元组也可以实现多返回值
+*  *
+*  函数:
+*  函数类型和基本类型一样也作为一种类型, 由形参类型列表-&gt;返回值类型 组成: (Int, Int) -&gt; Int/()-&gt;()
+*  利用函数类型定义变量: var haha: (Int,Int)-&gt;Int = sum;   func sum(num1: Int, num2: Int) -&gt; Int { return num1+num2 } ;       haha(1,2) ---返回3, 用 haha 来调用了 sum 函数, 类似 C 中指向函数的指针. 由于 Swift 有类型推断机制, 直接:var haha = sum; 会自动推断出 haha 的类型
+*  和其他数据类型一样, 函数类型也能做其他参数类型能做的, e.g.函数作为参数, 传递给其他函数来使用, 让其他函数在内部调用这种类型的参数, 只要类型是一样的, 传不同的函数都可以
+*  函数作为返回值: 函数中设置返回值类型是函数类型, 函数中根据条件判断来返回一个这个类型的函数(这也说明在函数内部可以使用外面的函数,即使没有传进来)
+*  函数重载: 函数名相同, 函数类型不同, 就构成了函数重载, 类型安全, 对类型很严格, 所以会根据类型去找对应的函数, 只有返回值类型不同的话在调用时要给接收变量指定类型才可以, 不然有歧义就会报错
+*  嵌套函数: 在某个函数中定义的函数; (全局函数:在全局作用域中定义的函数), 这样外界就不能调用这个函数, 相当私有化了, 但是内部定义的函数可以作为返回值返回给外面, 外面就能调用了, 这全在看函数中怎么决定
+*  *
+*  断言
+*  断言是一种实时检测条件是否为真的方法assert(判断条件BOOL表达式: BOOL, 错误信息: String), true 的话就继续执行后面的,false 的话就直接终止程序,并抛出错误信息. 有些时候需要某些条件一定成立才允许程序执行下去的可以调用断言方法
+*  使用场景e.g.:检测数组索引(不能越界, 可以认为设定越界就报错, 自己设定错误信息) / 检测传递给函数的参数, 如果参数无效, 就结束并抛出错误信息
+*  Swift 是兼具脚本语言的特点, 所以断言语句可以用在如果不符合条件的时候, 就停在当前, 后面的语句都不执行了, 但是前面的语句的效果还是要有的, 还是会执行
+*  注意: 断言会导致程序的终止, 如果判断的条件是十分必要, 用断言可以保证其合理, 不然不要用断言, 在开发中使用可以让自己清楚的知道疏漏在哪, 为疏漏做好准备  /  断言可以保证错误在开发过程中及时发现, 但在发布时最好不要用, 所以断言的作用是面向开发的
+*  可能之后要弄个自动机制, 开发时候用断言, 发布阶段就置空或其他, 像 YCLog 那样, 但是 Swift 没有宏, 可以将断言函数传递给自定义函数变量, 在不同的环境里有不同的调用方法, 或者这么说, 自定义函数, 在不同的环境里调用不同的方法或者是什么都不做
+*  func ycassert(@autoclosure condition: () -&gt; Bool, @autoclosure _ message: () -&gt; String) {
+assert(condition, message)
+</code></pre><p>}<br>//** 想要参数可以是表达式, 需要像系统写的那样来配置参数的类型</p>
+<pre><code>*  *
+</code></pre><h1 id="上面这个是从上面剪切过来的-下面继续有讲"><a href="#上面这个是从上面剪切过来的-下面继续有讲" class="headerlink" title="==========上面这个是从上面剪切过来的, 下面继续有讲"></a>==========上面这个是从上面剪切过来的, 下面继续有讲</h1><h1 id="Swift-的面向对象"><a href="#Swift-的面向对象" class="headerlink" title="Swift 的面向对象"></a>Swift 的面向对象</h1><pre><code>* 对象的创建: 类(), 这个 &quot;()&quot;其实是个构造方法,
+* 属性: 在类里面定义个属性, 方法和 java 还有 Python 很像, 有些和 OC 像
+* 分三种属性类型: 存储属性(存值的类型) / 计算属性 / 类型属性
+* *
+* 直接通过点运算符., 就可以读取某个对象的存储属性
+* *
+* 延迟存储属性: 就是懒加载, 当需要的时候才调用来存储. 用 lazy 来标识, 一般用在类属性, 而且必须是变量,不能是常量
+* *
+* 计算属性: 不是用来直接存值, 而是间接的通过计算去赋值或者返回一个值. 有时候有些属性是和其他属性相关联的, 这时候就用到计算属性, 里面存的是计算过程, 属性里存储 set 方法和 get 方法, 间接对其他属性赋值, 返回的时候也是从其他属性拿值来计算后返回
+* 计算属性只能声明为变量属性, 因为它的值是依赖其他来计算的
+* 一个属性不能既是存储属性又是计算属性, 从这方面又说明了其类型严格
+* get 要写在前面
+* *
+* 类型属性: 用 calss关键字修饰的属性就是类型属性, 也叫做类属性
+* 类型属性只能是计算属性, 有些类中都是固定的值的时候就用类型属性, 一个类只会有一份, 类的多个实例都共享这唯一的一份
+* 它不依赖于对象存在, 用类名来访问,
+* *
+* *
+* 属性监视器: 在存储属性上可以设置属性监视器, 其实就是在属性设置默认值后加个{ willset{}   didset{}  } 属性在其内部赋值不会调用这监视器, 在外部调用才会, 不像计算属性, 内部调用 set 方法也会调用自身, 因为这赋值取值就是通过这两个方法的, 而存储属性在设置时去调用这两个方法.
+</code></pre><p>##方法</p>
+<pre><code>* Swift 中类的方法和函数差不多, 而且和其他语言的差不多分为实例方法, 类方法,
+* 函数的话是谁都能调, 方法是只能那个类或其实例调用, 在 OC 中 C 的函数和 OC 的方法很不一样, 但是 Swift 是类中方法和函数是一样的
+* 调用是.函数(参数)
+* 参数和外面的函数一样, #已经被抛弃了....
+* 类方法和实例方法可以一样, 类方法只能是类调用, 实例方法是给实例调用
+* 方法里如果没有使用到类中的属性就应该用类方法, 节约内存
+* 类可以调用实例方法, 其实系统将实例方法也当做了一个属性, .实例方法(实例), 返回这个函数类型的函数, 外界就可以接收这个函数后调用这个函数
+* *
+* self: 每个方法内部, 都有一个隐藏的属性 self, 其作用和 OC 中的 self 基本一致,
+* 类方法中调用的方法, 默认都是去调类方法, 所以 self.可以不写
+</code></pre><p>##继承</p>
+<pre><code>* 基类: 不继承某个类的类, 没有父类的话, 它就是一个基类
+* 单继承; class Dog : Animal     Dog 继承自 Animal 用冒号:
+* 重写: 用自己的实现覆盖掉父类的同方法,, 需要写关键字 override, 在子类写方法, 如果父类有的话会有提示 override,
+* 子类方法不能和父类一样, 只能重写, 加上 override, 可以在重写时调用父类的方法, 保留父类做的事情
+* 子类可以重写父类的: 方法 /  属性  /  下标脚本
+* 无论是存储属性还是计算属性都可以重写, 而且必须要用 override 标识重写
+* 重写属性都需要提供 get/set; willSet/didSet 来重写, 就是连重写存储属性时, 也不能赋初始值了, 要用 get/set. 差不多就是将存储属性重写成了计算属性, 里面可以拿到父类的存储属性或者是做什么改变, 其实其重写存储属性是间接调用父类属性来操作, 重写属性其实就是提供方法来操作父类的属性
+* *
+* final:
+* 被 final修饰的  属性  /  方法  /  下标脚本, 都不能被子类重写
+* 被 final 修饰的类, 不能被继承, 修饰了 final 意味着最终,
+</code></pre><p>#构造和析构: (构造, 解析构造)</p>
+<pre><code>* 构造方法: 也是 init, Swift 的类中的属性都要有个初始值, 可以在定义属性的时候设置, 也可以在构造方法中设置,
+* 在类的实例创建的时候就会调用构造方法, 这和 OC 一样, 但是和其他函数不同不用写返回值类型和 func 关键字
+* 构造方法可以设置参数, 用穿进来的这些参数初始化属性, 而且每个参数既是内参名又是外参数名
+* 构造方法一样可以重写, 可以是默认的空参数,
+* 但是如果写了一个有参数的构造方法, 系统不会自动创建无参数构造方法
+</code></pre><p>##构造方法类型:</p>
+<pre><code>* 类型有2, 指定构造方法 / 便利构造方法
+* 默认情况下, 构造方法都是指定构造方法,
+* 被 convenient 修饰的构造方法是便利构造方法
+* 默认情况下每个类有一个隐式的无参构造方法, 自己定义了有参数构造方法后, 系统就不会自动创建无参构造方法了
+* 便利构造方法中必须调用同一个类中定义的其他构造方法
+* 遍历构造方法必须最终以调用一个指定构造方法结束
+* 上面2句就是说, 便利构造只是假象, 指定构造才是真正的构造方法, 遍历构造只是为了遍历, 最终怎么掉, 都需要指定构造方法参加才行
+* 这里指定构造方法不能掉本类定义的其他指定构造方法, 只能掉父类的, 所以这里只能是便利构造方法调用指定构造方法
+* 如果父类中只有一个指定构造方法而且是无参的, 子类的指定构造方法默认会自动调用父类中的无参指定构造方法
+* 变量在父类初始化后还可以在子类初始化, 也就是子类可以初始化父类的变量, 但是不能初始化父类的常量,因常量不能变了
+</code></pre><p>##析构方法</p>
+<pre><code>* 在对象被释放的时候调用, 就像 dealloc, 对象在被释放之前, 会自动调用析构方法
+* 析构方法不带任何参数, 不带小括号,  直接是 deinit { xxxxxxx }
+* 不允许主动调用析构方法
+* 每个类最多只能有一个析构方法
+* 一个对象在被释放之前, 先调用自己的析构方法, 在一层层往上调用父类的析构方法.
+</code></pre><p>#面向对象补充:</p>
+<pre><code>* 属性监听器只能在存储属性里设置, 计算属性要监听直接在 set 里, 而且本来两个就不能共存
+* 只能在父类上扩充功能, 不能减少父类的功能 --- 父类的只读属性可以改为读写属性(添加写 set 方法), 不能将读写属性改为只读属性(去掉了 set 方法)
+* 子类重写父类属性: 为属性扩充些功能, 可以添加 set/get, 用计算属性访问父类属性, 可以添加 willset/didset, 值最终会赋值给父类属性
+</code></pre><p>#可选类型: ? !</p>
+<pre><code>* 当一个值可能存在, 可能不存在的时候应该用可选类型, 如手机号码,  因为 Swift 类型安全, 属性在必须在使用钱进行初始化, 但有些时候某些属性就是不一定有值的, 一开始就给值这不符合现实
+* 可选类型格式: 类型名?  : 问号表明号码是可选的, 可能是 String, 可能不存在nil, 默认设置 nil 的话, 应该这么定义变量: var phone: String? = nil, 没有就默认 nil, 可以设置其他,.....
+* 意味着在 Swift 里只有可选类型可以赋值 nil, 而且可选类型默认值就是 nil, =nil 可以不写
+* *
+</code></pre><p>##可可选类型的应用:</p>
+<pre><code>* String 有个toInt 方法, 可以将字符串转成对应的 int 类型, 但有时候字符串是转不了数字的(如 askjfhafhs), 这时候就直接返回 nil, 而返回的类型就是 Int?, 整形的可选类型, 应用在返回值不确定有没有, 或某些变量是否会有值的情况
+* Int? 是一种 Int 可选类型, 不是 Int 类型, 两个是不一样的类型
+* 试试看可选类型能否存 nil 意外的其他值
+</code></pre><p>##可选类型的本质:</p>
+<pre><code>* Int?其实是对 Int 的一层封装, 它们是两种不同的类型,
+* int?赋值是将 Int 类型的数据包装成了 Int 赋值过去, Int?内部有 Some 区域和 None 区域, 有值就存 Some 区域, 没有就 None区域,None 区域默认存了 nil
+* 而且在 Swift 这个强类型语言中, nil 只能用于可选类型
+* 不能将可选类型赋值给非可选类型, 因为可选类型是对非可选类型进行更大的封装, 赋值时要拿 Some 还是 None 赋值不清楚, 不能直接.some 拿值, 用其他方法拿(强制解包, 取出 Some 值)
+* 相反, 非可选类型赋值到可选类型时会自动进行包装成可选类型再赋值
+</code></pre><p>###可选类型的其他使用:</p>
+<p>###强制解包: 在可选类型的值后面加感叹号!, 就能将可选类型(包装)的值取出来, 赋值给具体类型</p>
+<pre><code>* *
+* 基本概念:
+* 解包: 将可选类型(包装)的值取出来
+* 强制解包: 用感叹号!将可选类型(包装)的值取出来
+* 强制解包时如果包里没有值, 是 nil, 会在运行时报错, 所以在强制解包时应该判断这个包有没有值
+* 可以用 if 语句判断可选类型的值存在否, if num, 返回值类型是 BOOL, 所以在强制解包之前先 if, 这比较严谨
+* var num = &quot;123&quot;.toInt(), if num {xxx} else {xxxx}, 这里得出的 num 也是可选类型, 之后使用里面的值要解包
+*
+</code></pre><p>###选择绑定</p>
+<pre><code>* 作用: 用来确定一个可选类型(包装)的值是否存在 ? 存在: 把该值赋给一个临时变量/常量, 不存在: 不创建任何临时变量/常量
+* 概念: 将可选类型的值有选择的赋给临时常量/变量, 也叫选择绑定解包
+* 使用场合: if/while 语句, if let/var num = &quot;123&quot;.toInt() {xxxxx} else {xxxxxx}, 这里的临时 num 是实际类型, 使用不用强制解包! 有值才赋值给 num, 没有就不赋值, 也就没有 num 临时常量/变量的存在
+</code></pre><p>###隐式解包</p>
+<pre><code>* 默认情况下是非隐式解包, 需要用!强制解包
+* 如果将可选类型声明为隐式解包, 则不用在进行强制解包, 能够自动把包装里的值取出来赋值给具体类型
+* 声明格式: 将?改为!即可
+* 解包原理: 相当于告诉编译器,这个可选类型的值一直都存在, 绝对能取出里面的值,所以取值的时候不用加!, 编译器自己会加一个
+* 这样在一开始设置可选类型时设置隐式解包, 之后就不用每个地方都!, 比较方便, 但是还是要注意判断是否有值, 不然编译器自己加!取出来是 nil 一样会报错
+* 应用场合: 某些值在有些情况下一定存在, 就用这个, 不要乱用....
+* 比如某些一开始一定有值, 在以后可能没有值了在赋值 nil, 比如生命值, 呼吸量, 头发颜色(一开始有头发, 后来掉光了就没有值了)
+</code></pre><p>###可选类型的总结:</p>
+<pre><code>* 强制解包, 定义时?, 解包时判断, 用!取值
+* 隐式解包, 定义时!,保证一开始有值, 取值时直接可取不用!
+</code></pre><p>#Swift 练习题</p>
+<blockquote>
+<p>弹出图片<br>字体选择视图<br>选择条</p>
+</blockquote>
+<ul>
+<li>技巧: 在 storyBoard拖图片时, 按 shift 键是等比例伸缩</li>
+<li>Swift 中的很多函数和 OC 中的方法名差不多, 拖线连接也是, 而且拖线出来是可选类型,</li>
+<li>Swift 中的闭包 -&gt; OC中的block , 少了^, 也可以看成是函数, 即传递一个待调用的函数, 当函数执行完后会调用这个函数</li>
+<li>Swift 中有很好的地方就是可以直接改结构体中的值, 之前 OC 还需要取出再赋值回去</li>
+<li>当配置了 OC 桥接文件后不需要了之后报错, 应该在 target -&gt; targets -&gt; BuildSettings搜对应名字的, 删掉</li>
+<li>闭包的特点: 所有东西都写在里面, 有参数的话, 在声明参数和类型后要写 in 在最后, 类型声明和函数差不多</li>
+<li>{(声明参数类型) -&gt; 返回值类型  in}(). 类似 block, 定义好后就可以直接调</li>
+<li><p>UIView 动画中有个方法可以给动画加弹簧效果</p>
+</li>
+<li><p>可选链, 枚举中的值本来不是 int, 但是可以继承自 int, int 是结构体, 就可以让枚举和结构体产生关系, 让枚举是 Int, 调用枚举用”.”,</p>
+</li>
+<li>当传值时会类型推断, 如果知道是某个类型的话可以省略那个类型, 直接.xxx</li>
+</ul>
+<p>#bug: 注意变量名不要写的和类名一样!!!!!!!!!注意!!!, 要先设大小! 再设位置!, 不然会有意想不到的情况, 先设位置再设大小会根据 frame.y 又缩放回去….</p>
+<p>#bug: var btns: Array<uibutton>? = <a href>UIButton</a>, 数组的可选类型</uibutton></p>
+<p>#bug: fatalError(“init(coder:) has not been implemented”)因为这个方法是必须要求实现, 当不需要这个方法时, 可以将这个方法声明为便利构造方法, 调用 self.init 或者其他指定构造方法,</p>
+<p>#技巧: 需要只设置一次但是又只能在重复调用的方法中设置时, 用<br>struct TokenContainer {<br>            static var token : dispatch_once_t = 0<br>        }</p>
+<pre><code>dispatch_once(&amp;TokenContainer.token)
+</code></pre><p>在 OC 中会自己设置一个值, Swift 中没有, 所以要自己加锁</p>
+<p>在 Swift 中用//MARK: - 代替 OC 的#pragma mark-    Xcode now supports //MARK:, //TODO: and //FIXME landmarks to annotate your code and lists them in the jump bar</p>
+<p>###枚举:</p>
+<pre><code>* 和 OC 的枚举不同, 它也是种类型, 要想和 Int 有关需要继承自 Int, 里面就会由 Int 包装成枚举, 要拿出里面包装的 Int 值, 就要用.rawValue, 想从 Int 封装成这个枚举, 要用.fromRaw
+</code></pre><hr>
+<h1 id="关于-Swift-和-OC-间动态特性的讨论"><a href="#关于-Swift-和-OC-间动态特性的讨论" class="headerlink" title="关于 Swift 和 OC 间动态特性的讨论"></a>关于 Swift 和 OC 间动态特性的讨论</h1><p><a href="https://academy.realm.io/cn/posts/mobilization-roy-marmelstein-objective-c-runtime-swift-dynamic/" target="_blank" rel="noopener">Realm 中讨论的一偏</a></p>
+<blockquote>
+<p>无疑 OC 的运行时特性是很重要的, 但是在 Swift 中被大大削弱, 以至于在很多之前 OC 中惯于使用的技巧不能很好的在 Swift 中实现</p>
+</blockquote>
+<p>文章里简单介绍了 runtime 对于 OC 类和对象的定义, 然后引申出在 OC 中我们常用的几个运行时的方法, 然后在 Swift 中, 这些替代的使用方式</p>
+<p><strong>注: 在<a href="https://devstreaming-cdn.apple.com/videos/wwdc/2017/212vz78e2gzl2/212/212_whats_new_in_foundation.pdf" target="_blank" rel="noopener">WWDC 2017 session 212</a> 中, 已经就这一特性进行补充, 斯巴拉西! 不仅不用对 <code>Class</code> 进行 <code>@objc</code>  声明, 也不用对属性进行 <code>@dynamic</code> 声明, 而且 KVO 和 KVC 对原生 Swift 类型有效, 而且还优化了 keypath 的定义方式, 使 keypath 的使用更有效率! ! 轰动你, 四把拉稀!!</strong></p>
+<h2 id="不错的一些代码"><a href="#不错的一些代码" class="headerlink" title="不错的一些代码"></a>不错的一些代码</h2><p>.map()<br>.reduce()<br>.filter()</p>
+<p>还有善于使用函数作为参数传递, 将内部的一些状态判断或者操作交给调用方, 如<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SequenceType</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">anotherPartitionBy</span><span class="params">(fu: <span class="params">(<span class="keyword">Self</span>.Generator.Element)</span></span></span>-&gt;<span class="type">Bool</span>)-&gt;([<span class="type">Self</span>.<span class="type">Generator</span>.<span class="type">Element</span>],[<span class="type">Self</span>.<span class="type">Generator</span>.<span class="type">Element</span>])&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">self</span>.<span class="built_in">filter</span>(fu),<span class="keyword">self</span>.<span class="built_in">filter</span>(&#123;!fu($<span class="number">0</span>)&#125;))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> part2 = [<span class="number">82</span>, <span class="number">58</span>, <span class="number">76</span>, <span class="number">49</span>, <span class="number">88</span>, <span class="number">90</span>].anotherPartitionBy&#123;$<span class="number">0</span> &lt; <span class="number">60</span>&#125;</span><br><span class="line">part2 <span class="comment">// ([58, 49], [82, 76, 88, 90])</span></span><br></pre></td></tr></table></figure></p>
+<p>reduce:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> part3 = [<span class="number">82</span>, <span class="number">58</span>, <span class="number">76</span>, <span class="number">49</span>, <span class="number">88</span>, <span class="number">90</span>].<span class="built_in">reduce</span>( ([],[]), combine: &#123;</span><br><span class="line">    (a:([<span class="type">Int</span>],[<span class="type">Int</span>]),n:<span class="type">Int</span>) -&gt; ([<span class="type">Int</span>],[<span class="type">Int</span>]) <span class="keyword">in</span></span><br><span class="line">    (n&lt;<span class="number">60</span>) ? (a.<span class="number">0</span>+[n],a.<span class="number">1</span>) : (a.<span class="number">0</span>,a.<span class="number">1</span>+[n])</span><br><span class="line">&#125;)</span><br><span class="line">part3 <span class="comment">// ([58, 49], [82, 76, 88, 90])</span></span><br></pre></td></tr></table></figure>
+<h2 id="获取并解析XML格式的网络服务"><a href="#获取并解析XML格式的网络服务" class="headerlink" title="获取并解析XML格式的网络服务"></a>获取并解析XML格式的网络服务</h2><p>使用第三方库</p>
+<h2 id="数组中找最大最小"><a href="#数组中找最大最小" class="headerlink" title="数组中找最大最小"></a>数组中找最大最小</h2><p>先排序再获取: sorted() | sort()<br>直接用: minElement() | maxElement()</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/xiang-mu-chang-yong-dao-de-ku/" rel="next" title="项目常用到的库">
+                <i class="fa fa-chevron-left"></i> 项目常用到的库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/bug&-wen-ti-ji/" rel="prev" title="bug & 问题集">
+                bug & 问题集 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">187</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下面这个是从上面剪切过来的"><span class="nav-number">1.</span> <span class="nav-text">==========下面这个是从上面剪切过来的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#swift"><span class="nav-number">2.</span> <span class="nav-text">swift</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#playGround"><span class="nav-number">2.1.</span> <span class="nav-text">playGround</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础语法"><span class="nav-number">2.2.</span> <span class="nav-text">基础语法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上面这个是从上面剪切过来的-下面继续有讲"><span class="nav-number">3.</span> <span class="nav-text">==========上面这个是从上面剪切过来的, 下面继续有讲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift-的面向对象"><span class="nav-number">4.</span> <span class="nav-text">Swift 的面向对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于-Swift-和-OC-间动态特性的讨论"><span class="nav-number">5.</span> <span class="nav-text">关于 Swift 和 OC 间动态特性的讨论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#不错的一些代码"><span class="nav-number">5.1.</span> <span class="nav-text">不错的一些代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取并解析XML格式的网络服务"><span class="nav-number">5.2.</span> <span class="nav-text">获取并解析XML格式的网络服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组中找最大最小"><span class="nav-number">5.3.</span> <span class="nav-text">数组中找最大最小</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/Swift/';
+          this.page.identifier = '2019/02/18/Swift/';
+          this.page.title = 'Swift';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

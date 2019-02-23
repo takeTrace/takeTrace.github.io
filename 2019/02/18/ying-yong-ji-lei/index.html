@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,收集,生产力,应用,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="应用积累 生产力备份DotFile系统配置, app 配置, 环境配置的备份 一些可以参考的 dotfileAwesome dotfilesMathias’s dotfileswebpro/dotfiles 窗口管理快速设置应用窗口的位置/大小的工具, 可以快速的分屏什么的, 这个还是挺有用的. 想折腾的 slate不想折腾的 spectacle 截图媒体休闲播放器: iina, 听说可以在线搜字">
+<meta name="keywords" content="iOS,收集,生产力,应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="应用积累">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/ying-yong-ji-lei/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="应用积累 生产力备份DotFile系统配置, app 配置, 环境配置的备份 一些可以参考的 dotfileAwesome dotfilesMathias’s dotfileswebpro/dotfiles 窗口管理快速设置应用窗口的位置/大小的工具, 可以快速的分屏什么的, 这个还是挺有用的. 想折腾的 slate不想折腾的 spectacle 截图媒体休闲播放器: iina, 听说可以在线搜字">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T18:08:55.937Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="应用积累">
+<meta name="twitter:description" content="应用积累 生产力备份DotFile系统配置, app 配置, 环境配置的备份 一些可以参考的 dotfileAwesome dotfilesMathias’s dotfileswebpro/dotfiles 窗口管理快速设置应用窗口的位置/大小的工具, 可以快速的分屏什么的, 这个还是挺有用的. 想折腾的 slate不想折腾的 spectacle 截图媒体休闲播放器: iina, 听说可以在线搜字">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/ying-yong-ji-lei/">
+
+
+
+
+
+  <title>应用积累 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/ying-yong-ji-lei/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">应用积累</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:32:03+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/ying-yong-ji-lei/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/ying-yong-ji-lei/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>应用积累</p>
+<h1 id="生产力"><a href="#生产力" class="headerlink" title="生产力"></a>生产力</h1><h1 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h1><p><a href="https://dotfiles.github.io" target="_blank" rel="noopener">DotFile</a><br><a href="https://blog.coderzh.com/2016/03/19/dotfiles/" target="_blank" rel="noopener">系统配置, app 配置, 环境配置的备份</a></p>
+<h2 id="一些可以参考的-dotfile"><a href="#一些可以参考的-dotfile" class="headerlink" title="一些可以参考的 dotfile"></a>一些可以参考的 dotfile</h2><p><a href="https://github.com/webpro/awesome-dotfiles" target="_blank" rel="noopener">Awesome dotfiles</a><br><a href="https://github.com/mathiasbynens/dotfiles" target="_blank" rel="noopener">Mathias’s dotfiles</a><br><a href="https://github.com/webpro/dotfiles" target="_blank" rel="noopener">webpro/dotfiles</a></p>
+<h1 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h1><p>快速设置应用窗口的位置/大小的工具, 可以快速的分屏什么的, 这个还是挺有用的.</p>
+<p>想折腾的 <a href="https://github.com/jigish/slate" target="_blank" rel="noopener">slate</a><br>不想折腾的 <a href="https://github.com/eczarny/spectacle" target="_blank" rel="noopener">spectacle</a></p>
+<h1 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h1><h1 id="媒体休闲"><a href="#媒体休闲" class="headerlink" title="媒体休闲"></a>媒体休闲</h1><p>播放器: iina, 听说可以在线搜字幕, 不错~</p>
+<h1 id="合盖防休眠"><a href="#合盖防休眠" class="headerlink" title="合盖防休眠"></a>合盖防休眠</h1><p><a href="https://www.zhihu.com/question/41049134" target="_blank" rel="noopener"><code>brew cask install insomniax</code></a></p>
+<h1 id="图表"><a href="#图表" class="headerlink" title="图表"></a>图表</h1><p>Graphviz</p>
+<blockquote>
+<p>使用 dot 语法同问文本描述然后生成对应的图</p>
+</blockquote>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p>使用 UML 语言能对项目快速认识, 建模, 并且有些 UML 工具支持将模型转换成对应的代码</p>
+<p>而且有些项目构建中, 可以将代码通过 UML 建模, 形成一个比较清晰的流程图, 关系图等等, 可以更好的理解项目</p>
+<ul>
+<li>StarUML: 开源工具, 看起来和很多公司之间有合作的, 给人的感觉挺好</li>
+</ul>
+<h3 id="针对-iOS-开发的-UML-Diagram-生成工具"><a href="#针对-iOS-开发的-UML-Diagram-生成工具" class="headerlink" title="针对 iOS 开发的 UML Diagram 生成工具"></a>针对 iOS 开发的 UML Diagram 生成工具</h3><p><a href="https://martinmitrevski.com/2016/10/12/swift-class-diagrams-and-more/" target="_blank" rel="noopener">swift-auto-diagram</a><br>这篇博客中还有一些其他关于 iOS, Swift 的教程, 可以学习到一些~ 看来博主是一个 Swifter<br><a href="https://github.com/yoshimkd/swift-auto-diagram" target="_blank" rel="noopener">GitHub</a></p>
+<blockquote>
+<p>自动生成类/结构体/等等的关系</p>
+</blockquote>
+<p><a href="https://github.com/PaulTaykalo/objc-dependency-visualizer" target="_blank" rel="noopener">Objc &amp; Swift 的依赖关系图</a></p>
+<blockquote>
+<p>可以看到自己的类的关联<br><a href="https://github.com/Sumolari/swift-relationship-graph" target="_blank" rel="noopener">针对于 Swift 的</a><br>比较需要其他的依赖, 不过其所依赖的都是一些原本就对项目是生产力的工具</p>
+</blockquote>
+<h1 id="terminal"><a href="#terminal" class="headerlink" title="terminal"></a>terminal</h1><ul>
+<li><p><a href="https://karan.goel.io/joe/" target="_blank" rel="noopener">joe</a><br>给项目添加.gitignore 文件</p>
+</li>
+<li><p><a href="http://www.360doc.com/content/14/0721/17/15064667_396088714.shtml" target="_blank" rel="noopener">搜索</a></p>
+<blockquote>
+<p><a href="https://www.tianmaying.com/tutorial/vim-code-search" target="_blank" rel="noopener">https://www.tianmaying.com/tutorial/vim-code-search</a></p>
+</blockquote>
+</li>
+<li><p><a href="https://github.com/le0zh/blog/issues/1" target="_blank" rel="noopener">js 的代码提示, vscode 的插件配置</a></p>
+</li>
+</ul>
+<blockquote>
+<p>当使用 JS 这些脚本语言时, 不知道函数调用时使用的参数是什么类型的, 这样在调用函数的时候就需要进入查看, 这样就减少了不少效率. 这个工具基于 Typescript 的接口, 提供代码的检查, 提示的信息可以知道函数形参在其函数中是使用什么类型的数据</p>
+</blockquote>
+<blockquote>
+</blockquote>
+<h1 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h1><p><del>mindnode-pro: <code>brew cask install mindnode-pro</code></del> 感觉会时不时的down 掉, 还不如用和谐版的<br>serial key:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Type: Single User</span><br><span class="line">SN: KE43VQCQA6SOW-IXS4V3FPVDAZC-5U6ZXIJLWG7SE-7BQ4BAE6UBIVQ</span><br><span class="line"></span><br><span class="line">Type: Site License</span><br><span class="line">SN: YXI7ZKGYVTQ2E-7OELJERSENY5I-SFEVOCBR54U7T-DMHFDPEQIBTQA</span><br><span class="line"></span><br><span class="line">Type: Education License</span><br><span class="line">SN: O7DJZEGVMLGMT-WLGMRBRGG6WZB-TDL6P2P2TGHHS-3YVHFRIU3FRNQ</span><br><span class="line"></span><br><span class="line">Type: NFR</span><br><span class="line">SN: IW3O6ODXXJAUC-3M347CZ5JHHLT-OER2NWRLP4LBZ-V5L6JCGCURL2A</span><br><span class="line"></span><br><span class="line">Type: MindNode Pro License</span><br><span class="line">SN: GRGMS2ZRA77FK-MHBZECWD7BL52-CSU3NUMOOIIXR-7GUCNDFPSMU3A</span><br></pre></td></tr></table></figure>
+<h1 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h1><h1 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h1><p>Umbrella<br>Umbrella对待移动安全更进了一步，不仅处理数字安全问题，还处理物理安全问题。它是在非政府组织和人权组织的帮助下开发而成的，回答了这类问题“我如何准备穿过充满敌意的边境?”以及“我如何知道是否受到了监控?”<br>支持的操作系统：安卓。<br>相关链接：<a href="https://play.google.com/store/apps/details?id=org.secfirst.umbrella" target="_blank" rel="noopener">https://play.google.com/store/apps/details?id=org.secfirst.umbrella</a></p>
+<p>Orbot<br>实际上，Orbot是“安卓版Tor”。用户访问网站时，它将用户连接到Tor安全互联网浏览器，它还让其他应用程序可以连接到Tor，以便保护用户的隐私。<br>支持的操作系统：与操作系统无关。<br>相关链接：<a href="https://guardianproject.info/apps/orbot/" target="_blank" rel="noopener">https://guardianproject.info/apps/orbot/</a></p>
+<p>ASEF<br>ASEF的全称是安卓安全评估框架，这款工具可用于识别恶意软件、咄咄逼人的广告软件以及占用带宽的应用程序。企业组织可以用它来测试员工可能使用的应用程序，看看它们是否有问题。<br>支持的操作系统：安卓。<br>相关链接：<a href="https://blog.qualys.com/securitylabs/2012/07/25/android-security-evaluation-framework--a-s-e-f" target="_blank" rel="noopener">https://blog.qualys.com/securitylabs/2012/07/25/android-security-evaluation-framework--a-s-e-f</a></p>
+<h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><ul>
+<li><p>包管理</p>
+<p><a href="https://davidsheh.github.io/2017/09/09/windows-chocolatey-scoop/" target="_blank" rel="noopener">Windows 端的包管理工具</a></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-ExecutionPolicy AllSigned; iex ((New-Object System.Net.WebClient).DownloadString(&apos;https://chocolatey.org/install.ps1&apos;))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">choco install</span><br><span class="line">set-executionpolicy remotesigned -scope currentuser</span><br></pre></td></tr></table></figure>
+<h3 id="操作-类"><a href="#操作-类" class="headerlink" title="操作;类"></a>操作;类</h3><ul>
+<li>快速启动: wox</li>
+<li>搜索: everything</li>
+<li>本地快速导航: listary</li>
+<li>虚拟机: VBox<h3 id="媒体类型"><a href="#媒体类型" class="headerlink" title="媒体类型"></a>媒体类型</h3></li>
+<li>视频: VLC</li>
+<li>浏览照片: Seer<br> 习惯了Mac的空格键预览的流程在window下觉得很不习惯，<br> 这个就是专门用来代替这个的软件，支持md,pdf,图片等的预览。<br> 不过在wind10还是有些小问题，就是按键有时候会失灵。。。。</li>
+</ul>
+<ul>
+<li>截图<br><a href="http://getgreenshot.org" target="_blank" rel="noopener">GreenShot</a></li>
+</ul>
+<h1 id="Use-flow"><a href="#Use-flow" class="headerlink" title="Use flow"></a>Use flow</h1><p>这里记录用后, 但是不予采纳的感受<br><a href="https://sspai.com/post/29160" target="_blank" rel="noopener">Fluid 的使用</a><br>Fluid 可以创建一个 webapp, 将作为一个壳, 犹如本地 app 启动一样启动一个网页<br><code>但是</code><br>感觉, 比直接在网页上使用样卡好多</p>
+<p>docker 快速虚拟化一个环境出来, 只能是 Linux 的环境</p>
+<p>UML 流程图<br>StarUML<br>在线: ProgressOn</p>
+<h1 id="前端调试"><a href="#前端调试" class="headerlink" title="前端调试"></a>前端调试</h1><h2 id="CSS-选择表达式生成"><a href="#CSS-选择表达式生成" class="headerlink" title="CSS 选择表达式生成"></a>CSS 选择表达式生成</h2><p>可以通过再页面上进行选择来生成最合适的 CSS 选择器</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/收集/" rel="tag"># 收集</a>
+          
+            <a href="/tags/生产力/" rel="tag"># 生产力</a>
+          
+            <a href="/tags/应用/" rel="tag"># 应用</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/chi-xu-ji-cheng/" rel="next" title="持续集成">
+                <i class="fa fa-chevron-left"></i> 持续集成
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/Android/" rel="prev" title="Android">
+                Android <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">187</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#生产力"><span class="nav-number">1.</span> <span class="nav-text">生产力</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备份"><span class="nav-number">2.</span> <span class="nav-text">备份</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些可以参考的-dotfile"><span class="nav-number">2.1.</span> <span class="nav-text">一些可以参考的 dotfile</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#窗口管理"><span class="nav-number">3.</span> <span class="nav-text">窗口管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#截图"><span class="nav-number">4.</span> <span class="nav-text">截图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#媒体休闲"><span class="nav-number">5.</span> <span class="nav-text">媒体休闲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#合盖防休眠"><span class="nav-number">6.</span> <span class="nav-text">合盖防休眠</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图表"><span class="nav-number">7.</span> <span class="nav-text">图表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UML"><span class="nav-number">7.1.</span> <span class="nav-text">UML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#针对-iOS-开发的-UML-Diagram-生成工具"><span class="nav-number">7.1.1.</span> <span class="nav-text">针对 iOS 开发的 UML Diagram 生成工具</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#terminal"><span class="nav-number">8.</span> <span class="nav-text">terminal</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mac"><span class="nav-number">9.</span> <span class="nav-text">Mac</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS"><span class="nav-number">10.</span> <span class="nav-text">iOS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android"><span class="nav-number">11.</span> <span class="nav-text">Android</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows"><span class="nav-number">12.</span> <span class="nav-text">Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作-类"><span class="nav-number">12.0.1.</span> <span class="nav-text">操作;类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#媒体类型"><span class="nav-number">12.0.2.</span> <span class="nav-text">媒体类型</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-flow"><span class="nav-number">13.</span> <span class="nav-text">Use flow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端调试"><span class="nav-number">14.</span> <span class="nav-text">前端调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-选择表达式生成"><span class="nav-number">14.1.</span> <span class="nav-text">CSS 选择表达式生成</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/ying-yong-ji-lei/';
+          this.page.identifier = '2019/02/18/ying-yong-ji-lei/';
+          this.page.title = '应用积累';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

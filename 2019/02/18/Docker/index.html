@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Docker,DockerFile,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="From Office DocumentGlancedocker 是一种容器引擎, 基于 Linux 内核的一些功能, 通过构建一个容器, 来给 app 提供一个运行的环境. 因其用到 Linux 的特性, 所以原生支持只能是 Linux. Mac 和 Windows 要用到的时候, 需要起一个虚拟机相关的东西. 之前, 它用的是 VB, 但现在, 对于这两个平台封装了一个更好用的 app, 会自">
+<meta name="keywords" content="Docker,DockerFile">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/Docker/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="From Office DocumentGlancedocker 是一种容器引擎, 基于 Linux 内核的一些功能, 通过构建一个容器, 来给 app 提供一个运行的环境. 因其用到 Linux 的特性, 所以原生支持只能是 Linux. Mac 和 Windows 要用到的时候, 需要起一个虚拟机相关的东西. 之前, 它用的是 VB, 但现在, 对于这两个平台封装了一个更好用的 app, 会自">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Docker/FileAsset/docker/docker_image.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Docker/FileAsset/docker/container.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Docker/FileAsset/docker/basicComponent.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Docker/FileAsset/docker/dataValume.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Docker/FileAsset/docker/valumeContainer.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Docker/FileAsset/docker/dataVolumeBackup.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Docker/FileAsset/docker/overHostLink.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/Docker/FileAsset/docker/ovs.png">
+<meta property="og:updated_time" content="2019-02-19T17:21:17.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker">
+<meta name="twitter:description" content="From Office DocumentGlancedocker 是一种容器引擎, 基于 Linux 内核的一些功能, 通过构建一个容器, 来给 app 提供一个运行的环境. 因其用到 Linux 的特性, 所以原生支持只能是 Linux. Mac 和 Windows 要用到的时候, 需要起一个虚拟机相关的东西. 之前, 它用的是 VB, 但现在, 对于这两个平台封装了一个更好用的 app, 会自">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/18/Docker/FileAsset/docker/docker_image.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/Docker/">
+
+
+
+
+
+  <title>Docker | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:34:11+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/Docker/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/Docker/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="From-Office-Document"><a href="#From-Office-Document" class="headerlink" title="From Office Document"></a>From Office Document</h1><h2 id="Glance"><a href="#Glance" class="headerlink" title="Glance"></a>Glance</h2><p>docker 是一种容器引擎, 基于 Linux 内核的一些功能, 通过构建一个容器, 来给 app 提供一个运行的环境.</p>
+<p>因其用到 Linux 的特性, 所以原生支持只能是 Linux.</p>
+<p>Mac 和 Windows 要用到的时候, 需要起一个虚拟机相关的东西. 之前, 它用的是 VB, 但现在, 对于这两个平台封装了一个更好用的 app, 会自动起一个更清凉的虚拟引擎来构建docker 需要的环境</p>
+<p>通过 docker 提供的容器, 可以和主机的环境分离开来, 而且可以 portable, 只需要将你的环境 制作成 image, 然后拿到另一个地方通过 docker 使用这个 image 构建一个容器, 启动就好了. 自己要保证自己的 app 的依赖环境也一起打包带走, 这个 容器 的制作由一个<code>Dockerfile</code>的文件确定</p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p><a href="https://docs.docker.com/engine/installation/#supported-platforms" target="_blank" rel="noopener">安装文档</a></p>
+<p>Linux</p>
+<blockquote>
+<p>可以使用自带的一些包管理器安装即可</p>
+</blockquote>
+<p>Mac</p>
+<blockquote>
+<p><code>brew cask install docker</code></p>
+</blockquote>
+<p>Windows</p>
+<blockquote>
+<p><code>choco install docer</code></p>
+<p>或者你可以自己下载安装包安装<br>还有一些在 Windows 上安装的注意事项, 比如开打虚拟化等等.</p>
+</blockquote>
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p> 使用这个文件来定义你做的这个容器会有什么依赖, 在启动时的一些设置, 就像设定一个机器的硬件/软件/配置等等.</p>
+<p>创建一个文件夹 -&gt; 创建一个 DockerFile 文件, 将下面的内容粘贴进去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Use an official Python runtime as a parent image</span><br><span class="line">FROM python:2.7-slim</span><br><span class="line"></span><br><span class="line"># Set the working directory to /app</span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"># Copy the current directory contents into the container at /app</span><br><span class="line">ADD . /app,</span><br><span class="line"></span><br><span class="line"># Install any needed packages specified in requirements.txt</span><br><span class="line">RUN pip install --trusted-host pypi.python.org -r requirements.txt</span><br><span class="line"></span><br><span class="line"># Make port 80 available to the world outside this container</span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line"># Define environment variable</span><br><span class="line">ENV NAME World</span><br><span class="line"></span><br><span class="line"># Run app.py when the container launches</span><br><span class="line">CMD [&quot;python&quot;, &quot;app.py&quot;]</span><br></pre></td></tr></table></figure>
+<p>如果你挂了代理, 有可能代理会 block 链接, 这时你还要在文件中加上以下内容, 声明代理的端口, 注意在<code>pip</code>命令前加上这句话, 才能保证命令跑通</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># Set proxy server, replace host:port with values for your servers</span><br><span class="line">ENV http_proxy host:port</span><br><span class="line">ENV https_proxy host:port</span><br></pre></td></tr></table></figure>
+<p>以上算是声明了 image/container 需要的环境,  接下来是需要在这个环境中准备你的 app 了</p>
+<p>创建 <code>requirements.txt</code> 和 <code>app.py</code>, 将他们和 DockerFile 放到同一个目录下, 这样就简单的完成了这个 docker 的项目搭建.<br>当 <code>DockerFile</code>被写进 <code>image</code> 时, 这两个文件会被通过<code>ADD</code>加载进来, 而 <code>app.py</code> 中可以通过http访问则是通过 EXPOSE命令</p>
+<p>requirements.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Flask</span><br><span class="line">Redis</span><br></pre></td></tr></table></figure>
+<p>app.py</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> redis <span class="keyword">import</span> Redis, RedisError</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect to Redis</span></span><br><span class="line">redis = Redis(host=<span class="string">"redis"</span>, db=<span class="number">0</span>, socket_connect_timeout=<span class="number">2</span>, socket_timeout=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route("/")</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        visits = redis.incr(<span class="string">"counter"</span>)</span><br><span class="line">    <span class="keyword">except</span> RedisError:</span><br><span class="line">        visits = <span class="string">"&lt;i&gt;cannot connect to Redis, counter disabled&lt;/i&gt;"</span></span><br><span class="line"></span><br><span class="line">    html = <span class="string">"&lt;h3&gt;Hello &#123;name&#125;!&lt;/h3&gt;"</span> \</span><br><span class="line">           <span class="string">"&lt;b&gt;Hostname:&lt;/b&gt; &#123;hostname&#125;&lt;br/&gt;"</span> \</span><br><span class="line">           <span class="string">"&lt;b&gt;Visits:&lt;/b&gt; &#123;visits&#125;"</span></span><br><span class="line">    <span class="keyword">return</span> html.format(name=os.getenv(<span class="string">"NAME"</span>, <span class="string">"world"</span>), hostname=socket.gethostname(), visits=visits)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(host=<span class="string">'0.0.0.0'</span>, port=<span class="number">80</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="From-Jike-com’s-Video"><a href="#From-Jike-com’s-Video" class="headerlink" title="From Jike.com’s Video"></a>From Jike.com’s Video</h1><h2 id="Docker-简介"><a href="#Docker-简介" class="headerlink" title="Docker 简介"></a>Docker 简介</h2><p> 一种虚拟化方案, 操作系统级别, 只能运行相同内核的操作系统, 依赖于Linux 内核的特性: NameSpace &amp; Cgoruup(Control Group)</p>
+<p>虚拟机的技术是在 hostOS 上运行起一个 GuestOS, 在运行相应的系统服务.</p>
+<p>而容器则是直接在 HostOS 上通过 Docker 引擎, 运行对应的虚拟化服务. 不用再起一个 GuestOS, 而是基于当前的 OS 来通过NameSpace 这些特性, 直接使用系统的服务</p>
+<h3 id="Docker-的目标"><a href="#Docker-的目标" class="headerlink" title="Docker 的目标"></a>Docker 的目标</h3><ul>
+<li>提供简单轻量的建模方式</li>
+<li>职责的逻辑分离</li>
+<li>快速高效的生命周期</li>
+<li>鼓励使用面向服务的架构</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>使用 Docker 容器开发/测试/部署 服务</li>
+<li>创建隔离的运行环境</li>
+<li>搭建测试环境</li>
+<li>构建多用户的平台即服务(PaaS)基础设施</li>
+<li>提供软件即服务(SaaS)应用程序</li>
+<li>高性能, 超大规模宿主机部署</li>
+</ul>
+<h2 id="基本组成"><a href="#基本组成" class="headerlink" title="基本组成"></a>基本组成</h2><ul>
+<li>Docker 客户端</li>
+<li>Docker Daemnon 守护进程</li>
+<li>Docker Image 镜像</li>
+<li>Docker Container 容器</li>
+<li>Docker Registy 仓库</li>
+</ul>
+<h3 id="image"><a href="#image" class="headerlink" title="image"></a>image</h3><p><img src="./FileAsset/docker/docker_image.png" alt="结构"></p>
+<p>层叠文件系统, 只读<br>联合加载</p>
+<h3 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h3><p><img src="./FileAsset/docker/container.png" alt="container"></p>
+<p>在加载完基础的应用和文件系统后, 再在顶层加载一个读写层, 我们都是在这个层执行我们运行的程序</p>
+<blockquote>
+<p>我们在修改一个文件时, 先由底层的复制到读写层, 该文件的只读版本依然存在, 只是被读写层的副本所隐藏</p>
+</blockquote>
+<h3 id="Registy"><a href="#Registy" class="headerlink" title="Registy"></a>Registy</h3><p>公有: Docker 公司提供<br>私有: 可以构建自己的私有苍鹭<br>Hub: 可以在这里分享/保存/自己的镜像, 也能查找别人做好的镜像</p>
+<h3 id="Docker-的基本组成"><a href="#Docker-的基本组成" class="headerlink" title="Docker 的基本组成"></a>Docker 的基本组成</h3><p><img src="./FileAsset/docker/basicComponent.png" alt="基本组成"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>参考官方<a href="https://docs.docker.com/engine/installation/#supported-platforms" target="_blank" rel="noopener">安装文档</a></p>
+<h2 id="容器的基本操作"><a href="#容器的基本操作" class="headerlink" title="容器的基本操作"></a>容器的基本操作</h2><ul>
+<li>启动容器</li>
+</ul>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> IMAGE [COMMAND] [ARG...]</span></span><br></pre></td></tr></table></figure>
+<p>在新容器中执行命令:</p>
+<p>run: 构建一个容器: [通常我们在终端中执行的命令]<br>[COMMAND]: 在容器启动时执行的命令</p>
+<p>直接这样就是一次性的运行就结束了</p>
+<p>Docker 还提供了交互式的操作方法, 就像 SSH 连接一个 Linux 操作一样</p>
+<p><code>docker run -i -t IMAGE /bin/bash</code><br>-i: –interactive=true 默认是 FALSE<br>-t: –tty=true | false</p>
+<hr>
+<ul>
+<li>查看容器</li>
+</ul>
+<p><code>docker ps [-a(全部)] [-l[最新一个]]</code>, 不加参数就是显示当前正在运行的容器</p>
+<p>这个只是查看有哪些容器以及容器引擎上的线程使用, 即运行了哪些容器<br>查看我们建立起来的容器, 查看某个容器的详细信息, 使用 <code>docker inspect [id]/[name]</code><br>后面可以是唯一 id, 也可以是 NAME</p>
+<p>在运行<code>run</code> 启动一个容器时, 可以使用<code>--name=xxx</code> 参数来给这个容器自定义 name</p>
+<hr>
+<ul>
+<li>重新启动已经停止的容器</li>
+</ul>
+<p><code>docker start</code><br> 使用这个可以使挂起的容器重新运行起来</p>
+<p> 但是不加命令的话, 还是会马上的结束.</p>
+<p> 只是重新 start 了一个容器, 需要进行交互式的话还是需要 <code>-i</code> 标签</p>
+<hr>
+<ul>
+<li>删除容器</li>
+</ul>
+<p><code>docker rm</code><br>这个可以删除已经停止的容器, 不能删除正在运行的容器</p>
+<hr>
+<!-- 下面在今晚自己试试 -->
+<h2 id="守护式容器"><a href="#守护式容器" class="headerlink" title="守护式容器"></a>守护式容器</h2><blockquote>
+<p>常用命令:</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动一个容器</span></span><br><span class="line">docker run -it(交互式) -d(守护式)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看运行中容器的 <span class="built_in">log</span></span></span><br><span class="line">docker logs</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看运行中容器的正在运行的线程</span></span><br><span class="line">docker top NAME/HASH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 新开一个线程</span></span><br><span class="line">docker exec NAME/HASH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止正在运行的容器</span></span><br><span class="line"> docker stop/kill</span><br></pre></td></tr></table></figure>
+<p>以上这些容器在结束运行后就会停止, 而我们需要长时间运行的容器, 就是这个守护式容器</p>
+<p>特点:</p>
+<ul>
+<li>能够长期运行</li>
+<li>没有交互式会话</li>
+<li>适合运行应用程序和服务</li>
+</ul>
+<p>当容器<code>run</code> 之后, 通过<code>Ctrl+P+Q</code> 来退出交互式容器的 bash, 这样容器就会在后台运行.</p>
+<p>回到守护式容器:<br><code>docker attach [id/name]</code> 就能回到容器</p>
+<h3 id="通过run命令启动守护式容器"><a href="#通过run命令启动守护式容器" class="headerlink" title="通过run命令启动守护式容器"></a><strong>通过<code>run</code>命令启动守护式容器</strong></h3><p>使用参数: -d<br><code>docker run -d IMAGE COMMAND</code><br>完了会自动分配给这个容器一个 id, 即 hash 值</p>
+<h4 id="查看容器运行-log"><a href="#查看容器运行-log" class="headerlink" title="查看容器运行 log"></a><strong>查看容器运行 log</strong></h4><p>之后要查看这个容器的运行情况, 可以使用 <code>logs</code> 命令查看:<br><code>docker logs [-f] [-t] [--tail] 容器名</code><br><code>-f</code> –follows=true | false<br><code>-t</code> –timestamps=true | false<br><code>--tail</code> = ‘all’</p>
+<h4 id="查看容器内进程"><a href="#查看容器内进程" class="headerlink" title="+ 查看容器内进程"></a>+ <strong>查看容器内进程</strong></h4><p><code>docker top NAME/HASH</code></p>
+<h4 id="在运行的容器中启动新的进程"><a href="#在运行的容器中启动新的进程" class="headerlink" title="在运行的容器中启动新的进程"></a><strong>在运行的容器中启动新的进程</strong></h4><p>虽然 docker 一般一个容器只运行一个服务/进程, 但是有时候维护的时候需要启动一些如监控/监控/管理的时候, 就需要新起一些进程和服务</p>
+<h4 id="exec"><a href="#exec" class="headerlink" title="exec"></a><strong>exec</strong></h4><p><code>docker exec [-d][-i][-t] NAME/HASH [COMMAND][ARG...]</code></p>
+<h3 id="停止守护式容器"><a href="#停止守护式容器" class="headerlink" title="停止守护式容器"></a><strong>停止守护式容器</strong></h3><p><code>docker stop</code>: 只发送一个信号给 container, 等待容器的停止, 容器停止后会返回容器的名字</p>
+<p><code>docker kill</code>: 直接停止容器</p>
+<h2 id="在容器中部署静态网站"><a href="#在容器中部署静态网站" class="headerlink" title="在容器中部署静态网站"></a>在容器中部署静态网站</h2><h3 id="映射端口"><a href="#映射端口" class="headerlink" title="映射端口"></a>映射端口</h3><p>当外部的网络需要访问 container 的 web 服务时, 需要知道其端口, 机器外部的网络访问本机的端口, 本机需要通过端口的映射来讲访问传给 container.</p>
+<p><code>run [-P]/[-p]</code></p>
+<p><code>-P</code>: –publish=all, 会将容器暴露的所有端口进行映射<br><code>docker run -P -it ubuntu /bin/bash</code></p>
+<p><code>-p</code>: –publish=[], 能够指定映射哪些容器的端口</p>
+<ul>
+<li><p><code>containerPort</code>: 只指定容器的端口, 宿主机的端口是随机映射的<br><code>docker run -p 80 -it ubuntu /bin/bash</code></p>
+</li>
+<li><p><code>hostPort:containerPort</code>: 同时指定了宿主机的端口和容器端口, 成为 一一对应<br><code>docker run -p 8080:80 -it ubuntu /bin/bash</code></p>
+</li>
+<li><p><code>ip::containerPort</code>: 指定 ip 和容器的端口<br><code>docker run -p 0.0.0.0:80 -it ubuntu /bin/bash</code></p>
+</li>
+<li><p><code>ip:hostPort:containerPort</code>: ip, 宿主机端口, 容器端口同时指定<br><code>docker run -p 0.0.0.0:8080:80 -it ubuntu /bin/bash</code></p>
+</li>
+</ul>
+<h3 id="Nginx-部署流程"><a href="#Nginx-部署流程" class="headerlink" title="Nginx 部署流程"></a>Nginx 部署流程</h3><ul>
+<li>创建映射80端口的 container<ul>
+<li><code>docker run --name web -it -p 80 ubuntu /bin/bash</code></li>
+</ul>
+</li>
+<li>Install Nginx</li>
+<li>Install Vim<ul>
+<li>安装 Nginx &amp; Vim, <code>apt-get install nginx vim</code>, 没有的话需要<code>apt-get update</code>更新下</li>
+</ul>
+</li>
+<li>create static page<ul>
+<li><code>mkdir -p /var/www/html</code> -&gt; <code>vim index.html</code></li>
+</ul>
+</li>
+<li>config Nginx<ul>
+<li>找到 nginx 下 site-enabled 中的<code>default</code> 文件, 将<code>root</code> 所指修改为刚刚静态网站的位置</li>
+</ul>
+</li>
+<li>run Nginx<ul>
+<li><code>nginx</code>, 可以在容器中使用 <code>ps -ef</code>来查看进程</li>
+<li>在外部可以用<code>docker ps</code>来查看 container 状况, 可以看到映射的端口</li>
+</ul>
+</li>
+<li>verify website<ul>
+<li>可以访问查到的 host 的IP, 也可以直接通过<code>docker inspect</code>查看分配给 container 的 IP 地址访问</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>: 这种 hostPort 随机的情况下, 重新启动 container 会重新分配 IP 和端口</p>
+</blockquote>
+<h2 id="查看和删除镜像"><a href="#查看和删除镜像" class="headerlink" title="查看和删除镜像"></a>查看和删除镜像</h2><p>可以使用<code>docker info</code>来查看 docker 使用的存储驱动和存储的位置</p>
+<p>docker的镜像一般存储在<code>/var/lib/docker</code>目录下(Linux).</p>
+<h3 id="列出镜像"><a href="#列出镜像" class="headerlink" title="列出镜像"></a>列出镜像</h3><p><code>docker images</code></p>
+<h3 id="镜像标签和仓库"><a href="#镜像标签和仓库" class="headerlink" title="镜像标签和仓库"></a>镜像标签和仓库</h3><p>镜像中有 Tag, 可以标记一个镜像, 同一个镜像可以有多个 tag.<br><code>仓库名:tag</code> 构成了这个镜像完整的名字.<br>平时只使用仓库名如<code>ubuntu</code> 会默认是哟给你 tag:latest 的镜像</p>
+<h3 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h3><p><code>dokcer inspect</code><br>这个命令即可以查看容器, 也可以查看镜像</p>
+<h3 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h3><p><code>dokcer rmi</code></p>
+<p> 要删除所有镜像时, 可以使用 shell 脚本嵌套进去, 返回所有的 image ID 来删除:<br> <code>docker rmi $(docker images -a)</code></p>
+<h2 id="获取和推送镜像"><a href="#获取和推送镜像" class="headerlink" title="获取和推送镜像"></a>获取和推送镜像</h2><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><ul>
+<li><p>docker hub 官方维护镜像仓库来查找</p>
+</li>
+<li><p><code>docker search [opton] TERM</code></p>
+</li>
+</ul>
+<h3 id="拉取"><a href="#拉取" class="headerlink" title="拉取"></a>拉取</h3><p><code>docker pull [option] NAME[:TAG]</code></p>
+<h3 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h3><p><a href="https://lug.ustc.edu.cn/wiki/mirrors/help/docker" target="_blank" rel="noopener">Docker 镜像使用帮助</a></p>
+<p>因为国内的网络, 下载以及浏览会比较慢, 可以通过修改 docker 配置文件(<code>/etc/default/docker</code>)来指定源,<br>使用<code>--registry-mirror=xxxxx</code>可以指定下载的源, 这个参数是在运行时的一个选项, 要使用的话就需要修改 docker 的配置文件, 将仓库镜像的选项添加到配置文件中</p>
+<p>镜像推荐:</p>
+<ul>
+<li>daoclound.io</li>
+<li><a href="https://lug.ustc.edu.cn/wiki/mirrors/help/docker" target="_blank" rel="noopener">https://lug.ustc.edu.cn/wiki/mirrors/help/docker</a></li>
+</ul>
+<p>需要注册 -&gt; 加速器 -&gt; 生成链接, 用来配置仓库镜像地址<br>在 docker 文件末加入: <code>DOCKER_OPTS=&#39;registry-mirror=xxxxxxx&#39;</code>;</p>
+<p>也可以使用一条命令:<br><code>curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://你的的地址.m.daocloud.io</code></p>
+<p>Mac 的话直接在 GUI 设置就行了</p>
+<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><p><code>docker push Repository/ID</code></p>
+<p> 需要登录</p>
+<p>知会增量上传, 即只上传修改的部分</p>
+<h2 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h2><p>即将容器配置到合适的情况时, 添加了满足的服务, 这时可以将这个 container 构建成一个镜像, 以重复使用和分发</p>
+<ul>
+<li>保存对容器的修改, 并再次使用<ul>
+<li><code>docker commit NAME/ID ImageName</code> 通过容器构建,</li>
+<li><code>docker build</code>  通过 Dockerfile 文件配置<ul>
+<li>创建<code>Dockerfile</code> -&gt;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>自定义镜像的能力</li>
+<li>以软件的形式打包并分发服务及其运行环境</li>
+</ul>
+<h2 id="Docker-客户端和守护进程-Docker-的-C-S-模式"><a href="#Docker-客户端和守护进程-Docker-的-C-S-模式" class="headerlink" title="Docker 客户端和守护进程: Docker 的 C/S 模式"></a>Docker 客户端和守护进程: Docker 的 C/S 模式</h2><h3 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h3><h4 id="cli"><a href="#cli" class="headerlink" title="cli"></a>cli</h4><p>最常见最常用的与守护进程(docker server)通信的方式是通过shell(Docker Client), 我们市在这个 Client 中操作, 发送指令给 Server, 由这个守护进程来执行各种操作, 最后把操作结果返回</p>
+<h4 id="Remote-Api"><a href="#Remote-Api" class="headerlink" title="Remote Api"></a>Remote Api</h4><ul>
+<li>Restful api</li>
+</ul>
+<p>使用这API 的话意味着可以通过自己编写程序来调用这些 API 来与守护进程通信, 这样就能讲自己的程序与 Docker 进行集成</p>
+<ul>
+<li>支持 <code>STDIN</code>, <code>STDOUT</code>, <code>STDERR</code></li>
+</ul>
+<h3 id="链接方式"><a href="#链接方式" class="headerlink" title="链接方式"></a>链接方式</h3><p>socket 链接</p>
+<p>有三种 socket 链接方式</p>
+<ul>
+<li>unix:///var/run/docker.sock  (<strong>默认</strong>)</li>
+<li>tcp://host:port</li>
+<li>fd://socketfd</li>
+</ul>
+<p>当链接上 socket 后, 就能用 http 指令来查看相关接口</p>
+<h2 id="Docker-守护进程的配置和操作"><a href="#Docker-守护进程的配置和操作" class="headerlink" title="Docker 守护进程的配置和操作"></a>Docker 守护进程的配置和操作</h2><p>用到Linux 的 service 命令</p>
+<ul>
+<li><code>sudo service docker start</code></li>
+<li><code>sudo service docker stop</code></li>
+<li><code>sudo service docker restart</code></li>
+</ul>
+<p>当修改了配置之后, 需要重新启动  Docker 服务来使配置生效</p>
+<p>docker 服务的启动有狠毒可以配置的选项, 在配置文件中配置这些, 重启服务就能生效</p>
+<h2 id="Docker-远程访问"><a href="#Docker-远程访问" class="headerlink" title="Docker 远程访问"></a>Docker 远程访问</h2><blockquote>
+<p>Note: Client Api 版本要与 ServerApi 版本保持一致</p>
+</blockquote>
+<h3 id="操作练习"><a href="#操作练习" class="headerlink" title="操作练习"></a>操作练习</h3><ol>
+<li>另起一个 Docker 服务器(大概可以另起一个 Docker Container 就能 满足)</li>
+<li>设置不同 lable 以示区分</li>
+<li>修改 Docker 守护进程的启动选项 ( -H  配置服务使用的 socket)</li>
+<li>修改 docker 文件, 添加socket</li>
+<li>重启 docker Server</li>
+</ol>
+<p>客户端访问远程服务器</p>
+<ol>
+<li>修改客户端配置: 客户端<code>docker -H xxxx/info</code> 可以访问配置的远程服务器, 使用的socket 链接就是远程配置的</li>
+<li>使用环境变量: <code>export DOCKER_HOST=&quot;tcp://xxxx&quot;</code>, 能够像本机链接一样使用远程 docker 服务</li>
+<li>然后直接像使用本地 Client 一样<code>docker info</code> 就能访问到刚刚配置的 HOST 的机器</li>
+<li>不需要链接远程时, 只需要<code>export DOCKER_HOST=&quot;&quot;</code> 就能恢复</li>
+</ol>
+<p>在设置了远程访问的服务器上默认是不能直接使用像本地链接那样使用 docker 命令的, 我们可以配置环境变量将 HOST 指定到本地来解决, 还可以这样:</p>
+<blockquote>
+<p>在 docker 启动文件里<code>-H</code>再指定一个 socket, 就能在本地继续访问 docker 服务了</p>
+</blockquote>
+<h2 id="Dockerfile-构建镜像"><a href="#Dockerfile-构建镜像" class="headerlink" title="Dockerfile 构建镜像"></a>Dockerfile 构建镜像</h2><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># comment</span></span><br><span class="line">INSTRUCTION argument</span><br></pre></td></tr></table></figure>
+<p><strong>指令</strong></p>
+<ul>
+<li>FROM:<ul>
+<li>FROM 镜像</li>
+<li>已经存在的镜像</li>
+<li>后续指令都会基于这个镜像, 又叫做基础镜像</li>
+<li>必须是第一条非注释指令</li>
+</ul>
+</li>
+<li>MAINTAINER<ul>
+<li>指定作者信息, 包含镜像所有者的联系信息</li>
+<li><code>MAINTAINER 作者名 联系方式</code></li>
+</ul>
+</li>
+<li>RUN:<ul>
+<li>指定当前镜像中运行的指令</li>
+<li><code>RUN &lt;command&gt;</code> Shell 模式<ul>
+<li>这个模式以<code>/bin/sh -c command</code> 来执行指令</li>
+</ul>
+</li>
+<li><code>RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> exec 模式<ul>
+<li><code>RUN [&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;echo hellp&quot;]</code>  可以指定其他形式的 shell 来运行指令</li>
+</ul>
+</li>
+<li>每一个<code>RUN</code> 指令, 都会在当前镜像的上层, 创建一个新的镜像, 来运行指定的命令</li>
+</ul>
+</li>
+<li>EXPOSE<ul>
+<li><code>EXPOSE &lt;port&gt;[&lt;port&gt;]</code> 指定运行该镜像的容器使用的端口, 可以指定多个, 也可以使用多个<code>EXPOSE</code> 命令</li>
+<li>这个只是告诉容器内的应用会使用特定的端口, 但是 docker 不会默认打开这个端口, 还需要手动运行<code>docker run -p 80 -d xxxxx</code>来添加对端口的映射指令</li>
+</ul>
+</li>
+<li>CMD<ul>
+<li>不同于<code>RUN</code>, <code>RUN</code> 是在镜像构建过程中执行的, <code>CMD</code> 是在Container 运行时运行的</li>
+<li>和<code>RUN</code>的运行模式相似, 但是多了一种运行模式</li>
+<li><code>CMD [&quot;param1&quot;, &quot;param2&quot;]</code> 作为<code>ENTRYPOINT</code>命令的指定参数</li>
+<li>使用<code>docker run</code>启动容器时带的参数会覆盖<code>Dockerfile</code>中<code>CMD</code> 所指定的命令</li>
+</ul>
+</li>
+<li>ENTRYPOINT<ul>
+<li>用法同上</li>
+<li>不同: 不会被<code>docker run</code>指定的命令所覆盖</li>
+<li>需要覆盖时, 就需要在<code>docker run</code> 中指定 –entryoint 选项</li>
+</ul>
+</li>
+<li>ADD<ul>
+<li><code>ADD [&quot;&lt;src&gt;&quot;...&quot;&lt;dest&gt;&quot;]</code></li>
+<li><code>src</code> 使用构建目录中的相对地址, 或者 curl 从远程获取地址</li>
+<li><code>dest</code>  需要指定镜像中的绝对路径</li>
+<li>包含类似<code>tar</code>的解压功能</li>
+</ul>
+</li>
+<li>COPY<ul>
+<li><code>COPY [&quot;&lt;src&gt;&quot;...&quot;&lt;dest&gt;&quot;]</code></li>
+<li>同上, 只是不会解压, 单纯复制文件, 推荐使用<code>COPY</code></li>
+</ul>
+</li>
+<li>VOLUME<ul>
+<li>用来向基于镜像创建的容器添加卷, 一个卷可以存在一个或多个容器的特定目录</li>
+<li>提供共享数据和数据持久化的功能, 就可 Linux 的挂载一个卷类似</li>
+</ul>
+</li>
+<li>WORKDIR<ul>
+<li><code>/path/to/workdir</code>,  从镜像创建一个新容器时, 在容器内部设置一个工作目录, <code>ENTRYPOINT</code> 和 <code>CMD</code> 都会在这个目录下执行</li>
+<li>一般使用绝对路径, 使用相对路径的话会基于上一个<code>WORKDIR</code> 的设置一直传递下去</li>
+</ul>
+</li>
+<li>ENV<ul>
+<li>设置环境变量</li>
+</ul>
+</li>
+<li>USER<ul>
+<li>指定用户会以什么身份来运行</li>
+</ul>
+</li>
+<li>ONBUILD<ul>
+<li><code>ONBUILD [INSTRUCTION]</code> 用来为镜像添加触发器</li>
+<li>当一个镜像用作其他镜像的基础镜像时执行</li>
+<li>当子镜像在构建时, 会插入触发器中的指令<br>+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Dockerfile-的构建过程"><a href="#Dockerfile-的构建过程" class="headerlink" title="Dockerfile 的构建过程"></a>Dockerfile 的构建过程</h2><p>构建一个D DockerFile<br> 里面声明的命令的执行过程</p>
+<ol>
+<li>从基础镜像运行一个容器</li>
+<li>执行一条指令, 对容器做出修改</li>
+<li>执行类似<code>docker commit</code> 的操纵, 提交一个新的镜像层</li>
+<li>再基于刚提交的镜像运行一个新容器</li>
+<li>执行<code>DockerFile</code> 中的下一条指令,直到所有指令执行完毕</li>
+</ol>
+<p>其中, 每个镜像层执行完指令后会删除这个中间层状态的 container, 但是不会删除这个中间层状态的镜像, 也就是说我们可以通过<code>docker run</code>创建一个中间层镜像的容器, 查看每一步构建镜像的状态, 这样就能对这个构建过程进行调试</p>
+<p><strong>好处</strong>:排错</p>
+<p><strong>构建缓存</strong><br>由于 docker执行每一条指令都会构建一个镜像, 这样就能把这些镜像看做是一个缓存</p>
+<p>在运行同样的 Dockerfile 的情况下, Docker 会使用之前构建的缓存, 这样就能加快构建速度<br>但是有时候不想使用缓存时:<br><code>docker build --no-cache</code></p>
+<h3 id="查看构建镜像的过程"><a href="#查看构建镜像的过程" class="headerlink" title="查看构建镜像的过程"></a>查看构建镜像的过程</h3><p><code>docker history [image]</code>, 就能对这个镜像的构建过程的查看<br>类似就是查看构建 log</p>
+<h3 id="Dicker-Container-网络连接"><a href="#Dicker-Container-网络连接" class="headerlink" title="Dicker Container 网络连接"></a>Dicker Container 网络连接</h3><ul>
+<li>Docker Container 网络基础</li>
+<li>Container 互联</li>
+<li>Container 与外部网络连接</li>
+</ul>
+<p>使用<code>ifconfig</code> 能查看当前设备的网络设备情况, 可以看到有个<code>docker0</code>的网络设备</p>
+<p>这个就是守护进程为 Container 提供网络连接的网络服务<br>这个实际就是Linux 的虚拟网桥<br>网桥是在数据链路层上的设备, 通过 MAC 地址来区分网络</p>
+<p>Linux虚拟网桥的特点:</p>
+<ul>
+<li>可以设置 IP 地址, 其把它当做一个可以有 IP 的网络设备, 可以通过 IP 在网络层查找网桥</li>
+<li>相当一个虚拟网卡</li>
+</ul>
+<p>在 Linux 中需要用工具来查看网桥设备<code>bridge-utils</code></p>
+<p><code>brctl show</code>查看网桥设备</p>
+<p>使用 Linux 的<code>ifconfig</code>来修改<code>docker0</code>使用的网段</p>
+<p><strong>使用自己设定的虚拟网桥, 不实用 docker 默认的</strong></p>
+<ol>
+<li><p>在本机上先添加一个虚拟网桥<br><code>sudo brctl addbr br0</code><br><code>sudo ifconfig bro 192.168.6.1 netmask 255.255.255.0</code><br>这时候在运行<code>ifconfig</code> 就能看到新创建的网桥</p>
+</li>
+<li><p>更改<code>docker</code>守护进程的启动配置<br><code>/etc/default/docker</code>  中添加DOCKER_OPS值: <code>b=br0</code><br>就能使用这个新建的网桥</p>
+</li>
+</ol>
+<h2 id="容器的互联"><a href="#容器的互联" class="headerlink" title="容器的互联"></a>容器的互联</h2><ul>
+<li>Docker 默认是允许所有容器相互链接的 (<code>--icc=true</code>)<ul>
+<li>默认同一个宿主机内的容器都是可以互相链接的, 但是直接用 IP 来链接的话不可靠, 重启后 IP 就变了, 所以使用<code>--link</code>参数指定容器名字和 alias, 就能避免这种情况</li>
+<li>这个参数的意义在于, 在启动这个容器的时候, 会在环境变量中设置对于 link 的容器的 IP 地址, 兵器阿紫 host 文件中会自动对这个别名做地址映射</li>
+</ul>
+</li>
+<li>拒绝容器间的链接 (<code>--icc=false</code>)<ul>
+<li>在 docker 配置文件添加这个参数即可</li>
+</ul>
+</li>
+<li>允许特定容器间的链接<ul>
+<li><code>--icc=false --iptables=true</code></li>
+<li>在启动容器时使用 <code>--link</code> 选项</li>
+<li>利用<code>iptables</code> 中的机制, 在<code>--icc=false</code> 时阻断所有容器间的访问, 仅仅允许 <code>--link</code>配置的容器进行相互访问</li>
+</ul>
+</li>
+</ul>
+<h2 id="容器与外部网络的链接"><a href="#容器与外部网络的链接" class="headerlink" title="容器与外部网络的链接"></a>容器与外部网络的链接</h2><ul>
+<li><code>ip_forward</code><ul>
+<li>为 Linux 中的变量, 其值决定系统是否会转发流量,</li>
+<li>在 docker 守护进程的参数中, 也有这个选项, 默认值=TRUE</li>
+<li>当使用这个默认值时, docker 会在守护进程启动时, 将系统的<code>ip_forward</code>设置为<code>1</code>, 允许流量转发</li>
+<li>查看系统<code>IP_forward</code>: <code>sudo sysctl net.ipv4.conf.all.forwarding</code></li>
+</ul>
+</li>
+<li><code>iptables</code><ul>
+<li>与 Linux 集成的包过滤防火墙系统</li>
+<li>查看 <code>iptables</code>: <code>sudo iptables -t filter -L -n</code>: 不含有<code>-t</code>默认就是 <code>filter</code>表</li>
+</ul>
+</li>
+<li>允许端口映射访问<ul>
+<li>使用<code>iptables</code> 配置哪个<code>IP:端口</code>可以访问(ACCEPT)哪个<code>IP:端口</code>, 或者阻止(DROP)</li>
+</ul>
+</li>
+<li>限制 IP 容器访问<ul>
+<li><ul>
+<li>设置: <code>sudo iptables -I DOCKER -s 10.xxx.xxx.xxx -d 10.xxx.x.xx -p TCP --dport 80 -j DROP</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Docker-Container-数据管理"><a href="#Docker-Container-数据管理" class="headerlink" title="Docker Container 数据管理"></a>Docker Container 数据管理</h2><h3 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h3><p>用来数据持久化, 独立与 container 存在, 在多个 container 中共享数据</p>
+<p><img src="./FileAsset/docker/dataValume.png" alt="dataValume"></p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>container 启动时初始化, 如果 container 使用的 image 在挂载点中包含来数据, 也会在启动的时候将数据拷贝到 dataValume 中.</li>
+<li>dataValume 可以在 container之间共享和重用</li>
+<li>可以直接对 dataValume 中的数据进行修改</li>
+<li>dataValume 的变化不会影响 image 的更新</li>
+<li>dataValume 独立存在, 即使挂载 valume 的 container 已经被删除</li>
+</ul>
+<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul>
+<li>添加数据卷<br><code>sudo docker run -v [host/path/to/valume]:[container/path/to/valume]:[访问权限] -it ubuntu /bin/bash</code></li>
+</ul>
+<h4 id="是哟个-Dockerfile-创建包含-dataValume-的景象"><a href="#是哟个-Dockerfile-创建包含-dataValume-的景象" class="headerlink" title="是哟个 Dockerfile 创建包含 dataValume 的景象"></a>是哟个 Dockerfile 创建包含 dataValume 的景象</h4><p>指令: <code>VALUME[&quot;/data&quot;, &quot;/data1&quot;]</code></p>
+<p>可以指定多个 valume, 但是, 在 Dockerfile 中指定的 dataValume 在 container 创建时, 不能和 host 的文件系统的某个文件映射, 里面只声明了 container 里挂载 dataValume 的位置,<br>在 host 端, docker 会自动生成一个文件夹来挂载<br>所以, 这个 dockerfile 的方法使得 container 不能互相共享dataValume</p>
+<p>这时候需要 valume container来实现</p>
+<h4 id="数据卷容器-DataContainer"><a href="#数据卷容器-DataContainer" class="headerlink" title="数据卷容器 DataContainer"></a>数据卷容器 DataContainer</h4><blockquote>
+<p>命名的容器挂载数据卷, 其他容器通过挂载这个容器实现数据共享, 挂载数据的容器就叫做数据卷容器</p>
+</blockquote>
+<p><img src="./FileAsset/docker/valumeContainer.png" alt="valumeContainer"></p>
+<p>操作:<br>使用: <code>docker run --volumes-from [container name]</code><br>来启动一个 container 并指定一个 container 作为 volume container<br>而<code>[container name]</code> 就是已经挂载了<code>dataValume</code>的 container name</p>
+<p>在成功挂载了 volumeContainer 后, container 就能访问到这个 volumeContainer 挂载的 Volume 信息, 并且通过<code>docker inspect</code> 查看容器时, 可以看到挂载的 Volume 信息, 且当删除了 VolumeContainer 之后, 使用这个 Container 挂载的 Container 还是包邮 Volume 的配置, 即 VolumeContainer 只是当做一个配置信息的桥梁</p>
+<blockquote>
+<p>当删除 VolumeContainer 时加上来<code>-v</code> 参数的话, 会删除其挂载的 Volume, 但是, 这个 Volume 如果还有其他的 Container 在使用的话, 是不会被删除的</p>
+</blockquote>
+<h3 id="Volume-的备份和还原"><a href="#Volume-的备份和还原" class="headerlink" title="Volume 的备份和还原"></a>Volume 的备份和还原</h3><h4 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h4><p><code>docker run --volumes-from [container name] -v [${pwd}保存的目录]:[/backup 指定备份的 container 中的目录] ubantu tar cvf [/backup/backup.tar 容器中生成压缩的文件] [container data volume 压缩来源]</code></p>
+<p><img src="./FileAsset/docker/dataVolumeBackup.png" alt="dataVolumeBackup"></p>
+<h3 id="Docker-Container-跨主机链接"><a href="#Docker-Container-跨主机链接" class="headerlink" title="Docker Container 跨主机链接"></a>Docker Container 跨主机链接</h3><p><img src="./FileAsset/docker/overHostLink.png" alt="overHostLink"></p>
+<ul>
+<li>使用网桥实现<ul>
+<li>通过将 host 的网桥也与 docker 的虚拟网桥挂载, 在对外设置同一 IP段, 通过这个网桥走, 就能访问物理的 gateway</li>
+<li>优点: 配置简单, 不需要第三方软件</li>
+<li>缺点:<ul>
+<li>与主机在同一个IP段, 需要小心划分IP 地址</li>
+<li>需要有网段控制权, 生产中不易实现</li>
+<li>host 和 container 在同一地址段, 不易管理</li>
+<li>兼容性不佳</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用 Open vSwitch (虚拟交换机软件)<ul>
+<li><img src="./FileAsset/docker/ovs.png" alt="ovs"></li>
+<li>操作<ul>
+<li>建立ovs 网桥: <code>sudo ovs-vsctl add-br obr0</code></li>
+<li>添加 gre 链接: <code>sudo ovs-vsctl add-port obr0 gre0</code> -&gt; <code>sudo ovs-vsctl set interface gre0 type=gre options:remote_ip=192.xxx.xxx.xx</code></li>
+<li>配置 docker 容器虚拟网桥: <code>sudo brctl addbr br0</code> -&gt; <code>sudo ifconfig br0 192.168.1.1 netmask 255.255.255.0</code></li>
+<li>为虚拟网桥添加 ovs 接口:  -&gt; <code>sudo brctl addif br0 obr0</code> -&gt; <code>sudo brctl show</code></li>
+<li>添加不同容器网段路由表: <code>sudo ip route add 192.168.2.4/24 via 192.168.59/104 dev eth0</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>使用 weave<ul>
+<li>下载 weave, 修改下载文件夹的权限使其可运行,</li>
+<li><code>weave launch</code>: 实际上这个操作会下载一个 weave docker 镜像, 在启动 weave 时, 会在 docker 中启动一个 weave 的容器</li>
+<li>在另一台机器上: <code>weave launch [docker host&#39;s ip]</code>, 传入 IP 使两个 host 能链接在一起</li>
+<li>在 host2 上用 weave 创建一个容器<ul>
+<li><code>asd=$(weave run 192.168.1.2 -it ubuntu /bin/bash)</code>, 填入的 IP 即在启动的 container 中分配的IP, 由 weave 管理, 然后进入这个容器可以查看其网络配置</li>
+<li>在 host1 中也启动一个容器, 指定一个和在 host2中指定 IP 相同网段的 IP</li>
+<li>这样就能互联来</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+            <a href="/tags/DockerFile/" rel="tag"># DockerFile</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/PAC-Ruls/" rel="next" title="PAC_Ruls">
+                <i class="fa fa-chevron-left"></i> PAC_Ruls
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/shu-qian-tong-bu/" rel="prev" title="书签同步">
+                书签同步 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">187</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#From-Office-Document"><span class="nav-number">1.</span> <span class="nav-text">From Office Document</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Glance"><span class="nav-number">1.1.</span> <span class="nav-text">Glance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">1.2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile"><span class="nav-number">1.3.</span> <span class="nav-text">Dockerfile</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#From-Jike-com’s-Video"><span class="nav-number">2.</span> <span class="nav-text">From Jike.com’s Video</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-简介"><span class="nav-number">2.1.</span> <span class="nav-text">Docker 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-的目标"><span class="nav-number">2.1.1.</span> <span class="nav-text">Docker 的目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本组成"><span class="nav-number">2.2.</span> <span class="nav-text">基本组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#image"><span class="nav-number">2.2.1.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Container"><span class="nav-number">2.2.2.</span> <span class="nav-text">Container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Registy"><span class="nav-number">2.2.3.</span> <span class="nav-text">Registy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-的基本组成"><span class="nav-number">2.2.4.</span> <span class="nav-text">Docker 的基本组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.2.5.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器的基本操作"><span class="nav-number">2.3.</span> <span class="nav-text">容器的基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#守护式容器"><span class="nav-number">2.4.</span> <span class="nav-text">守护式容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过run命令启动守护式容器"><span class="nav-number">2.4.1.</span> <span class="nav-text">通过run命令启动守护式容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看容器运行-log"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">查看容器运行 log</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看容器内进程"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">+ 查看容器内进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在运行的容器中启动新的进程"><span class="nav-number">2.4.1.3.</span> <span class="nav-text">在运行的容器中启动新的进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exec"><span class="nav-number">2.4.1.4.</span> <span class="nav-text">exec</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止守护式容器"><span class="nav-number">2.4.2.</span> <span class="nav-text">停止守护式容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在容器中部署静态网站"><span class="nav-number">2.5.</span> <span class="nav-text">在容器中部署静态网站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射端口"><span class="nav-number">2.5.1.</span> <span class="nav-text">映射端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-部署流程"><span class="nav-number">2.5.2.</span> <span class="nav-text">Nginx 部署流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看和删除镜像"><span class="nav-number">2.6.</span> <span class="nav-text">查看和删除镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列出镜像"><span class="nav-number">2.6.1.</span> <span class="nav-text">列出镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像标签和仓库"><span class="nav-number">2.6.2.</span> <span class="nav-text">镜像标签和仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看镜像"><span class="nav-number">2.6.3.</span> <span class="nav-text">查看镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除镜像"><span class="nav-number">2.6.4.</span> <span class="nav-text">删除镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取和推送镜像"><span class="nav-number">2.7.</span> <span class="nav-text">获取和推送镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找"><span class="nav-number">2.7.1.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉取"><span class="nav-number">2.7.2.</span> <span class="nav-text">拉取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#换源"><span class="nav-number">2.7.3.</span> <span class="nav-text">换源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送"><span class="nav-number">2.7.4.</span> <span class="nav-text">推送</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建镜像"><span class="nav-number">2.8.</span> <span class="nav-text">构建镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-客户端和守护进程-Docker-的-C-S-模式"><span class="nav-number">2.9.</span> <span class="nav-text">Docker 客户端和守护进程: Docker 的 C/S 模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Client"><span class="nav-number">2.9.1.</span> <span class="nav-text">Client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cli"><span class="nav-number">2.9.1.1.</span> <span class="nav-text">cli</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Remote-Api"><span class="nav-number">2.9.1.2.</span> <span class="nav-text">Remote Api</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接方式"><span class="nav-number">2.9.2.</span> <span class="nav-text">链接方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-守护进程的配置和操作"><span class="nav-number">2.10.</span> <span class="nav-text">Docker 守护进程的配置和操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-远程访问"><span class="nav-number">2.11.</span> <span class="nav-text">Docker 远程访问</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作练习"><span class="nav-number">2.11.1.</span> <span class="nav-text">操作练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-构建镜像"><span class="nav-number">2.12.</span> <span class="nav-text">Dockerfile 构建镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-的构建过程"><span class="nav-number">2.13.</span> <span class="nav-text">Dockerfile 的构建过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看构建镜像的过程"><span class="nav-number">2.13.1.</span> <span class="nav-text">查看构建镜像的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dicker-Container-网络连接"><span class="nav-number">2.13.2.</span> <span class="nav-text">Dicker Container 网络连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器的互联"><span class="nav-number">2.14.</span> <span class="nav-text">容器的互联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器与外部网络的链接"><span class="nav-number">2.15.</span> <span class="nav-text">容器与外部网络的链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Container-数据管理"><span class="nav-number">2.16.</span> <span class="nav-text">Docker Container 数据管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据卷"><span class="nav-number">2.16.1.</span> <span class="nav-text">数据卷</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#特点"><span class="nav-number">2.16.1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作"><span class="nav-number">2.16.1.2.</span> <span class="nav-text">操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#是哟个-Dockerfile-创建包含-dataValume-的景象"><span class="nav-number">2.16.1.3.</span> <span class="nav-text">是哟个 Dockerfile 创建包含 dataValume 的景象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据卷容器-DataContainer"><span class="nav-number">2.16.1.4.</span> <span class="nav-text">数据卷容器 DataContainer</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Volume-的备份和还原"><span class="nav-number">2.16.2.</span> <span class="nav-text">Volume 的备份和还原</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#备份"><span class="nav-number">2.16.2.1.</span> <span class="nav-text">备份</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Container-跨主机链接"><span class="nav-number">2.16.3.</span> <span class="nav-text">Docker Container 跨主机链接</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/Docker/';
+          this.page.identifier = '2019/02/18/Docker/';
+          this.page.title = 'Docker';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

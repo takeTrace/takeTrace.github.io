@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,短视频,SDK,OpenCV,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="短视频类开发 SDK 备选 趣拍云官网 又拍云官网云端处理方案, 可以鉴黄 简单对视频的处理是一套 , 对人脸进行识别定位的是另一套 SCRecorder可以仿照获得类似 vine(原先国外的短视频应用) 的效果, 但是现在找到的 Demo 来说, 视频和音频的剪辑, 断点续录还没有完全一样的, 现在有两个分开的 Demo  官方SCRecorder: 有断点续录功能, 特效切换等 prankPr">
+<meta name="keywords" content="iOS,短视频,SDK,OpenCV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="短视频类开发 SDK 备选&amp;开发">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/duan-shi-pin-lei-kai-fa-SDK-bei-xuan-&-kai-fa/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="短视频类开发 SDK 备选 趣拍云官网 又拍云官网云端处理方案, 可以鉴黄 简单对视频的处理是一套 , 对人脸进行识别定位的是另一套 SCRecorder可以仿照获得类似 vine(原先国外的短视频应用) 的效果, 但是现在找到的 Demo 来说, 视频和音频的剪辑, 断点续录还没有完全一样的, 现在有两个分开的 Demo  官方SCRecorder: 有断点续录功能, 特效切换等 prankPr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T17:24:19.205Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="短视频类开发 SDK 备选&amp;开发">
+<meta name="twitter:description" content="短视频类开发 SDK 备选 趣拍云官网 又拍云官网云端处理方案, 可以鉴黄 简单对视频的处理是一套 , 对人脸进行识别定位的是另一套 SCRecorder可以仿照获得类似 vine(原先国外的短视频应用) 的效果, 但是现在找到的 Demo 来说, 视频和音频的剪辑, 断点续录还没有完全一样的, 现在有两个分开的 Demo  官方SCRecorder: 有断点续录功能, 特效切换等 prankPr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/duan-shi-pin-lei-kai-fa-SDK-bei-xuan-&-kai-fa/">
+
+
+
+
+
+  <title>短视频类开发 SDK 备选&开发 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/duan-shi-pin-lei-kai-fa-SDK-bei-xuan-&-kai-fa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">短视频类开发 SDK 备选&开发</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:33:42+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/duan-shi-pin-lei-kai-fa-SDK-bei-xuan-&-kai-fa/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/duan-shi-pin-lei-kai-fa-SDK-bei-xuan-&-kai-fa/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>短视频类开发 SDK 备选</p>
+<h1 id="趣拍云"><a href="#趣拍云" class="headerlink" title="趣拍云"></a>趣拍云</h1><p><a href="https://www.qupaicloud.com/home/download.html" target="_blank" rel="noopener">官网</a></p>
+<h1 id="又拍云"><a href="#又拍云" class="headerlink" title="又拍云"></a>又拍云</h1><p><a href="https://www.upyun.com" target="_blank" rel="noopener">官网</a><br>云端处理方案, 可以鉴黄</p>
+<p>简单对视频的处理是一套 , 对人脸进行识别定位的是另一套</p>
+<h1 id="SCRecorder"><a href="#SCRecorder" class="headerlink" title="SCRecorder"></a>SCRecorder</h1><p>可以仿照获得类似 vine(原先国外的短视频应用) 的效果, 但是现在找到的 Demo 来说, 视频和音频的剪辑, 断点续录还没有完全一样的, 现在有两个分开的 Demo</p>
+<ol>
+<li>官方SCRecorder: 有断点续录功能, 特效切换等</li>
+<li>prankPro: 一次录完, 有音效的合成</li>
+<li>NextLevel: 有 OC 版本, 这个是 Swift 版本, 但是好像没有妹夫效果, 但是在速度控制有选项</li>
+<li>也有用了 SC 之后弃用的: <a href="http://www.jianshu.com/p/bbd5f7acab6e" target="_blank" rel="noopener">参考</a><br>5.</li>
+</ol>
+<p>SCReacorder 的问题<br>录制出来拼接音频后, 发现时间轴不对, 音频比较快<br>目前打开那个 fast 什么的好像差不多了…<br>但是碰到了 crash</p>
+<p>关于合并视频和音轨时发生错位的情况, 可以发现在播放视频时前面出现一段黑屏, 但是音乐是直接出来了, 这样视频就较音乐落后了点<br>在合并时将音频的插入时间延后一点, 尅解决问题, 具体延后多少….目前就只能自测, 因为不能确切的肯定视频延后了多久.<br>原因的话目前猜想是: SCRecorder 对视频的处理问题.</p>
+<p>在使用SC 时, 设置 Fast 什么的属性时, 可以看到延后变小了, 但是还是存在一些不确定因素, 所以目前就根据结果对音频的插入时间进行处理…<br>其中的坑: CMTime, 这个是用以标识音视频这些处理的时间, 不是自然时间<br>结构其中的说明, 官方比较简陋, 查资料有:<br>CMTimeMake顧名思義就是用來建立CMTime用的,<br>但是千萬別誤會他是拿來用在一般時間用的,<br>CMTime可是專門用來表示影片時間用的類別,<br>他的用法為: CMTimeMake(time, timeScale)</p>
+<p>time指的就是時間(不是秒),<br>而時間要換算成秒就要看第二個參數timeScale了.<br>timeScale指的是1秒需要由幾個frame構成(可以視為fps),<br>因此真正要表達的時間就會是 time / timeScale 才會是秒.</p>
+<p>簡單的舉個例子:</p>
+<p>CMTimeMake(60, 30);<br>CMTimeMake(30, 15);<br>在這兩個例子中所表達在影片中的時間都皆為2秒鐘,<br>但是影隔播放速率則不同, 相差了有兩倍.</p>
+<p><a href="http://blog.riaproject.com/objective-c/1745/解釋何謂ios中的cmtimemake.html" target="_blank" rel="noopener">CMTime 参考</a><br><a href="https://depthlove.github.io/2016/03/15/CMTime-CMTimeMake-CMTimeMakeWithSeconds-in-iOS-encode/" target="_blank" rel="noopener">CMTime 参考2</a></p>
+<h1 id="人脸识别"><a href="#人脸识别" class="headerlink" title="人脸识别"></a>人脸识别</h1><h2 id="科大讯飞-免费-识别率高"><a href="#科大讯飞-免费-识别率高" class="headerlink" title="科大讯飞: 免费, 识别率高"></a>科大讯飞: 免费, 识别率高</h2><h2 id="sensetime-抖音在用的-金山里的链接-并没有找到单独的SDK"><a href="#sensetime-抖音在用的-金山里的链接-并没有找到单独的SDK" class="headerlink" title="sensetime: 抖音在用的  金山里的链接, 并没有找到单独的SDK"></a>sensetime: 抖音在用的  <a href="https://github.com/ksvc/KSYDiversityLive_iOS" target="_blank" rel="noopener">金山里的链接, 并没有找到单独的SDK</a></h2><h2 id="face-有试用-正式的appkey是按流量收费的"><a href="#face-有试用-正式的appkey是按流量收费的" class="headerlink" title="face++ : 有试用, 正式的appkey是按流量收费的"></a>face++ : 有试用, 正式的appkey是按流量收费的</h2><h2 id="CIDetector-CoreImage-中的一个类-里面有识别脸的方法-但是好像返回的脸不能转的-是返回一个CGRect矩形-比较完善的链接"><a href="#CIDetector-CoreImage-中的一个类-里面有识别脸的方法-但是好像返回的脸不能转的-是返回一个CGRect矩形-比较完善的链接" class="headerlink" title="CIDetector : CoreImage 中的一个类, 里面有识别脸的方法, 但是好像返回的脸不能转的, 是返回一个CGRect矩形 比较完善的链接"></a>CIDetector : CoreImage 中的一个类, 里面有识别脸的方法, 但是好像返回的脸不能转的, 是返回一个CGRect矩形 <a href="https://juejin.im/entry/58070829a22b9d005b62858a" target="_blank" rel="noopener">比较完善的链接</a></h2><p>大概使用到的方法(查的, 未验证)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">//识别图片:</span><br><span class="line">CIImage* ciimage = [CIImage imageWithCGImage:image.CGImage];</span><br><span class="line">NSDictionary* opts = [NSDictionary dictionaryWithObject:</span><br><span class="line">                          CIDetectorAccuracyHigh forKey:CIDetectorAccuracy];</span><br><span class="line">CIDetector* detector = [CIDetector detectorOfType:CIDetectorTypeFace</span><br><span class="line">                                              context:nil options:opts];</span><br><span class="line">NSArray* features = [detector featuresInImage:ciimage];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//标出脸部,眼睛和嘴:</span><br><span class="line">for (CIFaceFeature *faceFeature in features)&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 标出脸部</span><br><span class="line">CGFloat faceWidth = faceFeature.bounds.size.width;</span><br><span class="line">UIView* faceView = [[UIView alloc] initWithFrame:faceFeature.bounds];</span><br><span class="line">faceView.layer.borderWidth = 1;</span><br><span class="line">faceView.layer.borderColor = [[UIColor redColor] CGColor];</span><br><span class="line">[self.view addSubview:faceView];</span><br><span class="line"></span><br><span class="line">// 标出左眼</span><br><span class="line">if(faceFeature.hasLeftEyePosition) &#123;</span><br><span class="line">      UIView* leftEyeView = [[UIView alloc] initWithFrame:</span><br><span class="line">                                   CGRectMake(faceFeature.leftEyePosition.x-faceWidth*0.15,</span><br><span class="line">                                              faceFeature.leftEyePosition.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3)];</span><br><span class="line">     [leftEyeView setBackgroundColor:[[UIColor blueColor] colorWithAlphaComponent:0.3]];</span><br><span class="line">     [leftEyeView setCenter:faceFeature.leftEyePosition];</span><br><span class="line">     leftEyeView.layer.cornerRadius = faceWidth*0.15;</span><br><span class="line">     [self.view  addSubview:leftEyeView];</span><br><span class="line">&#125;</span><br><span class="line">// 标出右眼</span><br><span class="line">if(faceFeature.hasRightEyePosition) &#123;</span><br><span class="line">       UIView* leftEye = [[UIView alloc] initWithFrame:</span><br><span class="line">                               CGRectMake(faceFeature.rightEyePosition.x-faceWidth*0.15,</span><br><span class="line">                                          faceFeature.rightEyePosition.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3)];</span><br><span class="line">       [leftEye setBackgroundColor:[[UIColor blueColor] colorWithAlphaComponent:0.3]];</span><br><span class="line">       [leftEye setCenter:faceFeature.rightEyePosition];</span><br><span class="line">       leftEye.layer.cornerRadius = faceWidth*0.15;</span><br><span class="line">       [self.view  addSubview:leftEye];</span><br><span class="line">&#125;</span><br><span class="line">// 标出嘴部</span><br><span class="line">if(faceFeature.hasMouthPosition) &#123;</span><br><span class="line">    UIView* mouth = [[UIView alloc] initWithFrame:</span><br><span class="line">                             CGRectMake(faceFeature.mouthPosition.x-faceWidth*0.2,</span><br><span class="line">                                        faceFeature.mouthPosition.y-faceWidth*0.2, faceWidth*0.4, faceWidth*0.4)];</span><br><span class="line">     [mouth setBackgroundColor:[[UIColor greenColor] colorWithAlphaComponent:0.3]];</span><br><span class="line">      [mouth setCenter:faceFeature.mouthPosition];</span><br><span class="line">      mouth.layer.cornerRadius = faceWidth*0.2;</span><br><span class="line">      [self.view  addSubview:mouth];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使用openCV-培训出一个识别人脸的算法"><a href="#使用openCV-培训出一个识别人脸的算法" class="headerlink" title="使用openCV 培训出一个识别人脸的算法"></a>使用openCV 培训出一个识别人脸的算法</h1><p>OpenCV 的 API 是 C++ 的。它由不同的模块组成，这些模块中包含范围极为广泛的各种方法，从底层的图像颜色空间转换到高层的机器学习工具。<br>这篇 OpenCV 的 <a href="http://docs.opencv.org/2.4/doc/tutorials/ios/video_processing/video_processing.html#opencviosvideoprocessing" target="_blank" rel="noopener">iOS 教程</a>告诉你只要把所有用到 OpenCV 的类的文件后缀名改为 .mm 就行了，包括视图控制器类也是如此。这么干或许能行得通，却不是什么好主意。正确的方式是给所有你要在 app 中使用到的 OpenCV 功能写一层 Objective-C++ 封装。这些 Objective-C++ 封装把 OpenCV 的 C++ API 转化为安全的 Objective-C API，以方便地在所有 Objective-C 类中使用。走封装的路子，你的工程中就可以只在这些封装中调用 C++ 代码，从而避免掉很多让人头痛的问题，比如直接改文件后缀名会因为在错误的文件中引用了一个 C++ 头文件而产生难以追踪的编译错误。</p>
+<p><a href="https://www.objccn.io/issue-21-9/" target="_blank" rel="noopener">参考说明</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/短视频/" rel="tag"># 短视频</a>
+          
+            <a href="/tags/SDK/" rel="tag"># SDK</a>
+          
+            <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/on-demand-resource/" rel="next" title="on_demand_resource">
+                <i class="fa fa-chevron-left"></i> on_demand_resource
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/localized/" rel="prev" title="localized">
+                localized <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">187</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#趣拍云"><span class="nav-number">1.</span> <span class="nav-text">趣拍云</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#又拍云"><span class="nav-number">2.</span> <span class="nav-text">又拍云</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SCRecorder"><span class="nav-number">3.</span> <span class="nav-text">SCRecorder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别"><span class="nav-number">4.</span> <span class="nav-text">人脸识别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#科大讯飞-免费-识别率高"><span class="nav-number">4.1.</span> <span class="nav-text">科大讯飞: 免费, 识别率高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sensetime-抖音在用的-金山里的链接-并没有找到单独的SDK"><span class="nav-number">4.2.</span> <span class="nav-text">sensetime: 抖音在用的  金山里的链接, 并没有找到单独的SDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#face-有试用-正式的appkey是按流量收费的"><span class="nav-number">4.3.</span> <span class="nav-text">face++ : 有试用, 正式的appkey是按流量收费的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CIDetector-CoreImage-中的一个类-里面有识别脸的方法-但是好像返回的脸不能转的-是返回一个CGRect矩形-比较完善的链接"><span class="nav-number">4.4.</span> <span class="nav-text">CIDetector : CoreImage 中的一个类, 里面有识别脸的方法, 但是好像返回的脸不能转的, 是返回一个CGRect矩形 比较完善的链接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用openCV-培训出一个识别人脸的算法"><span class="nav-number">5.</span> <span class="nav-text">使用openCV 培训出一个识别人脸的算法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/duan-shi-pin-lei-kai-fa-SDK-bei-xuan-&-kai-fa/';
+          this.page.identifier = '2019/02/18/duan-shi-pin-lei-kai-fa-SDK-bei-xuan-&-kai-fa/';
+          this.page.title = '短视频类开发 SDK 备选&开发';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

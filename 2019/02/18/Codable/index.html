@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,codable,Swift4,解析响应json,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CodableCodable 在 Swift4.0 提出时带来的, 可以说是解决了一个大痛点…(虽然之前能用一些工具减轻写模板代码的痛苦)Codable 是 Decodable 和 Encodable 的结合, 支持 class, struct, enum,typealias Codable = Decodable &amp;amp; Encodable Encodableencode(to:) 解析类型">
+<meta name="keywords" content="iOS,codable,Swift4,解析响应json">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Codable">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/Codable/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="CodableCodable 在 Swift4.0 提出时带来的, 可以说是解决了一个大痛点…(虽然之前能用一些工具减轻写模板代码的痛苦)Codable 是 Decodable 和 Encodable 的结合, 支持 class, struct, enum,typealias Codable = Decodable &amp;amp; Encodable Encodableencode(to:) 解析类型">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T17:15:07.020Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Codable">
+<meta name="twitter:description" content="CodableCodable 在 Swift4.0 提出时带来的, 可以说是解决了一个大痛点…(虽然之前能用一些工具减轻写模板代码的痛苦)Codable 是 Decodable 和 Encodable 的结合, 支持 class, struct, enum,typealias Codable = Decodable &amp;amp; Encodable Encodableencode(to:) 解析类型">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/Codable/">
+
+
+
+
+
+  <title>Codable | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/Codable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Codable</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:33:35+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/Codable/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/Codable/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Codable"><a href="#Codable" class="headerlink" title="Codable"></a>Codable</h1><p><a href="https://developer.apple.com/documentation/swift/codable" target="_blank" rel="noopener">Codable</a> 在 Swift4.0 提出时带来的, 可以说是解决了一个大痛点…(虽然之前能用一些工具减轻写模板代码的痛苦)<br><strong>Codable</strong> 是 Decodable 和 Encodable 的结合, 支持 class, struct, enum,<br><code>typealias Codable = Decodable &amp; Encodable</code></p>
+<p><strong>Encodable</strong><br><code>encode(to:)</code> 解析类型的值到给定的<code>encoder</code></p>
+<p><strong>Decodable</strong><br><code>init(from:)</code> 从一个外部类型转化到内部定义的类型</p>
+<p>在开发中我们做的最多的是就是将网络请求返回的数据转化为我们的<code>modal</code>, 这里如果你定义的属性是常规的类型, 他们已经原生支持了<code>Codable</code> 协议, 所以在这里不需要特殊的处理, 只需要下面这段代码, 就能将你获取到的 json 数据转换为定义的 modal 类型</p>
+<p>Swift 已经为我们内建了一些已经实现了 Codable 的数据:<br>String, Int, Double, Data, URL</p>
+<p>同时, Array, Dictionary, Optional 如果里面的元素是符合 Codable 的类型的话, 那整个也是可以符合 Codable 的</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Swifter</span>: <span class="title">Decodable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> fullName: <span class="type">String</span></span><br><span class="line">  <span class="keyword">let</span> id: <span class="type">Int</span></span><br><span class="line">  <span class="keyword">let</span> twitter: <span class="type">URL</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> json = <span class="string">"""</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    "fullName": "Federico Zanetello",</span></span><br><span class="line"><span class="string">    "id": 123456,</span></span><br><span class="line"><span class="string">    "twitter": "http://twitter.com/zntfdr"</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">"""</span>.data(using: .utf8)!</span><br><span class="line"></span><br><span class="line"><span class="comment">// our data in native (JSON) format</span></span><br><span class="line"><span class="keyword">let</span> myStruct = <span class="keyword">try</span> <span class="type">JSONDecoder</span>().decode(<span class="type">Swifter</span>.<span class="keyword">self</span>, from: json) <span class="comment">// Decoding our data</span></span><br><span class="line"><span class="built_in">print</span>(myStruct) <span class="comment">// decoded!!!!!</span></span><br></pre></td></tr></table></figure>
+<p>这里其实 Decodable 是需要实现一个 init(from: Decoder) 的方法的. 但是我们没有写, 因为编译器会自动帮我们生成一个.</p>
+<p>而且这个 decode 支持嵌套解析, 只要属性和返回的 key 值对应, 且自定义类型也是遵守<code>Codable</code>(至少在解析方面遵守<code>Decodable</code>) 就可以自动解析了~</p>
+<h2 id="自定义解析"><a href="#自定义解析" class="headerlink" title="自定义解析"></a>自定义解析</h2><p>然而…生活仍然一如既往的不美好…</p>
+<p>有时候你需要忽略某些 key 的解析, 或者某些返回的字段和你定义的 propertyName 不一样.<br>后端返回, 很懒的有些…直接是返回数据库的字段类型回来, 不是驼峰标识, 而是有下划线的, 这与我们的编码风格就会有出入, 不处理的话, 在这一块的代码上, 就会显得很乱.</p>
+<p>这时候我们就需要自定定义一些东西, 而不是让编译器做其默认做的事情.</p>
+<h2 id="enum-CodingKeys"><a href="#enum-CodingKeys" class="headerlink" title="enum CodingKeys"></a>enum CodingKeys</h2><p>Codable 类型可以在内部声明一个名叫<code>DodingKeys</code> 的枚举, 其遵守<code>CodingKey</code>协议. 当这个枚举被定义的时候, 其中定义的 case 必须是在类中存在的.</p>
+<p>Decoder 负责处理 JOSN 和 Plist 的解析工作, 其中有两个方法</p>
+<ol>
+<li>它是一个 Raw Type – String, CodingKey</li>
+<li>case 的名字必须和 propertyName 一样</li>
+<li>在 CodingKeys 中忽略你想忽略的 property, 但是对于忽略的这个属性需要有一个默认值.</li>
+<li>如果转换时 key 和你定义的对应不上, 你可以在枚举这里指定其对应的 key.</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Photo</span>: <span class="title">Codable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//...Other properties (described in Code Snippet - 1)...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//This property is not included in the CodingKeys enum and hence will not be encoded/decoded.</span></span><br><span class="line">    <span class="keyword">var</span> format: <span class="type">String</span> = <span class="string">"png"</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> title = <span class="string">"name"</span></span><br><span class="line">        <span class="keyword">case</span> url = <span class="string">"link"</span></span><br><span class="line">        <span class="keyword">case</span> isSample</span><br><span class="line">        <span class="keyword">case</span> metaData</span><br><span class="line">        <span class="keyword">case</span> type</span><br><span class="line">        <span class="keyword">case</span> size</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">container</span>&lt;Key&gt;<span class="params">(keyedBy type: Key.<span class="keyword">Type</span>)</span></span> <span class="keyword">throws</span> -&gt; <span class="type">KeyedDecodingContainer</span>&lt;<span class="type">Key</span>&gt; <span class="keyword">where</span> <span class="type">Key</span> : <span class="type">CodingKey</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">singleValueContainer</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">SingleValueDecodingContainer</span></span><br></pre></td></tr></table></figure>
+<p>看过之前的 keynote 的话, 可以知道, 这个 Coder 包含了键值对容器: KeyedContainer, 非键值对容器: UnKeyedContainer, 还有单个值的容器: SingleValueDecodingContainer,</p>
+<p>这里我们比较需要的就是对于键值对的解析, 我们需要告诉它是什么 key.</p>
+<p>Decoder提供了基础的功能解析原始数据，自定义数据就需要我们自己来搞定。<br>KeyedDecodingContainer：我们的容器是通过键值匹配的，所以大可以看作[Key: Any]这样的字典结构。<br>不同的键对应不同的类型数据，所以容器提供的不同解码方法：decode(Type:forKey:)。<br>它的神奇之处就在于容器会自动匹配数据类型。<br>当然，解码器也提供了通用方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">decode</span>&lt;T&gt;<span class="params">(<span class="number">_</span> type: T.<span class="keyword">Type</span>, forKey key: KeyedDecodingContainer.Key)</span></span> <span class="keyword">throws</span> -&gt; <span class="type">T</span> <span class="keyword">where</span> <span class="type">T</span> : <span class="type">Decodable</span></span><br></pre></td></tr></table></figure>
+<h2 id="自定义解析的实现"><a href="#自定义解析的实现" class="headerlink" title="自定义解析的实现"></a>自定义解析的实现</h2><p>我们不想通过默认的方式去解析的话, 我们就需要自己指定解析的映射: <code>init(from: Decoder)</code>, 这个默认是在 Swift 编译器会自己实现</p>
+<ol>
+<li>选择解码器:  这里我们解析网络请求常用的是 JSON , 用 JSONDecoder. (JSON 和 Plist 解析器都是系统内置的, 有更特殊需求的可以自己实现, 步奏如下代码</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//   这里我们有数据:</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"fullName"</span>: <span class="string">"Federico Zanetello"</span>,</span><br><span class="line">    <span class="string">"id"</span>: <span class="number">123456</span>,</span><br><span class="line">    <span class="string">"twitter"</span>: <span class="string">"http://twitter.com/zntfdr"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  对应一个 model, 遵守 CodignKey 协议</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">MyStructKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> fullName = <span class="string">"fullName"</span></span><br><span class="line">  <span class="keyword">case</span> id = <span class="string">"id"</span></span><br><span class="line">  <span class="keyword">case</span> twitter = <span class="string">"twitter"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  创建一个容器</span></span><br><span class="line"><span class="keyword">let</span> container = <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">MyStructKeys</span>.<span class="keyword">self</span>)</span><br><span class="line"><span class="comment">//  提取数据</span></span><br><span class="line"><span class="comment">//  这里我们需要做类型转换：</span></span><br><span class="line"><span class="keyword">let</span> fullName: <span class="type">String</span> = <span class="keyword">try</span> container.decode(<span class="type">String</span>.<span class="keyword">self</span>, forKey: .fullName)</span><br><span class="line"><span class="keyword">let</span> id: <span class="type">Int</span> = <span class="keyword">try</span> container.decode(<span class="type">Int</span>.<span class="keyword">self</span>, forKey: .id)</span><br><span class="line"><span class="keyword">let</span> twitter: <span class="type">URL</span> = <span class="keyword">try</span> container.decode(<span class="type">URL</span>.<span class="keyword">self</span>, forKey: .twitter)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第四步：初始化</span></span><br><span class="line"><span class="comment">// 使用默认的构造器</span></span><br><span class="line"><span class="keyword">let</span> myStruct = <span class="type">Swifter</span>(fullName: fullName, id: id, twitter: twitter)</span><br></pre></td></tr></table></figure>
+<p>现在我们就来看看全部实现</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Swifter</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> fullName: <span class="type">String</span></span><br><span class="line">  <span class="keyword">let</span> id: <span class="type">Int</span></span><br><span class="line">  <span class="keyword">let</span> twitter: <span class="type">URL</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(fullName: <span class="type">String</span>, id: <span class="type">Int</span>, twitter: <span class="type">URL</span>) &#123; <span class="comment">// default struct initializer</span></span><br><span class="line">    <span class="keyword">self</span>.fullName = fullName</span><br><span class="line">    <span class="keyword">self</span>.id = id</span><br><span class="line">    <span class="keyword">self</span>.twitter = twitter</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Swifter</span>: <span class="title">Decodable</span> </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">enum</span> <span class="title">MyStructKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span> </span>&#123; <span class="comment">// declaring our keys</span></span><br><span class="line">    <span class="keyword">case</span> fullName = <span class="string">"fullName"</span></span><br><span class="line">    <span class="keyword">case</span> id = <span class="string">"id"</span></span><br><span class="line">    <span class="keyword">case</span> twitter = <span class="string">"twitter"</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(from decoder: <span class="type">Decoder</span>) <span class="keyword">throws</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> container = <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">MyStructKeys</span>.<span class="keyword">self</span>) <span class="comment">// defining our (keyed) container</span></span><br><span class="line">    <span class="keyword">let</span> fullName: <span class="type">String</span> = <span class="keyword">try</span> container.decode(<span class="type">String</span>.<span class="keyword">self</span>, forKey: .fullName) <span class="comment">// extracting the data</span></span><br><span class="line">    <span class="keyword">let</span> id: <span class="type">Int</span> = <span class="keyword">try</span> container.decode(<span class="type">Int</span>.<span class="keyword">self</span>, forKey: .id) <span class="comment">// extracting the data</span></span><br><span class="line">    <span class="keyword">let</span> twitter: <span class="type">URL</span> = <span class="keyword">try</span> container.decode(<span class="type">URL</span>.<span class="keyword">self</span>, forKey: .twitter) <span class="comment">// extracting the data</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.<span class="keyword">init</span>(fullName: fullName, id: id, twitter: twitter) <span class="comment">// initializing our struct</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> json = <span class="string">"""</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    "fullName": "Federico Zanetello",</span></span><br><span class="line"><span class="string">    "id": 123456,</span></span><br><span class="line"><span class="string">    "twitter": "http://twitter.com/zntfdr"</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">"""</span>.data(using: .utf8)! <span class="comment">// our native (JSON) data</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myStruct = <span class="keyword">try</span> <span class="type">JSONDecoder</span>().decode(<span class="type">Swifter</span>.<span class="keyword">self</span>, from: json) <span class="comment">// decoding our data</span></span><br><span class="line"><span class="built_in">print</span>(myStruct) <span class="comment">// decoded!</span></span><br></pre></td></tr></table></figure>
+<p>注意在这里, 对于遵守 Codable 的继承, 其子类并不能直接正确解析出想要的效果, 还需要进行自定义编解码的处理</p>
+<p>还有一种是, 你定义的类型的结构, 和返回的结构不一样, 但是你不变结构,  对其进行适配. 同样的我们需要自己实现这两个协议中的方法. 而且对 CodingKeys 做一些改变:</p>
+<p>如我们原来有这么个 struct</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Photo</span>: <span class="title">Codable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> title: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> size: <span class="type">Size</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> title = <span class="string">"name"</span></span><br><span class="line">        <span class="keyword">case</span> size</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Size</span>: <span class="title">Codable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> width: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">var</span> height: <span class="type">Double</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本来结构都对应上了的话, 我们可以直接转化, 不用多谢代码的. 但是现在我们的返回变成了这样:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"title"</span>:<span class="string">"Apple"</span>,</span><br><span class="line">    <span class="attr">"width"</span>:<span class="number">150</span>,</span><br><span class="line">    <span class="attr">"height"</span>:<span class="number">150</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时候, 我们:</p>
+<ol>
+<li>用 width 和 height 替换 size</li>
+<li>移除 Photo 后的 Codalble 协议</li>
+<li>单独创建 extension 实现 Encodable 和 Codable</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Photo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> title: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> size: <span class="type">Size</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> title = <span class="string">"name"</span></span><br><span class="line">        <span class="keyword">case</span> width</span><br><span class="line">        <span class="keyword">case</span> height</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Photo</span>: <span class="title">Encodable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encode</span><span class="params">(to encoder: Encoder)</span></span> <span class="keyword">throws</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> container = encoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>)</span><br><span class="line">        <span class="keyword">try</span> container.encode(title, forKey: .title)</span><br><span class="line">        <span class="keyword">try</span> container.encode(size.width, forKey: .width)</span><br><span class="line">        <span class="keyword">try</span> container.encode(size.height, forKey: .height)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Photo</span>: <span class="title">Decodable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">init</span>(from decoder: <span class="type">Decoder</span>) <span class="keyword">throws</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">let</span> values = <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>)</span><br><span class="line">        title = <span class="keyword">try</span> values.decode(<span class="type">String</span>.<span class="keyword">self</span>, forKey: .title)</span><br><span class="line">        <span class="keyword">let</span> width = <span class="keyword">try</span> values.decode(<span class="type">Double</span>.<span class="keyword">self</span>, forKey: .width)</span><br><span class="line">        <span class="keyword">let</span> height = <span class="keyword">try</span> values.decode(<span class="type">Double</span>.<span class="keyword">self</span>, forKey: .height)</span><br><span class="line">        size = <span class="type">Size</span>(width: width, height: height)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="语法上的局限"><a href="#语法上的局限" class="headerlink" title="语法上的局限"></a>语法上的局限</h2><ul>
+<li>不能在 extension 上直接声明 一个组合类型的协议如: Codable</li>
+<li>只能使用一个具体类型来进行 encode &amp; decode, 不能使用一个抽象类型或者协议什么的..(Codable 是一个 alias, 它并不会生成一个类型来指定你的使用. 但是可以在进行一个封装, 使用泛型来限定好类型. <a href="https://stackoverflow.com/questions/46564650/how-to-define-variable-with-type-of-codable/46580238#46580238" target="_blank" rel="noopener">参考</a>)</li>
+</ul>
+<h2 id="对于代码生成和-protocol-的结合"><a href="#对于代码生成和-protocol-的结合" class="headerlink" title="对于代码生成和 protocol 的结合"></a>对于代码生成和 protocol 的结合</h2><p>比如上面的例子, 当我们不override init 函数时, 编译器会自动帮我们实现一个, 并且带有默认的行为. 但是有时候, 他的默认行为不符合我们的要求, 但是又不想去 override 这个的时候, 在 OC, 我们可以通过 runtime 使用 swizzle 方法来混淆这个操作, 但在 Swift, 使用 runtime 是很有限的. 我们需要想一个符合 Swift 特性的方法去实现这个不 override init 而达成我们的目标.</p>
+<p>比如说, init(from:) 里, 默认会将 decoder 创建的 container 去调用其  <code>decodeIfPresent(_ type: Int.Type, forKey key: CodingKey) -&gt; Int?</code>这个函数, 其不符合我们的需求的地方就在这里, 那我们就重写这个函数. 在 Swift 的函数调用规则里, 在 Module 下的函数会优先被调用, 这样, 我们就通过在本文件声明 extension 并重新实现这个函数, 那么这里调用的就会是我们实现的函数. 如果不想被外界使用, 还能将其声明为 fileprivate, 这样其他文件也不会被干扰到了.</p>
+<blockquote>
+<p>ref: <a href="https://kemchenj.github.io/2018-07-09/#more" target="_blank" rel="noopener">或许你并不需要重写 init(from:) 方法</a></p>
+</blockquote>
+<p>ref:<br><a href="https://hackernoon.com/everything-about-codable-in-swift-4-97d0e18a2999" target="_blank" rel="noopener">Everything about Codable in Swift 4</a><br><a href="http://www.rockerhx.com/2017/09/25/2017-09-25-Swift4-Codable-Basic/" target="_blank" rel="noopener">Swift4 终极解析方案：基础篇</a></p>
+<p><a href="https://benscheirman.com/2017/06/swift-json/" target="_blank" rel="noopener">Ultimate Guide to JSON Parsing with Swift 4</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/codable/" rel="tag"># codable</a>
+          
+            <a href="/tags/Swift4/" rel="tag"># Swift4</a>
+          
+            <a href="/tags/解析响应json/" rel="tag"># 解析响应json</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/Hashable-Equatable/" rel="next" title="Hashable_Equatable">
+                <i class="fa fa-chevron-left"></i> Hashable_Equatable
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/functional-swift/" rel="prev" title="functional-swift">
+                functional-swift <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">187</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Codable"><span class="nav-number">1.</span> <span class="nav-text">Codable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义解析"><span class="nav-number">1.1.</span> <span class="nav-text">自定义解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#enum-CodingKeys"><span class="nav-number">1.2.</span> <span class="nav-text">enum CodingKeys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器"><span class="nav-number">1.3.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义解析的实现"><span class="nav-number">1.4.</span> <span class="nav-text">自定义解析的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法上的局限"><span class="nav-number">1.5.</span> <span class="nav-text">语法上的局限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于代码生成和-protocol-的结合"><span class="nav-number">1.6.</span> <span class="nav-text">对于代码生成和 protocol 的结合</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/Codable/';
+          this.page.identifier = '2019/02/18/Codable/';
+          this.page.title = 'Codable';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

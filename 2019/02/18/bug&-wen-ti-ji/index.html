@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,bug,线程,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="bug &amp;amp; 问题集 多线程引发的安全问题当有多条线程同时操作一个数据的时候, 会引发数据安全的问题     同一时间(CPU 上如 A 比较块一点), A读取了数据 data, 迟一点, B 也读取了, 然后 A 改动后写回去, 迟一点, B 也改动了写回去, 最终只有 B 操作的结果有效, A 就白操作了, 数据就不对了  方法: 给数据加锁, 当 A 读取时, 先加一把锁, 再读取,">
+<meta name="keywords" content="iOS,bug,线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bug &amp; 问题集">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/bug&-wen-ti-ji/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="bug &amp;amp; 问题集 多线程引发的安全问题当有多条线程同时操作一个数据的时候, 会引发数据安全的问题     同一时间(CPU 上如 A 比较块一点), A读取了数据 data, 迟一点, B 也读取了, 然后 A 改动后写回去, 迟一点, B 也改动了写回去, 最终只有 B 操作的结果有效, A 就白操作了, 数据就不对了  方法: 给数据加锁, 当 A 读取时, 先加一把锁, 再读取,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T17:11:25.068Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bug &amp; 问题集">
+<meta name="twitter:description" content="bug &amp;amp; 问题集 多线程引发的安全问题当有多条线程同时操作一个数据的时候, 会引发数据安全的问题     同一时间(CPU 上如 A 比较块一点), A读取了数据 data, 迟一点, B 也读取了, 然后 A 改动后写回去, 迟一点, B 也改动了写回去, 最终只有 B 操作的结果有效, A 就白操作了, 数据就不对了  方法: 给数据加锁, 当 A 读取时, 先加一把锁, 再读取,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/bug&-wen-ti-ji/">
+
+
+
+
+
+  <title>bug & 问题集 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/bug&-wen-ti-ji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">bug & 问题集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:32:37+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/bug&-wen-ti-ji/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/bug&-wen-ti-ji/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>bug &amp; 问题集</p>
+<h3 id="多线程引发的安全问题"><a href="#多线程引发的安全问题" class="headerlink" title="多线程引发的安全问题"></a>多线程引发的安全问题</h3><pre><code>当有多条线程同时操作一个数据的时候, 会引发数据安全的问题
+    同一时间(CPU 上如 A 比较块一点), A读取了数据 data, 迟一点, B 也读取了, 然后 A 改动后写回去, 迟一点, B 也改动了写回去, 最终只有 B 操作的结果有效, A 就白操作了, 数据就不对了
+
+方法: 给数据加锁, 当 A 读取时, 先加一把锁, 再读取, 加锁的数据同一时间只能有一个线程读取, 只有线程对数据解锁后, 其他的线程才能操作读取这个数据. 这就相当于是串行了, 但是并行会有问题, 没办法
+
+买票的例子 :
+    多条线程同时操作同一个方法, 操作同一个数据, 没加锁, 在 CPU 调度的时候修改同一个数据会以最后一个结果为准, 显示出来就是几个结果都是一样的
+
+    在 OC 中锁是锁代码, 在同一时间只能有一个线程执行某段代码,  代码中有执行操作数据, 所以同一时间只有一个线程操作数据        给代码加锁, 只能是用同一把锁, 这样在其他线程访问的时候才能知道这把锁有没有上锁, 如果没词都新建锁, 没次都是不上锁.
+        加锁:
+            NSLock tryLock   |  Lock    -------   太繁琐, 不建议
+            @synchronized(锁对象) {   需要上锁的代码   }    ------   任何一个对象都可以是锁对象, 而一般本控制器就只有一个, 所以一般用 self 就好
+            设置优先级: 优先级高的会比较大概率被 CPU 调度
+
+        加锁的优点: 能有效防止多线程抢占资源造成的数据安全问题
+                缺点: 需要消耗大量的 CPU 资源
+                            上锁需要记录状态, , 其他等待的线程也需要消耗资源
+                    多条线程抢夺同一资源时才要加锁, 不要乱加
+
+    线程同步: 多条线程按顺序的执行任务
+        线程同步方案: 加锁
+</code></pre><h3 id="创建了一个控件，就是看不见"><a href="#创建了一个控件，就是看不见" class="headerlink" title="创建了一个控件，就是看不见"></a>创建了一个控件，就是看不见</h3><p> 1.当前控件没有添加到父控件中<br> 2.当前控件的hidden = YES<br> 3.当前控件的alpha \&lt;= 0.01<br> 4.没有设置尺寸（frame.size、bounds.size）<br> 5.位置不对（当前控件显示到窗口以外的区域）<br> 6.背景色是clearColor<br> 7.当前控件被其他可见的控件挡住了<br> 8.当前控件是个显示图片的控件（没有设置图片\图片不存在，比如UIImageView）<br> 9.当前控件是个显示文字的控件（没有设置文字\文字颜色跟后面的背景色一样，比如UILabel、UIButton）<br> 10.检查父控件的前9种情况</p>
+<p> 一个控件能看见，但是点击后没有任何反应：<br> 1.当前控件的userInteractionEnabled = NO<br> 2.当前控件的enabled = NO<br> 3.当前控件不在父控件的边框范围内<br> 4.当前控件被一个背景色是clearColor的控件挡住了<br> 5.检查父控件的前4种情况<br> 6.。。。。。。</p>
+<p> 文本输入框没有在主窗口上：文本输入框的文字无法输入</p>
+<h1 id="warning-Note-注意-注意-在设置-center-之前-需要先设置好-size-不然-center-没有参照-会设定为原点"><a href="#warning-Note-注意-注意-在设置-center-之前-需要先设置好-size-不然-center-没有参照-会设定为原点" class="headerlink" title="warning Note: 注意!!!注意!!!!, 在设置 center 之前!!需要先设置好 size!! 不然 center 没有参照, 会设定为原点!!!"></a>warning Note: 注意!!!注意!!!!, 在设置 center 之前!!需要先设置好 size!! 不然 center 没有参照, 会设定为原点!!!</h1><h2 id="loadMoreData-好像有点问题………使用了不可变数组的方法-返回了不可变数组实例-实际上已经不是可变数组了-报错找不到方法"><a href="#loadMoreData-好像有点问题………使用了不可变数组的方法-返回了不可变数组实例-实际上已经不是可变数组了-报错找不到方法" class="headerlink" title="loadMoreData 好像有点问题………使用了不可变数组的方法, 返回了不可变数组实例, 实际上已经不是可变数组了, 报错找不到方法"></a>loadMoreData 好像有点问题………使用了不可变数组的方法, 返回了不可变数组实例, 实际上已经不是可变数组了, 报错找不到方法</h2><h1 id="bug-登录时弹窗不退出-在加载页面的时候有加载两次…-准备-运行程序-跟踪断点"><a href="#bug-登录时弹窗不退出-在加载页面的时候有加载两次…-准备-运行程序-跟踪断点" class="headerlink" title="bug: 登录时弹窗不退出, 在加载页面的时候有加载两次….准备:运行程序, 跟踪断点"></a>bug: 登录时弹窗不退出, 在加载页面的时候有加载两次….准备:运行程序, 跟踪断点</h1><pre><code>解决: 在认证成功时hide
+原因: 点击登录后还会加载某个网页, 加载授权页面的默认页
+</code></pre><h1 id="bug-获取用户名设置后会显示了名字-但是按钮的大小没有及时改变-要重新打开才行"><a href="#bug-获取用户名设置后会显示了名字-但是按钮的大小没有及时改变-要重新打开才行" class="headerlink" title="bug: 获取用户名设置后会显示了名字, 但是按钮的大小没有及时改变, 要重新打开才行"></a>bug: 获取用户名设置后会显示了名字, 但是按钮的大小没有及时改变, 要重新打开才行</h1><pre><code>暂时解决: 在获取名字的时候不直接设置 titleView, 而是重新调用 configNav 方法
+</code></pre><h1 id="bug-请求失败-Error-Domain-com-alamofire-error-serialization-response-Code-1011-“Request-failed-method-not-allowed-405-”-—-请求方式错误-应该是-POsT"><a href="#bug-请求失败-Error-Domain-com-alamofire-error-serialization-response-Code-1011-“Request-failed-method-not-allowed-405-”-—-请求方式错误-应该是-POsT" class="headerlink" title="bug: 请求失败: Error Domain=com.alamofire.error.serialization.response Code=-1011 “Request failed: method not allowed (405)” — 请求方式错误, 应该是 POsT"></a>bug: 请求失败: Error Domain=com.alamofire.error.serialization.response Code=-1011 “Request failed: method not allowed (405)” — 请求方式错误, 应该是 POsT</h1><h1 id="bug-请求成功后获取用户信息失败-原因-读取保存的用户信息时获取到-expire-end-nil-—在归档时只设置了通过字典保存时才计算-end-的值"><a href="#bug-请求成功后获取用户信息失败-原因-读取保存的用户信息时获取到-expire-end-nil-—在归档时只设置了通过字典保存时才计算-end-的值" class="headerlink" title="bug: 请求成功后获取用户信息失败: 原因: 读取保存的用户信息时获取到 expire_end = nil; —在归档时只设置了通过字典保存时才计算 end 的值"></a>bug: 请求成功后获取用户信息失败: 原因: 读取保存的用户信息时获取到 expire_end = nil; —在归档时只设置了通过字典保存时才计算 end 的值</h1><p>解决: 重写 in 的 set 方法, 在设置 in 的时候就计算并设置好 end</p>
+<h2 id="bug-在重新打开应用后表情键盘添加到最近不能判断出原来已经有了"><a href="#bug-在重新打开应用后表情键盘添加到最近不能判断出原来已经有了" class="headerlink" title="bug: 在重新打开应用后表情键盘添加到最近不能判断出原来已经有了,"></a>bug: 在重新打开应用后表情键盘添加到最近不能判断出原来已经有了,</h2><pre><code>---- 添加的时候判断手否存在时是靠传入对象的-isEqual 方法, 逐个传入自己数组中的每个元素进行内存地址判断,一样的就返回 yes, 但是重新打开后是不一样的地址.
+重写-(BOOL)isequal:方法, 其中判断改为判断 png 或者 code
+</code></pre><h2 id="bug-在没有键盘时点击表情按钮键盘出来-再拖拽文本框键盘下去-但是-toolBar-没有跟着下去"><a href="#bug-在没有键盘时点击表情按钮键盘出来-再拖拽文本框键盘下去-但是-toolBar-没有跟着下去" class="headerlink" title="bug: 在没有键盘时点击表情按钮键盘出来, 再拖拽文本框键盘下去,但是 toolBar 没有跟着下去"></a>bug: 在没有键盘时点击表情按钮键盘出来, 再拖拽文本框键盘下去,但是 toolBar 没有跟着下去</h2><pre><code>--- 在按钮点击那一刻 isChanging = yes -&gt; 退出第一相应者 -&gt; 因为还没有键盘不会发 hide 通知 -&gt; changing=No 不能调用, -&gt; 代码过不到收回 toolbar 那里,
+    ---- 应该把 changing = NO 卸载退出第一响应者后, 不管能不能收起键盘, 操作完成后都回复 changing 状态
+</code></pre><h2 id="小问题-实时刷新的话-popView-还在显示本来-emotionView-时那个就跳到前面去了-应该等-popView-消失时在刷新"><a href="#小问题-实时刷新的话-popView-还在显示本来-emotionView-时那个就跳到前面去了-应该等-popView-消失时在刷新" class="headerlink" title="小问题, 实时刷新的话, popView 还在显示本来 emotionView 时那个就跳到前面去了, 应该等 popView 消失时在刷新"></a>小问题, 实时刷新的话, popView 还在显示本来 emotionView 时那个就跳到前面去了, 应该等 popView 消失时在刷新</h2><h1 id="bug-当收到的-emoji-中有不能识别的-emoji-时-同时还带有中文紧贴着-如😍✌🏻️✨在-xcode-中和在这里显示不了那个未识别的字符-隐藏了-调用-boude…计算-rect-时-会报错访问坏内存-和中文隔空格-或在未识别的-emoji-前或后隔空格-可以正确通过-本身打印没问题-主要是调用方法上有问题"><a href="#bug-当收到的-emoji-中有不能识别的-emoji-时-同时还带有中文紧贴着-如😍✌🏻️✨在-xcode-中和在这里显示不了那个未识别的字符-隐藏了-调用-boude…计算-rect-时-会报错访问坏内存-和中文隔空格-或在未识别的-emoji-前或后隔空格-可以正确通过-本身打印没问题-主要是调用方法上有问题" class="headerlink" title="bug: 当收到的 emoji 中有不能识别的 emoji 时, 同时还带有中文紧贴着,如😍✌🏻️✨在 xcode 中和在这里显示不了那个未识别的字符,隐藏了, 调用 boude…计算 rect 时,会报错访问坏内存. 和中文隔空格,或在未识别的 emoji 前或后隔空格,可以正确通过, 本身打印没问题,主要是调用方法上有问题"></a>bug: 当收到的 emoji 中有不能识别的 emoji 时, 同时还带有中文紧贴着,如😍✌🏻️✨在 xcode 中和在这里显示不了那个未识别的字符,隐藏了, 调用 boude…计算 rect 时,会报错访问坏内存. 和中文隔空格,或在未识别的 emoji 前或后隔空格,可以正确通过, 本身打印没问题,主要是调用方法上有问题</h1><p>估计是在 xcode 的编码中的设置问题. 或者是NSString 在转码的时侯和调用 bounds…的时候有点问题</p>
+<h2 id="小问题-长按最近表情-会有隐藏的表情弹出来-—-长按后的判断条件加一个非隐藏才做反应"><a href="#小问题-长按最近表情-会有隐藏的表情弹出来-—-长按后的判断条件加一个非隐藏才做反应" class="headerlink" title="小问题: 长按最近表情, 会有隐藏的表情弹出来: —- 长按后的判断条件加一个非隐藏才做反应"></a>小问题: 长按最近表情, 会有隐藏的表情弹出来: —- 长按后的判断条件加一个非隐藏才做反应</h2><h1 id="bug-url-的匹配不正确-当-url-后面跟着字词之后不会隔开-会被误视为-URL-的一部分—-找另一个正则来替代"><a href="#bug-url-的匹配不正确-当-url-后面跟着字词之后不会隔开-会被误视为-URL-的一部分—-找另一个正则来替代" class="headerlink" title="bug: url 的匹配不正确, 当 url 后面跟着字词之后不会隔开, 会被误视为 URL 的一部分— 找另一个正则来替代"></a>bug: url 的匹配不正确, 当 url 后面跟着字词之后不会隔开, 会被误视为 URL 的一部分— 找另一个正则来替代</h1><p>会默认拒绝自认证的链接, 导致微博项目不能访问授权页面, 在info.plist中加入:</p>
+<p><key>NSAppTransportSecurity</key></p>
+<p><dict><br>    <key>NSAllowsArbitraryLoads</key><br>    <true><br></true></dict><br>或者想添加例外或者更多连接网络方面: <a href="http://stackoverflow.com/questions/31216758/how-can-i-add-nsapptransportsecurity-to-my-info-plist-file/31629980#31629980" target="_blank" rel="noopener">http://stackoverflow.com/questions/31216758/how-can-i-add-nsapptransportsecurity-to-my-info-plist-file/31629980#31629980</a></p>
+<h1 id="bug-排序查询错误-desc-asc排序要在查完表后首先做-然后才是where来筛选"><a href="#bug-排序查询错误-desc-asc排序要在查完表后首先做-然后才是where来筛选" class="headerlink" title="bug: 排序查询错误: desc asc排序要在查完表后首先做, 然后才是where来筛选"></a>bug: 排序查询错误: desc asc排序要在查完表后首先做, 然后才是where来筛选</h1><h1 id="bug-CUICatalog-Invalid-asset-name-supplied-null-or-invalid-scale-factor-2-000000-—–-This-one-appears-when-someone-is-trying-to-put-nil-eventually-in-UIImage-imageNamed-给UIImage-imageNamed-nil-传nil的话就会这样…-要判断一下"><a href="#bug-CUICatalog-Invalid-asset-name-supplied-null-or-invalid-scale-factor-2-000000-—–-This-one-appears-when-someone-is-trying-to-put-nil-eventually-in-UIImage-imageNamed-给UIImage-imageNamed-nil-传nil的话就会这样…-要判断一下" class="headerlink" title="bug: CUICatalog: Invalid asset name supplied: (null), or invalid scale factor: 2.000000 —– This one appears when someone is trying to put nil eventually in [UIImage imageNamed:] 给UIImage imageNamed:nil]传nil的话就会这样….要判断一下"></a>bug: CUICatalog: Invalid asset name supplied: (null), or invalid scale factor: 2.000000 —– This one appears when someone is trying to put nil eventually in [UIImage imageNamed:] 给UIImage imageNamed:nil]传nil的话就会这样….要判断一下</h1><h1 id="bug-当transform的时候-有时候直接make-a-b-c-d-不一定好使-在相同参数的情况下-分步来做的结果不一样"><a href="#bug-当transform的时候-有时候直接make-a-b-c-d-不一定好使-在相同参数的情况下-分步来做的结果不一样" class="headerlink" title="bug: 当transform的时候, 有时候直接make(a,b,c,d)不一定好使, 在相同参数的情况下, 分步来做的结果不一样,"></a>bug: 当transform的时候, 有时候直接make(a,b,c,d)不一定好使, 在相同参数的情况下, 分步来做的结果不一样,</h1><pre><code>    showView.transform = CGAffineTransformMake(scale, 0, 0, scale, -kRightMenuW*scale, 0);
+    上面这句就和下面的分步结果不一样
+CGAffineTransform scaleForm = CGAffineTransformMakeScale(scale, scale);
+// 平移
+CGAffineTransform translateForm = CGAffineTransformTranslate(scaleForm, -transX / scale, 0);
+
+showView.transform = translateForm;
+</code></pre><h1 id="bug-在自定义view的时候-void-layoutSubviews中设置self-frame中的属性-会死循环…-YCRightMenuMidView的时候-其他的倒是不会-应该用了enumerateObjectsUsingBlock-YCRightMenuMidViewRow-row-NSUInteger-idx-BOOL-stop-的原因-改成for循环问题解决"><a href="#bug-在自定义view的时候-void-layoutSubviews中设置self-frame中的属性-会死循环…-YCRightMenuMidView的时候-其他的倒是不会-应该用了enumerateObjectsUsingBlock-YCRightMenuMidViewRow-row-NSUInteger-idx-BOOL-stop-的原因-改成for循环问题解决" class="headerlink" title="bug: 在自定义view的时候, - (void)layoutSubviews中设置self.frame中的属性, 会死循环….YCRightMenuMidView的时候, 其他的倒是不会, 应该用了enumerateObjectsUsingBlock:^(YCRightMenuMidViewRow row, NSUInteger idx, BOOL stop) 的原因, 改成for循环问题解决"></a>bug: 在自定义view的时候, - (void)layoutSubviews中设置self.frame中的属性, 会死循环….YCRightMenuMidView的时候, 其他的倒是不会, 应该用了enumerateObjectsUsingBlock:^(YCRightMenuMidViewRow <em>row, NSUInteger idx, BOOL </em>stop) 的原因, 改成for循环问题解决</h1><h2 id="发现-当操作到子控件时-会调用到自身的laypoutSubViews方法-如果在reloadData里没有操作子控件-要手动调用-不然reloaddata算出各frame后-没有判断子控件的-位置来加载-也是没有反应的"><a href="#发现-当操作到子控件时-会调用到自身的laypoutSubViews方法-如果在reloadData里没有操作子控件-要手动调用-不然reloaddata算出各frame后-没有判断子控件的-位置来加载-也是没有反应的" class="headerlink" title="发现: 当操作到子控件时, 会调用到自身的laypoutSubViews方法, 如果在reloadData里没有操作子控件, 要手动调用, 不然reloaddata算出各frame后, 没有判断子控件的 位置来加载, 也是没有反应的."></a>发现: 当操作到子控件时, 会调用到自身的laypoutSubViews方法, 如果在reloadData里没有操作子控件, 要手动调用, 不然reloaddata算出各frame后, 没有判断子控件的 位置来加载, 也是没有反应的.</h2><h1 id="bug-NSArrayI-removeFromSuperview-unrecognized-selector-sent-to-instance-0x10a50f150’"><a href="#bug-NSArrayI-removeFromSuperview-unrecognized-selector-sent-to-instance-0x10a50f150’" class="headerlink" title="bug: -[NSArrayI removeFromSuperview]: unrecognized selector sent to instance 0x10a50f150’"></a>bug: -[NSArrayI removeFromSuperview]: unrecognized selector sent to instance 0x10a50f150’</h1><pre><code>    //  makeObjectsPerformSelector:@selector(removeFromSuperview) 让数组里的对象执行方法
+//  performSelector: 自己执行方法
+</code></pre><h1 id="bug-cell-不能按照-xib-的尺寸显示-在-collectionView-的-cell-的大小设置处要设置-不然会按照这里的在拿到-cell-的时候系统自动会设置一次"><a href="#bug-cell-不能按照-xib-的尺寸显示-在-collectionView-的-cell-的大小设置处要设置-不然会按照这里的在拿到-cell-的时候系统自动会设置一次" class="headerlink" title="bug: cell 不能按照 xib 的尺寸显示: 在 collectionView 的 cell 的大小设置处要设置, 不然会按照这里的在拿到 cell 的时候系统自动会设置一次"></a>bug: cell 不能按照 xib 的尺寸显示: 在 collectionView 的 cell 的大小设置处要设置, 不然会按照这里的在拿到 cell 的时候系统自动会设置一次</h1><h1 id="bug-void-collectionView-UICollectionView-collectionViewdidEndDisplayingCell-UICollectionViewCell-cell-forItemAtIndexPath-NSIndexPath-indexPath-不要在这里监听-当滚动时有可能会左右摆动-造成数据不准-重复-形成黑屏"><a href="#bug-void-collectionView-UICollectionView-collectionViewdidEndDisplayingCell-UICollectionViewCell-cell-forItemAtIndexPath-NSIndexPath-indexPath-不要在这里监听-当滚动时有可能会左右摆动-造成数据不准-重复-形成黑屏" class="headerlink" title="bug: //- (void)collectionView:(UICollectionView )collectionViewdidEndDisplayingCell:(UICollectionViewCell )cell forItemAtIndexPath:(NSIndexPath *)indexPath 不要在这里监听, 当滚动时有可能会左右摆动, 造成数据不准, 重复, 形成黑屏"></a>bug: //- (void)collectionView:(UICollectionView <em>)collectionViewdidEndDisplayingCell:(UICollectionViewCell </em>)cell forItemAtIndexPath:(NSIndexPath *)indexPath 不要在这里监听, 当滚动时有可能会左右摆动, 造成数据不准, 重复, 形成黑屏</h1><h2 id="无限滚动"><a href="#无限滚动" class="headerlink" title="无限滚动"></a>无限滚动</h2><pre><code>* 和之前的方法的无限滚动的思路差不多
+* 都是在滚到哪张时, 将中间那张无动画的显示, 让用户发现不了
+* 一样是监听很多东西, 可以拿之前的来看看, 对比来结合优化
+</code></pre><h1 id="bug-在跳转到下一组时-会瞬间五动画到第一张-因为在跳转后动画还没执行完成-就又执行了五动画到第一张-应该是在自动轮播那里还未跳转到下一页时-就先五动画的跳转到当前页-以保不会越界-总是在中间组"><a href="#bug-在跳转到下一组时-会瞬间五动画到第一张-因为在跳转后动画还没执行完成-就又执行了五动画到第一张-应该是在自动轮播那里还未跳转到下一页时-就先五动画的跳转到当前页-以保不会越界-总是在中间组" class="headerlink" title="bug: 在跳转到下一组时, 会瞬间五动画到第一张: 因为在跳转后动画还没执行完成, 就又执行了五动画到第一张.应该是在自动轮播那里还未跳转到下一页时, 就先五动画的跳转到当前页, 以保不会越界, 总是在中间组"></a>bug: 在跳转到下一组时, 会瞬间五动画到第一张: 因为在跳转后动画还没执行完成, 就又执行了五动画到第一张.应该是在自动轮播那里还未跳转到下一页时, 就先五动画的跳转到当前页, 以保不会越界, 总是在中间组</h1><h1 id="升级-xcode7-2后问题-程序运行上下有黑边-选中target——-gt-general——-gt-app-icons-and-launch-images——-gt-Launch-Screen-File——-gt-选择一个-storyboard-file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个-launchimage-到对应的地方"><a href="#升级-xcode7-2后问题-程序运行上下有黑边-选中target——-gt-general——-gt-app-icons-and-launch-images——-gt-Launch-Screen-File——-gt-选择一个-storyboard-file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个-launchimage-到对应的地方" class="headerlink" title="升级 xcode7.2后问题: 程序运行上下有黑边:选中target——&gt;general——&gt;app icons and launch images——&gt;Launch Screen File——&gt;选择一个 storyboard file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个 launchimage 到对应的地方"></a>升级 xcode7.2后问题: 程序运行上下有黑边:选中target——&gt;general——&gt;app icons and launch images——&gt;Launch Screen File——&gt;选择一个 storyboard file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个 launchimage 到对应的地方</h1><h1 id="做项目遇到的问题"><a href="#做项目遇到的问题" class="headerlink" title="做项目遇到的问题:"></a>做项目遇到的问题:</h1><pre><code>*  在点击评论或者什么, 有时候需要登录才能评论的, 先 modal 登录控制器, 成功后应该在后面想之前的控制器发送消息, 让之前的控制器偷偷的五动画 push 一个评论控制器, 再把登录控制器 dismiss, 这样就能 dismiss 后就可以输入评论, 如果登录了就直接 push 评论控制器
+*  在导航栏下面有选择条可以点击切换不同控制器时, 其实是想 tabbar 一样点击时把控制器.view 添加到主页显示出来, 可以滚动, 说明几个控制器.view是连在一起放到 scrollView 或者collectionView 上的, 点击不同的滚动条标签就切换到对应的 view
+</code></pre><h1 id="常见问题总结"><a href="#常见问题总结" class="headerlink" title="常见问题总结"></a>常见问题总结</h1><ul>
+<li>以上…    SVN 和 Git很像, 容易转换, Git好像更好更强大,</li>
+<li><p>注意: 不要改.svn 里的内容, 不要删, 里面记录着版本信息, 改动的话可能就要重新 checkout 仓库了.</p>
+<ul>
+<li>想要在自己电脑上 push 项目还需要一些设置, 这个在一开始就要配置了!不然连 clone 都不行!!!!!!!!!!!!!!!!!!!!!<br>  -&gt; git 远程是用 ssh 连接的, 需要把自己电脑上的 ssh keyes 添加到 github 的设置上, 表示只有这个 ssh keyes 所有者才能 push 代码, 只有配置了 key 在 github 上的电脑才能传东西, 以后参与开发的组员也是需要配置 key 到这个项目的 github 上<br>  -&gt; 获取 sshkey: 在电脑上用终端在~/.ssh 里创建公钥私钥对,<br>  -&gt;命令: ssh-keygen -t rsa -C “你的邮箱地址” -&gt; 然后一直敲回车 -&gt;然后会在~/.ssh 目录下生成 ssh key 密钥对<br>  -&gt; id_rsa : 私钥, 不可泄露<br>  -&gt; id_rsa.pub : 公钥, 可以公开(将这个文件的内容粘贴到 Github 上)<br>  -&gt; 利用 cat 可以查看文件内容<br>  -&gt; 将pub 公钥粘贴到 gihub 上的 key 框中, add key.</li>
+</ul>
+</li>
+</ul>
+<p>#bug: 注意变量名不要写的和类名一样!!!!!!!!!注意!!!, 要先设大小! 再设位置!, 不然会有意想不到的情况, 先设位置再设大小会根据 frame.y 又缩放回去….</p>
+<p>#bug: var btns: Array<uibutton>? = <a href>UIButton</a>, 数组的可选类型</uibutton></p>
+<p>#bug: fatalError(“init(coder:) has not been implemented”)因为这个方法是必须要求实现, 当不需要这个方法时, 可以将这个方法声明为便利构造方法, 调用 self.init 或者其他指定构造方法,</p>
+<p>#技巧: 需要只设置一次但是又只能在重复调用的方法中设置时, 用<br>struct TokenContainer {<br>            static var token : dispatch_once_t = 0<br>        }</p>
+<pre><code>dispatch_once(&amp;TokenContainer.token)
+</code></pre><p>在 OC 中会自己设置一个值, Swift 中没有, 所以要自己加锁</p>
+<p>在 Swift 中用//MARK: - 代替 OC 的#pragma mark-    Xcode now supports //MARK:, //TODO: and //FIXME landmarks to annotate your code and lists them in the jump bar</p>
+<p>#bug: 有时候旧文件改动了, 连接出静态库可能有些头文件也要暴露出来,  使用方法也变了!!看看作者文档或主页!!卡了半天!!!, 生成静态库没问题!</p>
+<p>#在使用静态库时应该也设定 Building 参数 OtherLinker -ObjC</p>
+<p>#bug:  有时候等半天没自动补全, 以为是方法错了, 其实是 xcode 的问题<br>-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0<br>Terminating app due to uncaught exception ‘NSInvalidArgumentException’, reason: ‘-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0’</p>
+<pre><code>设备－－&gt;分配数据空间，选择一个固定空间,比如E:\\virtualboxshare
+</code></pre><p>在虚拟机里</p>
+<p>##更新: xcode7.2已经自带这个 framework 模板</p>
+<p>#bug: Undefined symbols for architecture x86_64:<br>  “_OBJC_CLASS_$_MJRefreshBackNormalFooter”, referenced from:<br>      objc-class-ref in ViewController.o<br>  “_OBJC_CLASS_$_MJRefreshNormalHeader”, referenced from:<br>      objc-class-ref in ViewController.o<br>ld: symbol(s) not found for architecture x86_64<br>clang: error: linker command failed with exit code 1 (use -v to see invocation)<br>——–搞错了, 将真机的文件拉进去了….<br>——–其实, 步奏都没错, 只是在 xcode7中要把静态库链接到 embed link 没有做….</p>
+<p>#——–其实, 在 Xcode7.2后做的挺完善, 步奏没那么麻烦了, 也自动做了很多设置, 记得最后要在 embed 链接 framework</p>
+<p>#bug:  reason: ‘Delegate must respond to locationManager:didFailWithError:’–必须实现设个方法</p>
+<p>##注意: iOS9已经可以设置 detailView, 可以显示更多东西</p>
+<p>#bug: detailCalloutAccessoryView添加本来没有宽高的东西的时候什么都不显示, —  在使用这个特性时需要添加宽高的限制, 不然显示不出来<br>[v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100]];<br>    [v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200]];</p>
+<p>###对于Swift:</p>
+<pre><code>*  let widthConstraint = NSLayoutConstraint(item: myView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
+myView.addConstraint(widthConstraint)
+
+let heightConstraint = NSLayoutConstraint(item: myView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20)
+myView.addConstraint(heightConstraint)
+</code></pre><p>#bug: 画线出不来, —— 不能用 fillColor!!!! 因为这个线不是闭合的图形!!!!!<br>CGPathRef 是非闭合的图形的话, 用 fill 来上色会失效, 因为逻辑上没有可以填充的一块区域</p>
+<p>#bug(音乐后台播放, 锁屏显示界面): 真机也显示不了, 而且后台也不能播放 —-  iOS9更新后, 或者是 xcode 的更新, 需要在 tagets -&gt; capabilities 下设置interApp Audio 打开, 还有backgroundModes勾选相应的, 远程控制事件也需要配置 info 了现在!!!<a href="http://i.stack.imgur.com/GRx6h.png" target="_blank" rel="noopener">http://i.stack.imgur.com/GRx6h.png</a></p>
+<h1 id="bug-访问-http-出错-用xcode7之后-最低支持版本-iOS8-会默认拒绝自认证的链接-导致微博项目不能访问授权页面-在info-plist中加入"><a href="#bug-访问-http-出错-用xcode7之后-最低支持版本-iOS8-会默认拒绝自认证的链接-导致微博项目不能访问授权页面-在info-plist中加入" class="headerlink" title="bug(访问 http 出错): 用xcode7之后, 最低支持版本 iOS8, 会默认拒绝自认证的链接, 导致微博项目不能访问授权页面, 在info.plist中加入:"></a>bug(访问 http 出错): 用xcode7之后, 最低支持版本 iOS8, 会默认拒绝自认证的链接, 导致微博项目不能访问授权页面, 在info.plist中加入:</h1><p><key>NSAppTransportSecurity</key></p>
+<p><dict><br>    <key>NSAllowsArbitraryLoads</key><br>    <true><br></true></dict><br>或者想添加例外或者更多连接网络方面: <a href="http://stackoverflow.com/questions/31216758/how-can-i-add-nsapptransportsecurity-to-my-info-plist-file/31629980#31629980" target="_blank" rel="noopener">http://stackoverflow.com/questions/31216758/how-can-i-add-nsapptransportsecurity-to-my-info-plist-file/31629980#31629980</a></p>
+<p>#bug: 监听 KVO 监听不到回调, —- 有些属性不能使用 KVO, 要设置对了属性才会回调方法</p>
+<p>#bug:  控件设置不起作用, label 不显示字, 进度条不动 —- 设置 UI 控件的代码不是在主线程执行, 拿不到主线程的 UI 控件来设置</p>
+<p>#bug: 速度显示不出来, —- 速度本来设置是 NSUinteger, 需要转换为 double 再进行计算, 不然整数计算最后是0</p>
+<p>#bug: 控件显示不出来: —- 设置的 frame = 父控件的 frame, xy 比较大, 就在控件中看不见了, 应该设置 bounds</p>
+<h1 id="GameKit"><a href="#GameKit" class="headerlink" title="GameKit"></a>GameKit</h1><h1 id="bug-一方点击连接后-另一方没有反应-还是在列表状态么没有弹出是否接收的提示"><a href="#bug-一方点击连接后-另一方没有反应-还是在列表状态么没有弹出是否接收的提示" class="headerlink" title="bug: 一方点击连接后, 另一方没有反应, 还是在列表状态么没有弹出是否接收的提示"></a>bug: 一方点击连接后, 另一方没有反应, 还是在列表状态么没有弹出是否接收的提示</h1><h1 id="bug-点击接受后-没有任何反应了-connecting-一下后就连接失败"><a href="#bug-点击接受后-没有任何反应了-connecting-一下后就连接失败" class="headerlink" title="bug: 点击接受后, 没有任何反应了, connecting 一下后就连接失败"></a>bug: 点击接受后, 没有任何反应了, connecting 一下后就连接失败</h1><h2 id="CoreBluetooth"><a href="#CoreBluetooth" class="headerlink" title="CoreBluetooth"></a>CoreBluetooth</h2><p>#bug(centralManager 创建后没有反应):  创建后会自动去发现周围设备, 但是不能调用代理方法—– 创建时没有设置代理</p>
+<p>##注意: 凡是看到copy / new / create / retain / 的东西, 又没有专程O OC 来进行 ARC 管理的, 都要在用完后 release, 用: CFRelease(xxx)</p>
+<p>#推送通知:</p>
+<p>##注意: 在 iOS8之后,需要应用注册用户通知设置, 而在 iOS10过期, 使用UNNotificationRequest 代替</p>
+<p>#bug: 在前台时, 通知发出应用接收到时, 也会跳转到详情页 —- 通知不管怎么样都会发出, 而且没关闭应用的话会调用 APP 代理接收到通知的方法, 这里会直接条过去, 应该加个判断,application.applicationState, 从后台进前台的话调用这个方法时是非激活的, 所以当在激活状态时就直接 return, 不做任何事</p>
+<p>#bug: 在 xib 或 storybord 里拖线的时候, 加载对象的时候选最前或最后的时候, 出错, 就是拿到的对象错了, 查看下是不是 xib / storyboard 文件里不止一个控件, 搞清楚自己要的在第几位</p>
+<h1 id="2016年12月18日"><a href="#2016年12月18日" class="headerlink" title="2016年12月18日"></a>2016年12月18日</h1><p>在用 pod 安装 baiduMapKitSDK 的时候, 出现失败提示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[!] Error installing BaiduMapKit</span><br><span class="line">[!] /usr/bin/git clone https://github.com/BaiduLBS/BaiduMapKit.git /var/folders/qp/zd_ttf394yxbkkb1s9tqvgth0000gn/T/d20161218-16747-zk3x4o --template= --single-branch --depth 1 --branch 3.1.0</span><br><span class="line"></span><br><span class="line">Cloning into &apos;/var/folders/qp/zd_ttf394yxbkkb1s9tqvgth0000gn/T/d20161218-16747-zk3x4o&apos;...</span><br><span class="line">error: RPC failed; curl 18 transfer closed with outstanding read data remaining</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></p>
+<p>解决搜索</p>
+<ol>
+<li><a href="http://stackoverflow.com/questions/38618885/error-rpc-failed-curl-transfer-closed-with-outstanding-read-data-remaining" target="_blank" rel="noopener">参考overStack</a></li>
+<li>里面讲到重新生成 SSHKey, 但是我这里不是 clone 自己的项目, 应该和这个没关系…</li>
+<li>又提到应该increment buffer size: ‘git config –global http.postBuffer 524288000’, 但这个我也做过了, 通过 git config -l 查询是设置过的</li>
+<li>有回答提示在 git 命令前添加这段指令:GIT_TRACE=1 GIT_CURL_VERBOSE=1, 可以查看详细出错内容, 但是…我是通过 pod, pod 调用的 git, 我也没办法…..<br>5.</li>
+</ol>
+<h2 id="有可能是代理的问题-等下要去掉代理看看"><a href="#有可能是代理的问题-等下要去掉代理看看" class="headerlink" title="有可能是代理的问题, 等下要去掉代理看看"></a>有可能是代理的问题, 等下要去掉代理看看</h2><p>没有去掉代理, 在改动了 podfile 后添加了指定的版本, 然后到了公司发现好了….可能是网络的问题</p>
+<h1 id="bug-在-pod-install-的时候-会又-warning-出来-提示添加Use-the-inherited-flag-or-Remove-the-build-settings-from-the-target"><a href="#bug-在-pod-install-的时候-会又-warning-出来-提示添加Use-the-inherited-flag-or-Remove-the-build-settings-from-the-target" class="headerlink" title="bug: 在 pod install 的时候, 会又 warning 出来, 提示添加Use the $(inherited) flag, or - Remove the build settings from the target."></a>bug: 在 pod install 的时候, 会又 warning 出来, 提示添加Use the <code>$(inherited)</code> flag, or - Remove the build settings from the target.</h1><p>产生此警告的原因是项目 Target 中的一些设置，CocoaPods 也做了默认的设置，如果两个设置结果不一致，就会造成问题。<br>我想要使用 CocoaPods 中的设置，分别在我的项目中定义PODS_ROOT 和 Other Linker Flags的地方，把他们的值用$(inherited)替换掉，进入终端，执行<br>pod update</p>
+<p>我个人更喜欢一种简单粗暴的方法：<br>点击项目文件 project.xcodeproj，右键显示包内容，用文本编辑器打开project.pbxproj，删除OTHER_LDFLAGS的地方，保存，pod update,警告没了。。。。</p>
+<h1 id="bug-ld-library-not-found-for-lssl"><a href="#bug-ld-library-not-found-for-lssl" class="headerlink" title="bug: ld: library not found for -lssl"></a>bug: ld: library not found for -lssl</h1><p>clang: error: linker command failed with exit code 1 (use -v to see invocation)<br>在按照要求把导入百度 MapSDK 的时候出编译出现了这个问题….</p>
+<h1 id="bug-usr-local-bin-pod-22-in-lt-main-gt-39-undefined-methodactivate-bin-path’-for-Gem-Module-NoMethodError"><a href="#bug-usr-local-bin-pod-22-in-lt-main-gt-39-undefined-methodactivate-bin-path’-for-Gem-Module-NoMethodError" class="headerlink" title="bug: /usr/local/bin/pod:22:in &lt;main&gt;&#39;: undefined methodactivate_bin_path’ for Gem:Module (NoMethodError)"></a>bug: /usr/local/bin/pod:22:in <code>&lt;main&gt;&#39;: undefined method</code>activate_bin_path’ for Gem:Module (NoMethodError)</h1><pre><code>from /Users/taketrace/.rvm/gems/ruby-2.3.0@global/bin/ruby_executable_hooks:15:in `eval&apos;
+from /Users/taketrace/.rvm/gems/ruby-2.3.0@global/bin/ruby_executable_hooks:15:in `&lt;main&gt;&apos;
+</code></pre><p>当 pod install 的时候出现这个,</p>
+<p>看看是不是在没有装 pod 的 Ruby 版本下执行的命令, 不同的版本安装的东西是分开用的</p>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h1><p>现在GestureRecongnizer 不能同时添加给多个 View, iOS9开始呗严格禁止….</p>
+<h1 id="bug-在自动布局中-约束过多的情况下-提示约束多余-有些可能是不想要的"><a href="#bug-在自动布局中-约束过多的情况下-提示约束多余-有些可能是不想要的" class="headerlink" title="bug: 在自动布局中, 约束过多的情况下, 提示约束多余, 有些可能是不想要的"></a>bug: 在自动布局中, 约束过多的情况下, 提示约束多余, 有些可能是不想要的</h1><p>fix: 可能会在loadxib的时候设置frame时View的bounds还是空的, 所以这时候在load的时候不用设置其frame</p>
+<h1 id="bug-iPhone7运行项目的时候-View的宽度不够"><a href="#bug-iPhone7运行项目的时候-View的宽度不够" class="headerlink" title="bug: iPhone7运行项目的时候, View的宽度不够,"></a>bug: iPhone7运行项目的时候, View的宽度不够,</h1><p>加载时按照xib的尺寸默认设置了, 在加载的时候在View中用layoutSubviews里这只ContentView.frame = self.bounds即可</p>
+<h1 id="lack-有些控件只是大概的完成-比较草草-完成度不高"><a href="#lack-有些控件只是大概的完成-比较草草-完成度不高" class="headerlink" title="lack 有些控件只是大概的完成, 比较草草 , 完成度不高"></a>lack 有些控件只是大概的完成, 比较草草 , 完成度不高</h1><p>应该像完成一个第三方库一样, 做到到时候就可以用</p>
+<h1 id="bug-在传递的参数中需要有多值传递时-key相同的情况-在Java中哟multiple-key可以用相同的key-在iOS中没有发现-试着将相同的key-value拼接到一个key上时-而使用第三方网络库时-在底层会将value中的特殊字符-amp-进行URLencode编码"><a href="#bug-在传递的参数中需要有多值传递时-key相同的情况-在Java中哟multiple-key可以用相同的key-在iOS中没有发现-试着将相同的key-value拼接到一个key上时-而使用第三方网络库时-在底层会将value中的特殊字符-amp-进行URLencode编码" class="headerlink" title="bug: 在传递的参数中需要有多值传递时, key相同的情况, 在Java中哟multiple key可以用相同的key, 在iOS中没有发现, 试着将相同的key-value拼接到一个key上时 而使用第三方网络库时, 在底层会将value中的特殊字符(=, &amp;, /)进行URLencode编码"></a>bug: 在传递的参数中需要有多值传递时, key相同的情况, 在Java中哟multiple key可以用相同的key, 在iOS中没有发现, 试着将相同的key-value拼接到一个key上时 而使用第三方网络库时, 在底层会将value中的特殊字符(=, &amp;, /)进行URLencode编码</h1><p>导致传输的参数不正确<br>solve: 将multiple key使用数组传递, 但是会转义成key[]=value&amp;key[]=value的情况, 这应该是标准的方式, 但是在Server端是用Spring的情况下, 他的处理不会处理[],  solve: 修改底层的转义encode设置, 去掉[]的加入.<br>solve2: 在传递时, 将不同的value用逗号分割, 给同一个key, 即key=value1,value2,value3. 这样在Spring的服务端可以处理, 不过是Spring的情况下, 在其他的框架情况下未必能这么样处理</p>
+<h1 id="bug-使用DropMenu时-那个库总之感觉写的不好-逻辑顺序不对-在修改时也许漏了改什么地方或者是什么的-导致在来回切换button时出现字啊库中调用了数据源方法索取NumberOfItemsIInRow-本来没有-导致数组越界"><a href="#bug-使用DropMenu时-那个库总之感觉写的不好-逻辑顺序不对-在修改时也许漏了改什么地方或者是什么的-导致在来回切换button时出现字啊库中调用了数据源方法索取NumberOfItemsIInRow-本来没有-导致数组越界" class="headerlink" title="bug: 使用DropMenu时, 那个库总之感觉写的不好, 逻辑顺序不对, 在修改时也许漏了改什么地方或者是什么的, 导致在来回切换button时出现字啊库中调用了数据源方法索取NumberOfItemsIInRow, 本来没有, 导致数组越界"></a>bug: 使用DropMenu时, 那个库总之感觉写的不好, 逻辑顺序不对, 在修改时也许漏了改什么地方或者是什么的, 导致在来回切换button时出现字啊库中调用了数据源方法索取NumberOfItemsIInRow, 本来没有, 导致数组越界</h1><p>solve: 在必要地方判断是否有customView, 有旧不做操作</p>
+<h1 id="safe-area-layout-guide-before-ios-9-0"><a href="#safe-area-layout-guide-before-ios-9-0" class="headerlink" title="safe area layout guide before ios 9.0"></a>safe area layout guide before ios 9.0</h1><p>在 xib 中 <code>inspector</code> 第一个最下面, 将<code>use safe Area layout guides</code> 取消打勾<br>但是这样在新系统中也不能使用这个特性了, 目前还没看到什么问题.</p>
+<p>或者说将 build for xxx 改为 9.0 以上</p>
+<h1 id="Data-base64-转化"><a href="#Data-base64-转化" class="headerlink" title="Data base64  转化"></a>Data base64  转化</h1><p>在 <code>Data(base64Encoded: &lt;#T##String#&gt;)</code> 中, 有时候我们将需要的 String 转成 data 通过 API 传输, 但是通过这个方法, 因为不知道他是用了什么方法来编码的, 当服务器解码时, 可能会有不一样的结果</p>
+<p>就算是用同一个方法, 传入不同的 base64编码的字符串时, 也不一定有相同的结果, 比如比较普通的依据话, 可以正常互转, 但是比如一些人脸识别数据转成 base64的 String 的时候, 就转不回来了. 到服务器后就是一个乱码. 可以说是很坑了.</p>
+<p>所以要是有相关的base64String 需要转 data 的话, 建议还是使用<code>&quot;xxxx&quot;.data(using: .utf8, allowLossyConversion: true)</code>的方式</p>
+<p>app 启动页换图没效果</p>
+<p>启动图应该是有缓存的.</p>
+<h1 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h1><p>The given socketQueue parameter must not be a concurrent queue.</p>
+<h1 id="UIPickerView-显示图片高度不对-不能按照预期来显示图片"><a href="#UIPickerView-显示图片高度不对-不能按照预期来显示图片" class="headerlink" title="UIPickerView 显示图片高度不对, 不能按照预期来显示图片"></a>UIPickerView 显示图片高度不对, 不能按照预期来显示图片</h1><p>滚不到对应的位置,</p>
+<p>目前按照网上的说法是, 一开始没有数据的时候, tableview 会自己缓存了一个高度, 在有数据的时候, 从 rowsize 中拿到的仍然是之前缓存的.<br>从高度一直是44可以看出, 大概就是这个原因了</p>
+<p>先绕过一下这个东西把, 把我设置的图片也弄成44的高度, 让他看起来没什么问题, 就是小了点, 但是作为一个 inputview, 这个问题也不是很大</p>
+<h1 id="pod-search-not-working"><a href="#pod-search-not-working" class="headerlink" title="pod search not working!"></a>pod search not working!</h1><p>pod 搜索无缘无故突然出错</p>
+<p><a href="https://github.com/CocoaPods/CocoaPods/issues/6682" target="_blank" rel="noopener">引导到的 issue 能解决问题</a><br>:<br><code>rm -rf ~/Library/Caches/CocoaPods</code><br>清除缓存….</p>
+<h1 id="iOS应用运行时，在设置中更改权限，应用被重启。"><a href="#iOS应用运行时，在设置中更改权限，应用被重启。" class="headerlink" title="iOS应用运行时，在设置中更改权限，应用被重启。"></a>iOS应用运行时，在设置中更改权限，应用被重启。</h1><p>原因：更改当前app使用的权限，系统会发送：Terminated due to signal 9，然后强制重启app。</p>
+<h1 id="获取崩溃日志"><a href="#获取崩溃日志" class="headerlink" title="获取崩溃日志"></a>获取崩溃日志</h1><p>Mac : ~/Library/Logs/CrashReporter/MobileDevice/&lt;DEVICE_NAME&gt;</p>
+<h1 id="iOS12-xcode10-集成阿里百川错误"><a href="#iOS12-xcode10-集成阿里百川错误" class="headerlink" title="iOS12, xcode10 集成阿里百川错误"></a>iOS12, xcode10 集成阿里百川错误</h1><p>报错: symbol(s) not found for architecture armv7</p>
+<p>xcode 10 已经没有libc++.6.0.9.std了, 取而代之的是libc++.std, 但是除了这个外, 集成文档里说的库都已经 link 过去了, 重新从网上找到一个6.0.9的放进去后, 还是不行, 添加 Otherlink flag 后还是不行, 妹的. <a href="http://www.voidcn.com/article/p-evzzdmxm-bpx.html" target="_blank" rel="noopener">Google 出来</a>, 试着加了 <code>CoreMotion.framework</code>, 还是 <code>libresolv.tbd</code>, 才能编译成功, 这文档…还特么2年前的了. 没有更新过,….心累…<br><a href="https://github.com/Kila2/libstdc-.6.0.9.tbd" target="_blank" rel="noopener">github上有人已经放出了对应的库, 按照操作就可以了</a></p>
+<p>最后, 经过逐一测试, 剩余需要添加的是:</p>
+<ol>
+<li><code>CoreMotion.framework</code></li>
+<li><code>libresolv.tbd</code>}</li>
+<li><code>libc++.6.0.9.std</code></li>
+<li><code>Other Link Flag</code> 添加 <code>-l&quot;c++&quot;</code> 如果已经有其他库已经声明的话就不用管了.</li>
+</ol>
+<p>有一个不对, 都不行… 诶..</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/bug/" rel="tag"># bug</a>
+          
+            <a href="/tags/线程/" rel="tag"># 线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/Swift/" rel="next" title="Swift">
+                <i class="fa fa-chevron-left"></i> Swift
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/shi-yong-dao-de-mo-shi/" rel="prev" title="使用到的模式">
+                使用到的模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">187</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程引发的安全问题"><span class="nav-number">1.</span> <span class="nav-text">多线程引发的安全问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建了一个控件，就是看不见"><span class="nav-number">2.</span> <span class="nav-text">创建了一个控件，就是看不见</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#warning-Note-注意-注意-在设置-center-之前-需要先设置好-size-不然-center-没有参照-会设定为原点"><span class="nav-number"></span> <span class="nav-text">warning Note: 注意!!!注意!!!!, 在设置 center 之前!!需要先设置好 size!! 不然 center 没有参照, 会设定为原点!!!</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#loadMoreData-好像有点问题………使用了不可变数组的方法-返回了不可变数组实例-实际上已经不是可变数组了-报错找不到方法"><span class="nav-number"></span> <span class="nav-text">loadMoreData 好像有点问题………使用了不可变数组的方法, 返回了不可变数组实例, 实际上已经不是可变数组了, 报错找不到方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-登录时弹窗不退出-在加载页面的时候有加载两次…-准备-运行程序-跟踪断点"><span class="nav-number"></span> <span class="nav-text">bug: 登录时弹窗不退出, 在加载页面的时候有加载两次….准备:运行程序, 跟踪断点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-获取用户名设置后会显示了名字-但是按钮的大小没有及时改变-要重新打开才行"><span class="nav-number"></span> <span class="nav-text">bug: 获取用户名设置后会显示了名字, 但是按钮的大小没有及时改变, 要重新打开才行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-请求失败-Error-Domain-com-alamofire-error-serialization-response-Code-1011-“Request-failed-method-not-allowed-405-”-—-请求方式错误-应该是-POsT"><span class="nav-number"></span> <span class="nav-text">bug: 请求失败: Error Domain=com.alamofire.error.serialization.response Code=-1011 “Request failed: method not allowed (405)” — 请求方式错误, 应该是 POsT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-请求成功后获取用户信息失败-原因-读取保存的用户信息时获取到-expire-end-nil-—在归档时只设置了通过字典保存时才计算-end-的值"><span class="nav-number"></span> <span class="nav-text">bug: 请求成功后获取用户信息失败: 原因: 读取保存的用户信息时获取到 expire_end = nil; —在归档时只设置了通过字典保存时才计算 end 的值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bug-在重新打开应用后表情键盘添加到最近不能判断出原来已经有了"><span class="nav-number"></span> <span class="nav-text">bug: 在重新打开应用后表情键盘添加到最近不能判断出原来已经有了,</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bug-在没有键盘时点击表情按钮键盘出来-再拖拽文本框键盘下去-但是-toolBar-没有跟着下去"><span class="nav-number"></span> <span class="nav-text">bug: 在没有键盘时点击表情按钮键盘出来, 再拖拽文本框键盘下去,但是 toolBar 没有跟着下去</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小问题-实时刷新的话-popView-还在显示本来-emotionView-时那个就跳到前面去了-应该等-popView-消失时在刷新"><span class="nav-number"></span> <span class="nav-text">小问题, 实时刷新的话, popView 还在显示本来 emotionView 时那个就跳到前面去了, 应该等 popView 消失时在刷新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-当收到的-emoji-中有不能识别的-emoji-时-同时还带有中文紧贴着-如😍✌🏻️✨在-xcode-中和在这里显示不了那个未识别的字符-隐藏了-调用-boude…计算-rect-时-会报错访问坏内存-和中文隔空格-或在未识别的-emoji-前或后隔空格-可以正确通过-本身打印没问题-主要是调用方法上有问题"><span class="nav-number"></span> <span class="nav-text">bug: 当收到的 emoji 中有不能识别的 emoji 时, 同时还带有中文紧贴着,如😍✌🏻️✨在 xcode 中和在这里显示不了那个未识别的字符,隐藏了, 调用 boude…计算 rect 时,会报错访问坏内存. 和中文隔空格,或在未识别的 emoji 前或后隔空格,可以正确通过, 本身打印没问题,主要是调用方法上有问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#小问题-长按最近表情-会有隐藏的表情弹出来-—-长按后的判断条件加一个非隐藏才做反应"><span class="nav-number"></span> <span class="nav-text">小问题: 长按最近表情, 会有隐藏的表情弹出来: —- 长按后的判断条件加一个非隐藏才做反应</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-url-的匹配不正确-当-url-后面跟着字词之后不会隔开-会被误视为-URL-的一部分—-找另一个正则来替代"><span class="nav-number"></span> <span class="nav-text">bug: url 的匹配不正确, 当 url 后面跟着字词之后不会隔开, 会被误视为 URL 的一部分— 找另一个正则来替代</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-排序查询错误-desc-asc排序要在查完表后首先做-然后才是where来筛选"><span class="nav-number"></span> <span class="nav-text">bug: 排序查询错误: desc asc排序要在查完表后首先做, 然后才是where来筛选</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-CUICatalog-Invalid-asset-name-supplied-null-or-invalid-scale-factor-2-000000-—–-This-one-appears-when-someone-is-trying-to-put-nil-eventually-in-UIImage-imageNamed-给UIImage-imageNamed-nil-传nil的话就会这样…-要判断一下"><span class="nav-number"></span> <span class="nav-text">bug: CUICatalog: Invalid asset name supplied: (null), or invalid scale factor: 2.000000 —– This one appears when someone is trying to put nil eventually in [UIImage imageNamed:] 给UIImage imageNamed:nil]传nil的话就会这样….要判断一下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-当transform的时候-有时候直接make-a-b-c-d-不一定好使-在相同参数的情况下-分步来做的结果不一样"><span class="nav-number"></span> <span class="nav-text">bug: 当transform的时候, 有时候直接make(a,b,c,d)不一定好使, 在相同参数的情况下, 分步来做的结果不一样,</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-在自定义view的时候-void-layoutSubviews中设置self-frame中的属性-会死循环…-YCRightMenuMidView的时候-其他的倒是不会-应该用了enumerateObjectsUsingBlock-YCRightMenuMidViewRow-row-NSUInteger-idx-BOOL-stop-的原因-改成for循环问题解决"><span class="nav-number"></span> <span class="nav-text">bug: 在自定义view的时候, - (void)layoutSubviews中设置self.frame中的属性, 会死循环….YCRightMenuMidView的时候, 其他的倒是不会, 应该用了enumerateObjectsUsingBlock:^(YCRightMenuMidViewRow row, NSUInteger idx, BOOL stop) 的原因, 改成for循环问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发现-当操作到子控件时-会调用到自身的laypoutSubViews方法-如果在reloadData里没有操作子控件-要手动调用-不然reloaddata算出各frame后-没有判断子控件的-位置来加载-也是没有反应的"><span class="nav-number"></span> <span class="nav-text">发现: 当操作到子控件时, 会调用到自身的laypoutSubViews方法, 如果在reloadData里没有操作子控件, 要手动调用, 不然reloaddata算出各frame后, 没有判断子控件的 位置来加载, 也是没有反应的.</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-NSArrayI-removeFromSuperview-unrecognized-selector-sent-to-instance-0x10a50f150’"><span class="nav-number"></span> <span class="nav-text">bug: -[NSArrayI removeFromSuperview]: unrecognized selector sent to instance 0x10a50f150’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-cell-不能按照-xib-的尺寸显示-在-collectionView-的-cell-的大小设置处要设置-不然会按照这里的在拿到-cell-的时候系统自动会设置一次"><span class="nav-number"></span> <span class="nav-text">bug: cell 不能按照 xib 的尺寸显示: 在 collectionView 的 cell 的大小设置处要设置, 不然会按照这里的在拿到 cell 的时候系统自动会设置一次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-void-collectionView-UICollectionView-collectionViewdidEndDisplayingCell-UICollectionViewCell-cell-forItemAtIndexPath-NSIndexPath-indexPath-不要在这里监听-当滚动时有可能会左右摆动-造成数据不准-重复-形成黑屏"><span class="nav-number"></span> <span class="nav-text">bug: //- (void)collectionView:(UICollectionView )collectionViewdidEndDisplayingCell:(UICollectionViewCell )cell forItemAtIndexPath:(NSIndexPath *)indexPath 不要在这里监听, 当滚动时有可能会左右摆动, 造成数据不准, 重复, 形成黑屏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无限滚动"><span class="nav-number"></span> <span class="nav-text">无限滚动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-在跳转到下一组时-会瞬间五动画到第一张-因为在跳转后动画还没执行完成-就又执行了五动画到第一张-应该是在自动轮播那里还未跳转到下一页时-就先五动画的跳转到当前页-以保不会越界-总是在中间组"><span class="nav-number"></span> <span class="nav-text">bug: 在跳转到下一组时, 会瞬间五动画到第一张: 因为在跳转后动画还没执行完成, 就又执行了五动画到第一张.应该是在自动轮播那里还未跳转到下一页时, 就先五动画的跳转到当前页, 以保不会越界, 总是在中间组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#升级-xcode7-2后问题-程序运行上下有黑边-选中target——-gt-general——-gt-app-icons-and-launch-images——-gt-Launch-Screen-File——-gt-选择一个-storyboard-file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个-launchimage-到对应的地方"><span class="nav-number"></span> <span class="nav-text">升级 xcode7.2后问题: 程序运行上下有黑边:选中target——&gt;general——&gt;app icons and launch images——&gt;Launch Screen File——&gt;选择一个 storyboard file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个 launchimage 到对应的地方</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#做项目遇到的问题"><span class="nav-number"></span> <span class="nav-text">做项目遇到的问题:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题总结"><span class="nav-number"></span> <span class="nav-text">常见问题总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-访问-http-出错-用xcode7之后-最低支持版本-iOS8-会默认拒绝自认证的链接-导致微博项目不能访问授权页面-在info-plist中加入"><span class="nav-number"></span> <span class="nav-text">bug(访问 http 出错): 用xcode7之后, 最低支持版本 iOS8, 会默认拒绝自认证的链接, 导致微博项目不能访问授权页面, 在info.plist中加入:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GameKit"><span class="nav-number"></span> <span class="nav-text">GameKit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-一方点击连接后-另一方没有反应-还是在列表状态么没有弹出是否接收的提示"><span class="nav-number"></span> <span class="nav-text">bug: 一方点击连接后, 另一方没有反应, 还是在列表状态么没有弹出是否接收的提示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-点击接受后-没有任何反应了-connecting-一下后就连接失败"><span class="nav-number"></span> <span class="nav-text">bug: 点击接受后, 没有任何反应了, connecting 一下后就连接失败</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CoreBluetooth"><span class="nav-number"></span> <span class="nav-text">CoreBluetooth</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2016年12月18日"><span class="nav-number"></span> <span class="nav-text">2016年12月18日</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#有可能是代理的问题-等下要去掉代理看看"><span class="nav-number"></span> <span class="nav-text">有可能是代理的问题, 等下要去掉代理看看</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-在-pod-install-的时候-会又-warning-出来-提示添加Use-the-inherited-flag-or-Remove-the-build-settings-from-the-target"><span class="nav-number"></span> <span class="nav-text">bug: 在 pod install 的时候, 会又 warning 出来, 提示添加Use the $(inherited) flag, or - Remove the build settings from the target.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-ld-library-not-found-for-lssl"><span class="nav-number"></span> <span class="nav-text">bug: ld: library not found for -lssl</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-usr-local-bin-pod-22-in-lt-main-gt-39-undefined-methodactivate-bin-path’-for-Gem-Module-NoMethodError"><span class="nav-number"></span> <span class="nav-text">bug: /usr/local/bin/pod:22:in &lt;main&gt;&#39;: undefined methodactivate_bin_path’ for Gem:Module (NoMethodError)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number"></span> <span class="nav-text">注意:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-在自动布局中-约束过多的情况下-提示约束多余-有些可能是不想要的"><span class="nav-number"></span> <span class="nav-text">bug: 在自动布局中, 约束过多的情况下, 提示约束多余, 有些可能是不想要的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-iPhone7运行项目的时候-View的宽度不够"><span class="nav-number"></span> <span class="nav-text">bug: iPhone7运行项目的时候, View的宽度不够,</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lack-有些控件只是大概的完成-比较草草-完成度不高"><span class="nav-number"></span> <span class="nav-text">lack 有些控件只是大概的完成, 比较草草 , 完成度不高</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-在传递的参数中需要有多值传递时-key相同的情况-在Java中哟multiple-key可以用相同的key-在iOS中没有发现-试着将相同的key-value拼接到一个key上时-而使用第三方网络库时-在底层会将value中的特殊字符-amp-进行URLencode编码"><span class="nav-number"></span> <span class="nav-text">bug: 在传递的参数中需要有多值传递时, key相同的情况, 在Java中哟multiple key可以用相同的key, 在iOS中没有发现, 试着将相同的key-value拼接到一个key上时 而使用第三方网络库时, 在底层会将value中的特殊字符(=, &amp;, /)进行URLencode编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-使用DropMenu时-那个库总之感觉写的不好-逻辑顺序不对-在修改时也许漏了改什么地方或者是什么的-导致在来回切换button时出现字啊库中调用了数据源方法索取NumberOfItemsIInRow-本来没有-导致数组越界"><span class="nav-number"></span> <span class="nav-text">bug: 使用DropMenu时, 那个库总之感觉写的不好, 逻辑顺序不对, 在修改时也许漏了改什么地方或者是什么的, 导致在来回切换button时出现字啊库中调用了数据源方法索取NumberOfItemsIInRow, 本来没有, 导致数组越界</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#safe-area-layout-guide-before-ios-9-0"><span class="nav-number"></span> <span class="nav-text">safe area layout guide before ios 9.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-base64-转化"><span class="nav-number"></span> <span class="nav-text">Data base64  转化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#socket"><span class="nav-number"></span> <span class="nav-text">socket</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UIPickerView-显示图片高度不对-不能按照预期来显示图片"><span class="nav-number"></span> <span class="nav-text">UIPickerView 显示图片高度不对, 不能按照预期来显示图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pod-search-not-working"><span class="nav-number"></span> <span class="nav-text">pod search not working!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS应用运行时，在设置中更改权限，应用被重启。"><span class="nav-number"></span> <span class="nav-text">iOS应用运行时，在设置中更改权限，应用被重启。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取崩溃日志"><span class="nav-number"></span> <span class="nav-text">获取崩溃日志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS12-xcode10-集成阿里百川错误"><span class="nav-number"></span> <span class="nav-text">iOS12, xcode10 集成阿里百川错误</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/bug&-wen-ti-ji/';
+          this.page.identifier = '2019/02/18/bug&-wen-ti-ji/';
+          this.page.title = 'bug & 问题集';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

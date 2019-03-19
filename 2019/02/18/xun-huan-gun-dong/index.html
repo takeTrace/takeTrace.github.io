@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,UI,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="循环滚动 循环利用&amp;amp;无限滚动* 与之前用scrollView的方法不一样, 之前是用imageView放到scrollView里作为子控件, 在滚动的时候将不显示的放到缓存池, 监听滚动, 当位置到达要显示的时候将imageView放上去, 并立即无动画的切换回中间的imageView * 这次用collectionView来实现, 因为他可以分隔, 可以横向滚动, 而且自带有循环利用机">
+<meta name="keywords" content="iOS,UI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="循环滚动">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/xun-huan-gun-dong/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="循环滚动 循环利用&amp;amp;无限滚动* 与之前用scrollView的方法不一样, 之前是用imageView放到scrollView里作为子控件, 在滚动的时候将不显示的放到缓存池, 监听滚动, 当位置到达要显示的时候将imageView放上去, 并立即无动画的切换回中间的imageView * 这次用collectionView来实现, 因为他可以分隔, 可以横向滚动, 而且自带有循环利用机">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T18:08:00.557Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="循环滚动">
+<meta name="twitter:description" content="循环滚动 循环利用&amp;amp;无限滚动* 与之前用scrollView的方法不一样, 之前是用imageView放到scrollView里作为子控件, 在滚动的时候将不显示的放到缓存池, 监听滚动, 当位置到达要显示的时候将imageView放上去, 并立即无动画的切换回中间的imageView * 这次用collectionView来实现, 因为他可以分隔, 可以横向滚动, 而且自带有循环利用机">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/xun-huan-gun-dong/">
+
+
+
+
+
+  <title>循环滚动 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/xun-huan-gun-dong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">循环滚动</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:33:16+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/xun-huan-gun-dong/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/xun-huan-gun-dong/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> 循环滚动</p>
+<h1 id="循环利用-amp-无限滚动"><a href="#循环利用-amp-无限滚动" class="headerlink" title="循环利用&amp;无限滚动"></a>循环利用&amp;无限滚动</h1><pre><code>* 与之前用scrollView的方法不一样, 之前是用imageView放到scrollView里作为子控件, 在滚动的时候将不显示的放到缓存池, 监听滚动, 当位置到达要显示的时候将imageView放上去, 并立即无动画的切换回中间的imageView
+* 这次用collectionView来实现, 因为他可以分隔, 可以横向滚动, 而且自带有循环利用机制
+* 设置好view的大小和图片一样, 需要展示的个数, 滚动方向, cell中内容, 完了后直接像tableView一样使用就可以了,
+* 注意: 这里使用cell是直接从缓存池中取, 没有时回自动从注册的cell里创建一个对应id的cell, 所以在viewDidLoad里要注册需要的cell
+</code></pre><h1 id="bug-cell-不能按照-xib-的尺寸显示-在-collectionView-的-cell-的大小设置处要设置-不然会按照这里的在拿到-cell-的时候系统自动会设置一次"><a href="#bug-cell-不能按照-xib-的尺寸显示-在-collectionView-的-cell-的大小设置处要设置-不然会按照这里的在拿到-cell-的时候系统自动会设置一次" class="headerlink" title="bug: cell 不能按照 xib 的尺寸显示: 在 collectionView 的 cell 的大小设置处要设置, 不然会按照这里的在拿到 cell 的时候系统自动会设置一次"></a>bug: cell 不能按照 xib 的尺寸显示: 在 collectionView 的 cell 的大小设置处要设置, 不然会按照这里的在拿到 cell 的时候系统自动会设置一次</h1><h1 id="bug-void-collectionView-UICollectionView-collectionViewdidEndDisplayingCell-UICollectionViewCell-cell-forItemAtIndexPath-NSIndexPath-indexPath-不要在这里监听-当滚动时有可能会左右摆动-造成数据不准-重复-形成黑屏"><a href="#bug-void-collectionView-UICollectionView-collectionViewdidEndDisplayingCell-UICollectionViewCell-cell-forItemAtIndexPath-NSIndexPath-indexPath-不要在这里监听-当滚动时有可能会左右摆动-造成数据不准-重复-形成黑屏" class="headerlink" title="bug: - (void)collectionView:(UICollectionView )collectionViewdidEndDisplayingCell:(UICollectionViewCell )cell forItemAtIndexPath:(NSIndexPath *)indexPath 不要在这里监听, 当滚动时有可能会左右摆动, 造成数据不准, 重复, 形成黑屏"></a>bug: - (void)collectionView:(UICollectionView <em>)collectionViewdidEndDisplayingCell:(UICollectionViewCell </em>)cell forItemAtIndexPath:(NSIndexPath *)indexPath 不要在这里监听, 当滚动时有可能会左右摆动, 造成数据不准, 重复, 形成黑屏</h1><h2 id="无限滚动"><a href="#无限滚动" class="headerlink" title="无限滚动"></a>无限滚动</h2><pre><code>* 和之前的方法的无限滚动的思路差不多
+* 都是在滚到哪张时, 将中间那张无动画的显示, 让用户发现不了
+* 一样是监听很多东西, 可以拿之前的来看看, 对比来结合优化
+</code></pre><h1 id="bug-在跳转到下一组时-会瞬间五动画到第一张-因为在跳转后动画还没执行完成-就又执行了五动画到第一张-应该是在自动轮播那里还未跳转到下一页时-就先五动画的跳转到当前页-以保不会越界-总是在中间组"><a href="#bug-在跳转到下一组时-会瞬间五动画到第一张-因为在跳转后动画还没执行完成-就又执行了五动画到第一张-应该是在自动轮播那里还未跳转到下一页时-就先五动画的跳转到当前页-以保不会越界-总是在中间组" class="headerlink" title="bug: 在跳转到下一组时, 会瞬间五动画到第一张: 因为在跳转后动画还没执行完成, 就又执行了五动画到第一张.应该是在自动轮播那里还未跳转到下一页时, 就先五动画的跳转到当前页, 以保不会越界, 总是在中间组"></a>bug: 在跳转到下一组时, 会瞬间五动画到第一张: 因为在跳转后动画还没执行完成, 就又执行了五动画到第一张.应该是在自动轮播那里还未跳转到下一页时, 就先五动画的跳转到当前页, 以保不会越界, 总是在中间组</h1><h1 id="升级-xcode7-2后问题-程序运行上下有黑边-选中target——-gt-general——-gt-app-icons-and-launch-images——-gt-Launch-Screen-File——-gt-选择一个-storyboard-file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个-launchimage-到对应的地方"><a href="#升级-xcode7-2后问题-程序运行上下有黑边-选中target——-gt-general——-gt-app-icons-and-launch-images——-gt-Launch-Screen-File——-gt-选择一个-storyboard-file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个-launchimage-到对应的地方" class="headerlink" title="升级 xcode7.2后问题: 程序运行上下有黑边:选中target——&gt;general——&gt;app icons and launch images——&gt;Launch Screen File——&gt;选择一个 storyboard file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个 launchimage 到对应的地方"></a>升级 xcode7.2后问题: 程序运行上下有黑边:选中target——&gt;general——&gt;app icons and launch images——&gt;Launch Screen File——&gt;选择一个 storyboard file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个 launchimage 到对应的地方</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/UI/" rel="tag"># UI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/yin-si-fang-wen/" rel="next" title="隐私访问">
+                <i class="fa fa-chevron-left"></i> 隐私访问
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/swiftgen/" rel="prev" title="swiftgen">
+                swiftgen <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#循环利用-amp-无限滚动"><span class="nav-number">1.</span> <span class="nav-text">循环利用&amp;无限滚动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-cell-不能按照-xib-的尺寸显示-在-collectionView-的-cell-的大小设置处要设置-不然会按照这里的在拿到-cell-的时候系统自动会设置一次"><span class="nav-number">2.</span> <span class="nav-text">bug: cell 不能按照 xib 的尺寸显示: 在 collectionView 的 cell 的大小设置处要设置, 不然会按照这里的在拿到 cell 的时候系统自动会设置一次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-void-collectionView-UICollectionView-collectionViewdidEndDisplayingCell-UICollectionViewCell-cell-forItemAtIndexPath-NSIndexPath-indexPath-不要在这里监听-当滚动时有可能会左右摆动-造成数据不准-重复-形成黑屏"><span class="nav-number">3.</span> <span class="nav-text">bug: - (void)collectionView:(UICollectionView )collectionViewdidEndDisplayingCell:(UICollectionViewCell )cell forItemAtIndexPath:(NSIndexPath *)indexPath 不要在这里监听, 当滚动时有可能会左右摆动, 造成数据不准, 重复, 形成黑屏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无限滚动"><span class="nav-number">3.1.</span> <span class="nav-text">无限滚动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-在跳转到下一组时-会瞬间五动画到第一张-因为在跳转后动画还没执行完成-就又执行了五动画到第一张-应该是在自动轮播那里还未跳转到下一页时-就先五动画的跳转到当前页-以保不会越界-总是在中间组"><span class="nav-number">4.</span> <span class="nav-text">bug: 在跳转到下一组时, 会瞬间五动画到第一张: 因为在跳转后动画还没执行完成, 就又执行了五动画到第一张.应该是在自动轮播那里还未跳转到下一页时, 就先五动画的跳转到当前页, 以保不会越界, 总是在中间组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#升级-xcode7-2后问题-程序运行上下有黑边-选中target——-gt-general——-gt-app-icons-and-launch-images——-gt-Launch-Screen-File——-gt-选择一个-storyboard-file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个-launchimage-到对应的地方"><span class="nav-number">5.</span> <span class="nav-text">升级 xcode7.2后问题: 程序运行上下有黑边:选中target——&gt;general——&gt;app icons and launch images——&gt;Launch Screen File——&gt;选择一个 storyboard file文件，编译运行即可，打包后，黑边问题不再出现！或者选一个 launchimage 到对应的地方</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/xun-huan-gun-dong/';
+          this.page.identifier = '2019/02/18/xun-huan-gun-dong/';
+          this.page.title = '循环滚动';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

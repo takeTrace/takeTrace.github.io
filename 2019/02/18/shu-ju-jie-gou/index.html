@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据结构 简介说明在我现在的理解, 就是有一些数据, 根据他的相关性进行组织的集合, 体现他们关系的特点. 好的数据结构在时间和空间上能有最优的组合, 也就是说, 一个设计良好的数据结构，应该在尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。 不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计出来的。例如B树即为加快树状结构访问速度而设计的数据结构，常被应用在">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/shu-ju-jie-gou/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="数据结构 简介说明在我现在的理解, 就是有一些数据, 根据他的相关性进行组织的集合, 体现他们关系的特点. 好的数据结构在时间和空间上能有最优的组合, 也就是说, 一个设计良好的数据结构，应该在尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。 不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计出来的。例如B树即为加快树状结构访问速度而设计的数据结构，常被应用在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T17:59:59.661Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构">
+<meta name="twitter:description" content="数据结构 简介说明在我现在的理解, 就是有一些数据, 根据他的相关性进行组织的集合, 体现他们关系的特点. 好的数据结构在时间和空间上能有最优的组合, 也就是说, 一个设计良好的数据结构，应该在尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。 不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计出来的。例如B树即为加快树状结构访问速度而设计的数据结构，常被应用在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/shu-ju-jie-gou/">
+
+
+
+
+
+  <title>数据结构 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/shu-ju-jie-gou/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:33:46+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/shu-ju-jie-gou/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/shu-ju-jie-gou/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据结构</p>
+<h1 id="简介说明"><a href="#简介说明" class="headerlink" title="简介说明"></a>简介说明</h1><p>在我现在的理解, 就是有一些数据, 根据他的相关性进行组织的集合, 体现他们关系的特点. 好的数据结构在时间和空间上能有最优的组合, 也就是说, 一个设计良好的数据结构，应该在尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。</p>
+<p>不同种类的数据结构适合不同种类的应用，部分数据结构甚至是为了解决特定问题而设计出来的。例如B树即为加快树状结构访问速度而设计的数据结构，常被应用在数据库和文件系统上。</p>
+<p>正确的数据结构选择可以提高算法的效率（请参考算法效率）。在计算机程序设计的过程里，选择适当的数据结构是一项重要工作。许多大型系统的编写经验显示，程序设计的困难程度与最终成果的质量与表现，取决于是否选择了最适合的数据结构。</p>
+<p>数据结构可透过程序语言所提供的数据类型、引用及其他操作加以实现。一个设计良好的数据结构，应该在尽可能使用较少的时间与空间资源的前提下，支持各种程序运行。</p>
+<p>系统架构的关键因素是数据结构而非算法的见解，导致了多种形式化的设计方法与编程语言的出现。绝大多数的语言都带有某种程度上的模块化思想，透过将数据结构的具体实现封装隐藏于用户界面之后的方法，来让不同的应用程序能够安全地重用这些数据结构。C++、Java、Python等面向对象的编程语言可使用类别来达到这个目的。</p>
+<h3 id="常见的数据结构"><a href="#常见的数据结构" class="headerlink" title="常见的数据结构"></a>常见的数据结构</h3><ul>
+<li>数组（Array）</li>
+<li>堆栈（Stack）</li>
+<li>队列（Queue）</li>
+<li>链表（Linked List）</li>
+<li>树（Tree）</li>
+<li>图（Graph）</li>
+<li>堆（Heap）</li>
+<li>散列表（Hash）</li>
+</ul>
+<h2 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h2><p>1968年，美国的高德纳（Donald E. Knuth）教授在其所写的《计算机程序设计艺术》第一卷《基本算法》中，较系统地阐述了数据的逻辑结构和存储结构及其操作，开创了数据结构的课程体系。同年，数据结构作为一门独立的课程，在计算机科学的学位课程中开始出现。</p>
+<p>随着程序软件的发展, 结构程序设计成为程序设计方法学的主要内容，人们越来越重视“数据结构”，认为程序设计的实质是对确定的问题选择一种好的结构，加上设计一种好的算法。可见，数据结构在程序设计当中占据了重要的地位。程序设计=数据结构+算法</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li>数据: “是描述客观事物的符号，是计算机中可以操作的对象，是能被计算机识别，并输入给计算机处理的符号集合。数据不仅仅包括整型、实型等数值类型，还包括字符及声音、图像、视频等非数值类型” 注意这里的重点是是 “类型”</li>
+<li>数据元素:  “是组成数据的、有一定意义的基本单位，在计算机中通常作为整体处理。也被称为记录。” , 也就是我们所说的对象</li>
+<li>数据项：一个数据元素可以由若干个数据项组成。也就是我们平时定义一个模型对象时里面的属性</li>
+<li>数据对象：是性质相同的数据元素的集合，是数据的子集, 可以这么比方, 人之下, 有分男人, 女人, 等等….</li>
+<li>数据结构: 就是数据对象之间个各种关系, 比如三角结构, 就是三个直线之间角度的关系</li>
+</ul>
+<p>如果将社会进行各种建模, 以人为数据项, 单位为数据项等, 就会得出各种各样的结构. 社会会产生出各种各样的问题, 这也说明了前面的话, 解决问题首先要有对问题进行合理有效的抽象出数据结构, 然后使用什么手段(算法)去解决, 而语言, 只是在这之上进行最有效合理的执行方的选择问题上, 比如, 有些问题, 适合用军队, 有些问题, 适合用警察, 有些问题, 适合用一些见不得光的手段.</p>
+<h2 id="逻辑结构-amp-物理结构-—-面向问题"><a href="#逻辑结构-amp-物理结构-—-面向问题" class="headerlink" title="逻辑结构 &amp; 物理结构   —- 面向问题"></a>逻辑结构 &amp; 物理结构   —- 面向问题</h2><p>因为现在硬件的发展, 而且能对物理结构进行改动很有限, 所以一般所说的数据结构指的是逻辑结构</p>
+<h4 id="逻辑结构：是指数据对象中数据元素之间的相互关系。"><a href="#逻辑结构：是指数据对象中数据元素之间的相互关系。" class="headerlink" title="逻辑结构：是指数据对象中数据元素之间的相互关系。"></a>逻辑结构：是指数据对象中数据元素之间的相互关系。</h4><ul>
+<li>集合结构: 就是同属于一个集合的情况</li>
+<li>线性结构: 数据元素之间是一对一的情况</li>
+<li>树型结构: 一对多</li>
+<li>图: 多对多</li>
+</ul>
+<p>在画结构图时, 一般是元素对象是一个圆, 之间的关系是线, 有向的话加箭头</p>
+<h4 id="物理结构-存储结构-—-面向计算机"><a href="#物理结构-存储结构-—-面向计算机" class="headerlink" title="物理结构(存储结构) —- 面向计算机"></a>物理结构(存储结构) —- 面向计算机</h4><p>指数据的逻辑结构在计算机中的存储形式<br>一般只存在内存, 硬盘之类的, 一般以文件结构来描述数据</p>
+<p>数据的存储结构应正确反映数据元素之间的逻辑关系，这才是最为关键的，如何存储数据元素之间的逻辑关系，是实现物理结构的重点和难点</p>
+<ul>
+<li>顺序存储: 是把数据元素存放在地址连续的存储单元里, 数据间的逻辑和物理关系一致, (数组)</li>
+<li>链式存储: 存储结构是随意的, 可以连续也可以不连续, 需要用指针才能表现数据元素之间的逻辑关系</li>
+</ul>
+<p>这两个在现实中很典型的栗子就是, 以前的排队和现在的排队. 以前必须排着, 队列的结构决定着你的先后逻辑, 现在是有个号就行了, 爱在哪在哪, 号码的大小决定了先后逻辑</p>
+<p>这很方便, 也有问题.<br>因为顺序结构是事先开辟好空间, 只要通过计算, 任意位置都都能知道任意位置的元素是什么, 但是链式的话, 只有前一个节点知道后一个节点, 并且不能跳过一个节点知道下下个节点.</p>
+<h2 id="抽象数据类型"><a href="#抽象数据类型" class="headerlink" title="抽象数据类型"></a>抽象数据类型</h2><p>数据类型: 是指一组性质相同的值的集合及定义在此集合上的一些操作的总称。 值是有不同类型的, 一般说了类型, 也就确定了这些值能进行的操作.<br>既然各种数据的计算归根到底是计算机通过0101的计算, 那类型的意义是什么.<br>资源是有限的, 需要合理充分的利用资源, 才能达到效益最大化的目的.</p>
+<p>在计算机中, 内存是有限的, 不同的类型满足不同的计算需要, 也就可以根据这些需要划分出不同大小的空间来做计算.</p>
+<p>在各种语言中, 可以大致分为2类:</p>
+<ol>
+<li>基本数据类型(基本是以这些为单元了, 不能在细分下去)</li>
+<li>结构体类型(对象, 函数等都可以归为结构体)</li>
+</ol>
+<h3 id="封装-抽象"><a href="#封装-抽象" class="headerlink" title="封装, 抽象"></a>封装, 抽象</h3><p>不同的硬件系统有不同的存储差别和计算差别, 我们的程序需要通过编译器来转化成机器能识别的语言.<br>在不同的地方都能运行相同的程序, 忽略掉其中细微的差别, 这就需要我们对底层进行抽象和封装, 暴露出普遍适用的结构的上层.</p>
+<ul>
+<li>抽象数据类型（Abstract Data Type，ADT）：是指一个数学模型及定义在该模型上的一组操作。抽象数据类型的定义仅取决于它的一组逻辑特性，而与其在计算机内部如何表示和实现无关。</li>
+</ul>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><p>解决问题的思路, 解决方案, 解决特定问题的求解步奏的描述, 在计算机中表现为有限的指令序列  —- 讲这么琐碎, 也就是思路.<br>历史总是惊人的相似…所以碰到的问题也是经常的在不同时期碰到同样的问题是有很大的概率的….<br>然后就有人不断的提出不同的解决方案, 然后总在某个时期会出来一些大神, 总结分析后, 搞了一套某个问题上的最优解, 走他们的这些套路, 就能避免/解决很多问题</p>
+<p>数据结构和算法是分不开的, 只有一样, 都是一个巴掌拍不响</p>
+<p>算法基于数据结构的特性来展开, 数据结构有了算法才能解决问题, 不然就白分析建模了….</p>
+<p>有时候算法又要根据执行的对象的模型来进行优化的, 比如加减乘除, 在语言中定义了+-<em>/这些, 因为这些思路是在逻辑层面的, 结合存储结构和执行对象方面, 我们有了一定的优化程度, 比如/2 和 </em>2, 可以用内存的左移和右移实现, 而执行位移操作, 要比上面的逻辑操作有效率的多.</p>
+<h3 id="算法的特性"><a href="#算法的特性" class="headerlink" title="算法的特性"></a>算法的特性</h3><p>算法具有五个基本特性：输入、输出、有穷性、确定性和可行性。</p>
+<p>确定性：算法的每一步骤都具有确定的含义，不会出现二义性。算法在一定条件下，只有一条执行路径，相同的输入只能有唯一的输出结果。算法的每个步骤被精确定义而无歧义。<br>这个确定性很重要, 很多时候写出来的东西你如果不确定出来的结果, 模棱两可, 说明这个方法一开始就有问题了, 导致后来问题可能互殴被放大, 而且排错会很困难.<br>保证好了确定性, 才能对自己的代码的正确性有信心</p>
+<p>既然说算法是思路, 那这个确定性在很多问题上都是很重要的, 不能保证这个, 不仅问题不好解决, 还可能引发出新的问题.</p>
+<p>可行性: 每一步都能通过有限次数执行完成, 特别计算机算法, 要在计算机上能够实现</p>
+<p>算法的“正确”通常在用法上有很大的差别，大体分为以下四个层次。 1.算法程序没有语法错误。 2.算法程序对于合法的输入数据能够产生满足要求的输出结果。 3.算法程序对于非法的输入数据能够得出满足规格说明的结果。 4.算法程序对于精心选择的，甚至刁难的测试数据都有满足要求的输出结果。</p>
+<p>“对于这四层含义，层次1要求最低，但是仅仅没有语法错误实在谈不上是好算法。这就如同仅仅解决温饱，不能算是生活幸福一样。而层次4是最困难的，我们几乎不可能逐一验证所有的输入都得到正确的结果。</p>
+<p>因此算法的正确性在大部分情况下都不可能用程序来证明，而是用数学方法证明的。证明一个复杂算法在所有层次上都是正确的，代价非常昂贵。所以一般情况下，我们把层次3作为一个算法是否正确的标准。”</p>
+<p>可读性：算法设计的另一目的是为了便于阅读、理解和交流。<br>可读性高有助于人们理解算法，晦涩难懂的算法往往隐含错误，不易被发现，并且难于调试和修改。</p>
+<p>难懂的算法不要说好不好, 有没有错都不一定, 因为过了后自己都被绕进去了, 绕的多了可能就绕错了, 所以, 有时候简单 粗暴也是挺好. 快速准确的解决问题才是王道<br>(简单粗暴 != 垃圾, 有些人把解决某个步奏的代码复制粘贴一堆, 以为这是简单粗暴…这是垃圾….)</p>
+<p>健壮性：当输入数据不合法时，算法也能做出相关处理，而不是产生异常或莫名其妙的结果。</p>
+<p>时间效率高和存储量低<br>最后，好的算法还应该具备时间效率高和存储量低的特点。当然鱼和熊掌不可兼得, 更多时候我们考虑侧重点,</p>
+<h2 id="算法效率的度量方法"><a href="#算法效率的度量方法" class="headerlink" title="算法效率的度量方法"></a>算法效率的度量方法</h2><p>刚才我们提到设计算法要提高效率。这里效率大都指算法的执行时间。那么我们如何度量一个算法的执行时间呢？</p>
+<p>正所谓“是骡子是马，拉出来遛遛”。比较容易想到的方法就是，我们通过对算法的数据测试，利用计算机的计时功能，来计算不同算法的效率是高还是低。</p>
+<h3 id="事后统计方法"><a href="#事后统计方法" class="headerlink" title="事后统计方法"></a>事后统计方法</h3><p>事后统计方法：这种方法主要是通过设计好的测试程序和数据，利用计算机计时器对不同算法编制的程序的运行时间进行比较，从而确定算法效率的高低。</p>
+<p>但这种方法显然是有很大缺陷的：</p>
+<p>必须依据算法事先编制好程序，这通常需要花费大量的时间和精力。如果编制出来发现它根本是很糟糕的算法，不是竹篮打水一场空吗？<br>时间的比较依赖计算机硬件和软件等环境因素，有时会掩盖算法本身的优劣。要知道，现在的一台四核处理器的计算机，跟当年286、386、486等老爷爷辈的机器相比，在处理算法的运算速度上，是不能相提并论的；而所用的操作系统、编译器、运行框架等软件的不同，也可以影响它们的结果；就算是同一台机器，CPU使用率和内存占用情况不一样，也会造成细微的差异。<br>算法的测试数据设计困难，并且程序的运行时间往往还与测试数据的规模有很大关系，效率高的算法在小的测试数据面前往往得不到体现。比如10个数字的排序，不管用什么算法，差异几乎是零。而如果有一百万个随机数字排序，那不同算法的差异就非常大了。那么我们为了比较算法，到底用多少数据来测试，这是很难判断的问题</p>
+<h3 id="事前分析估算方法"><a href="#事前分析估算方法" class="headerlink" title="事前分析估算方法"></a>事前分析估算方法</h3><p>我们的计算机前辈们，为了对算法的评判更科学，研究出了一种叫做事前分析估算的方法。<br>事前分析估算方法：在计算机程序编制前，依据统计方法对算法进行估算。<br>经过分析，我们发现，一个用高级程序语言编写的程序在计算机上运行时所消耗的时间取决于下列因素： 1.算法采用的策略、方法. 2.编译产生的代码质量。 3.问题的输入规模。 4.机器执行指令的速度。</p>
+<p>我们能控制的, 当然是第一条和第四条</p>
+<p>测定运行时间最可靠的方法就是计算对运行时间有消耗的基本操作的执行次数<br>我们在分析一个算法的运行时间时，重要的是把基本操作的数量与输入规模关联起来，即基本操作的数量必须表示成输入规模的函数</p>
+<p>有些算法的效率是渐进增长的, 也就是说, 随着输入规模的增长, 某一个点之后A算法总是好于B, 他们的曲线上有交点<br>函数的渐近增长：给定两个函数f(n)和g(n)，如果存在一个整数N，使得对于所有的n&gt;N，f(n)总是比g(n)大，那么，我们说f(n)的增长渐近快于g(n)</p>
+<p>在大的输入规模下, 算法严谨计算中的常量是可以省略的, 因为主要是判断好坏, 做出选择, 通过求一阶导, 可以忽略掉这个而不影响对比结果</p>
+<h3 id="算法时间复杂度定义"><a href="#算法时间复杂度定义" class="headerlink" title="算法时间复杂度定义"></a>算法时间复杂度定义</h3><p>在进行算法分析时，语句总的执行次数T(n)是关于问题规模n的函数，进而分析T(n)随n的变化情况并确定T(n)的数量级。算法的时间复杂度，也就是算法的时间量度，记作：T(n)=O(f(n))  (O是怎么来的)。它表示随问题规模n的增大，算法执行时间的增长率和f(n)的增长率相同，称作算法的渐近时间复杂度，简称为时间复杂度。其中f(n)是问题规模n的某个函数。</p>
+<h4 id="推导大O阶："><a href="#推导大O阶：" class="headerlink" title="推导大O阶："></a>推导大O阶：</h4><p>1．用常数1取代运行时间中的所有加法常数。<br>2．在修改后的运行次数函数中，只保留最高阶项。<br>3．如果最高阶项存在且不是1，则去除与这个项相乘的常数。</p>
+<p>得到的结果就是大O阶。</p>
+<p>我之前看的时候自己做的总结是: 一次过的就是O(1), 轮回一次的就是O(n), 嵌套轮回的就O(n的嵌套次数方), 有折半思想来减少原n次的运行次数的, 就是对数阶O(logN)</p>
+<p>O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n2)&lt;O(n3)&lt;O(2n)&lt;O(n!)&lt;O(nn)</p>
+<p>对算法的分析，一种方法是计算所有情况的平均值，这种时间复杂度的计算方法称为平均时间复杂度。另一种方法是计算最坏情况下的时间复杂度，这种方法称为最坏时间复杂度。一般在没有特殊说明的情况下，都是指最坏时间复杂度。</p>
+<p>算法的空间复杂度通过计算算法所需的存储空间实现，算法空间复杂度的计算公式记作：S(n)=O(f(n))，其中，n为问题的规模，f(n)为语句关于n所占存储空间的函数。</p>
+<p>一般情况下，一个程序在机器上执行时，除了需要存储程序本身的指令、常数、变量和输入数据外，还需要存储对数据操作的存储单元。若输入数据所占空间只取决于问题本身，和算法无关，这样只需要分析该算法在实现时所需的辅助单元即可。若算法执行时所需的辅助空间相对于输入数据量而言是个常数，则称此算法为原地工作，空间复杂度为O(1)。</p>
+<p>通常，我们都使用“时间复杂度”来指运行时间的需求，使用“空间复杂度”指空间需求。当不用限定词地使用“复杂度”时，通常都是指时间复杂度。显然我们这本书重点要讲的还是算法的时间复杂度的问题。</p>
+<h2 id="线性表（List）：零个或多个数据元素的有限序列。"><a href="#线性表（List）：零个或多个数据元素的有限序列。" class="headerlink" title="线性表（List）：零个或多个数据元素的有限序列。"></a>线性表（List）：零个或多个数据元素的有限序列。</h2><p>首先它是一个序列。也就是说，元素之间是有顺序的，若元素存在多个，则第一个元素无前驱，最后一个元素无后继，其他每个元素都有且只有一个前驱和后继。</p>
+<p>线性表结构能够应用的栗子: 排队系统, 很多一对一关系的元素</p>
+<p>线性只是一个逻辑, 在内存中的存储结构就是用顺序或者是链式</p>
+<h3 id="顺序"><a href="#顺序" class="headerlink" title="顺序"></a>顺序</h3><p>在内存中的顺序存储结构需要定一个基地址作为开始, 根据数据类型定义一个长度, 然后这一块就是这个数组指向的数据地址. js中看到有些数组的创建方式可以j[1] = 1, j[3] = 2, 这样, j.len = 3, j[2] = null, 我觉得它内部的处理的形式就是用了顺序的存储结构, 第一次定义这个数组的时候就定义了基地址, 之后的下标就会根据这个基地址计算, 所以就算跳过负值, 也会被置为空,</p>
+<p>每个内存单元都有一个编号, 就是常说的内存地址, 定义一个结构, 也就定义了一个地址, 然后有她的长度, 这样根据类型单元的大小(就是占几个字节), 就可以计算出对应位置的位置. 公式: LOC(ai+1) = LOC(a1)+(i-1)*c, 这个计算是O(1)的, 任意位置的存取操作消耗的资源都一样, 一般把具有这种特点的存储结构称为随机存储结构, 而增删操作, 对于这种结构都会影响其他元素的位置操作, 复杂度O(n), 所以这种操作适合存储, 不是和增删.</p>
+<p>这个结构的优缺点就在于内存中的位置来反应了顺序这个逻辑结构, 如果用其他的东西来标识这个逻辑, 那就不用受到内存结构的限制<br>这就是链式存储结构</p>
+<h3 id="线性表的链式存储结构"><a href="#线性表的链式存储结构" class="headerlink" title="线性表的链式存储结构"></a>线性表的链式存储结构</h3><p>特点是用一组任意的存储单元存储线性表的数据元素，这组存储单元可以是连续的，也可以是不连续的。这就意味着，这些数据元素可以存在内存未被占用的任意位置</p>
+<p>链式结构除了存储其本身的信息之外，还需存储一个指示其直接后继的信息（即直接后继的存储位置）。我们把存储数据元素信息的域称为数据域，把存储直接后继位置的域称为指针域。指针域中存储的信息称做指针或链。这两部分信息组成数据元素ai的存储映像，称为结点（Node）</p>
+<p>n个结点（ai的存储映像）链结成一个链表，即为线性表（a1,a2,…,an）的链式存储结构，因为此链表的每个结点中只包含一个指针域，所以叫做单链表。通过指针指向下一个元素, 来存续数据间的逻辑</p>
+<p>第一个节点的存储位置叫做头指针, 最后一个节点指针为NULL,<br>有时，我们为了更加方便地对链表进行操作，会在单链表的第一个结点前附设一个结点，称为头结点。头结点的数据域可以不存储任何信息，也可以存储如线性表的长度等附加信息，头结点的指针域存储指向第一个结点的指针</p>
+<p>这里有两个概念: 头节点, 头指针</p>
+<ul>
+<li>头指针: 指向链表第一个节点的指针, 若链表有头节点, 就是指向头节点的指针 | 具有标识作用所以常用头指针冠以链表的名字 | 无论链表为空否, 头指针均不为空, 头指针是链表的必要元素</li>
+<li>头节点: 为了操作的方便和统一, 放在第一个元素的节点之前 | 这样在删除第一个元素和插入元素到第一个节点前的操作就和其他节点统一了 | 头节点不是链表的必要元素</li>
+</ul>
+<p>连标点的插入查找<br>第一部分就是遍历查找第i个结点；第二部分就是插入和删除结点。</p>
+<p>这么说来操作还是O(n), 那这个和顺序存储结构的优势又哪里有体现了.</p>
+<p>我们说过, 这个要以数据量来说的, 插入一个, 都是O(n), 那n个呢, 顺序表每次插入都是O(n), 最后整个就是O(n方), 而链表, 在查找时是O(n), 但是插入操作一直是O(1). 最后也还是O(n)</p>
+<p>所以在经常性的操作增删的时候选择链表比顺序表要好</p>
+<p>单链表整表创建的算法思路：</p>
+<p>1.声明一指针p和计数器变量i；<br>2.初始化一空链表L；<br>3.让L的头结点的指针指向NULL，即建立一个带头结点的单链表；<br>4.循环：</p>
+<p>生成一新结点赋值给p；<br>随机生成一数字赋值给p的数据域p-&gt;data；<br>将p插入到头结点与前一新结点之间。</p>
+<p>这其实是插队法, 即将新元素总是插到第一个位置</p>
+<p>也可以尾插法, 主要的区别就是将心创建的元素放到最后, 讲最后的节点指向新的节点, 再把循环中的指针换位最后一个节点的指针</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/get-class-name-swift-ios12/" rel="next" title="get-class-name-swift-ios12">
+                <i class="fa fa-chevron-left"></i> get-class-name-swift-ios12
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/wei-xin-xiao-cheng-xu-kai-fa-bi-ji/" rel="prev" title="微信小程序开发笔记">
+                微信小程序开发笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介说明"><span class="nav-number">1.</span> <span class="nav-text">简介说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的数据结构"><span class="nav-number">1.0.1.</span> <span class="nav-text">常见的数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发展"><span class="nav-number">1.1.</span> <span class="nav-text">发展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑结构-amp-物理结构-—-面向问题"><span class="nav-number">1.3.</span> <span class="nav-text">逻辑结构 &amp; 物理结构   —- 面向问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑结构：是指数据对象中数据元素之间的相互关系。"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">逻辑结构：是指数据对象中数据元素之间的相互关系。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#物理结构-存储结构-—-面向计算机"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">物理结构(存储结构) —- 面向计算机</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象数据类型"><span class="nav-number">1.4.</span> <span class="nav-text">抽象数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装-抽象"><span class="nav-number">1.4.1.</span> <span class="nav-text">封装, 抽象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法的特性"><span class="nav-number">2.0.1.</span> <span class="nav-text">算法的特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法效率的度量方法"><span class="nav-number">2.1.</span> <span class="nav-text">算法效率的度量方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事后统计方法"><span class="nav-number">2.1.1.</span> <span class="nav-text">事后统计方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事前分析估算方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">事前分析估算方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法时间复杂度定义"><span class="nav-number">2.1.3.</span> <span class="nav-text">算法时间复杂度定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#推导大O阶："><span class="nav-number">2.1.3.1.</span> <span class="nav-text">推导大O阶：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表（List）：零个或多个数据元素的有限序列。"><span class="nav-number">2.2.</span> <span class="nav-text">线性表（List）：零个或多个数据元素的有限序列。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序"><span class="nav-number">2.2.1.</span> <span class="nav-text">顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表的链式存储结构"><span class="nav-number">2.2.2.</span> <span class="nav-text">线性表的链式存储结构</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/shu-ju-jie-gou/';
+          this.page.identifier = '2019/02/18/shu-ju-jie-gou/';
+          this.page.title = '数据结构';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,定位,地图,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="定位&amp;amp;地图使用 #CoreLocation, 定位 * 要做关于位置的开发, 要知道2个东西: map kit.  coreLocation.   LBS, SOLOMO 都是需要这类应用 * 导入框架(xcode5后默认自动导入) import 主头文件 * 可以查看里面有什么方法是可以用的 ##CLLocationManager * 用户定位: 创建位置管理器 -&amp;gt; 开始更新位置">
+<meta name="keywords" content="iOS,定位,地图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="定位&amp;地图使用">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/ding-wei-&-di-tu-shi-yong/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="定位&amp;amp;地图使用 #CoreLocation, 定位 * 要做关于位置的开发, 要知道2个东西: map kit.  coreLocation.   LBS, SOLOMO 都是需要这类应用 * 导入框架(xcode5后默认自动导入) import 主头文件 * 可以查看里面有什么方法是可以用的 ##CLLocationManager * 用户定位: 创建位置管理器 -&amp;gt; 开始更新位置">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T17:20:34.070Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="定位&amp;地图使用">
+<meta name="twitter:description" content="定位&amp;amp;地图使用 #CoreLocation, 定位 * 要做关于位置的开发, 要知道2个东西: map kit.  coreLocation.   LBS, SOLOMO 都是需要这类应用 * 导入框架(xcode5后默认自动导入) import 主头文件 * 可以查看里面有什么方法是可以用的 ##CLLocationManager * 用户定位: 创建位置管理器 -&amp;gt; 开始更新位置">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/ding-wei-&-di-tu-shi-yong/">
+
+
+
+
+
+  <title>定位&地图使用 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/ding-wei-&-di-tu-shi-yong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">定位&地图使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:32:45+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/ding-wei-&-di-tu-shi-yong/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/ding-wei-&-di-tu-shi-yong/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>定位&amp;地图使用</p>
+<p>#CoreLocation, 定位</p>
+<pre><code>* 要做关于位置的开发, 要知道2个东西: map kit.  coreLocation.   LBS, SOLOMO 都是需要这类应用
+* 导入框架(xcode5后默认自动导入) import 主头文件
+* 可以查看里面有什么方法是可以用的
+</code></pre><p>##CLLocationManager</p>
+<pre><code>* 用户定位: 创建位置管理器 -&gt; 开始更新位置, 通过代理来获取管理器的回调
+* CLLocation 表示某个位置的地理信息, 经纬度/海拔/航向/速度/...大概这可以做个虚拟现实服务.....
+* 定位开始后会一直不断的调用, 比较耗电, 当定位完成后应该停止更新位置
+* distanceFilter: 距离过滤, 每隔多少米定位一次
+* CACLLocationAcuracy: 精准度, 越高越耗电
+* loc1 distanceFromLocation:loc2] 可以计算2个位置之间的距离
+* 在info 里添加一个属性 NSLocationUsage可以设置一个提示, 当系统弹框提醒时可以显示在弹框中, xcode 解析出来就是Privacy-Location Usage
+* 必须要在 info 设置位置请求字段,iOS8之后, 不会主动弹出框来让用户授权, 我们要配置 info.plist 文件, 添加授权 key 和要显示的话, 再调用这些方法, 才会弹框授权, 才能使用定位  字段: NSLocationWhenInUseUsageDescription 或者 NSLocationAlwaysUsageDescription, iOS8之后，如果想要定位，必须调用 requestWhenInUseAuthorization 或 requestAlwaysAuthorization方法。可参考http://www.jianshu.com/p/ef6994767cbb
+* 可以设置某个区域的监控, 当进入这个区域或离开这个区域就通知代理
+</code></pre><p>#bug:  reason: ‘Delegate must respond to locationManager:didFailWithError:’–必须实现设个方法</p>
+<p>##CLGeocoder</p>
+<pre><code>* 地理编码: 将地名编码成坐标, 经纬度等信息, 根据地名可以获得具体位置信息
+* 反地理编码: 根据坐标经纬度等信息, 得出具体位置信息
+* 只用创建一个对象就可以用, 调用 geocoder &amp; reverseGeocoder 就可以进行地理编解码
+* 完了后会调用 block, 传2个参数, 查到信息的话会返回一个 CLPlaceMark:地标, 里面包装了很多信息, 可以打印看看
+* *
+* 反地理编码: 用法和地理编码差不多, 根据经纬度拿到地标
+*
+</code></pre><p>#Map Kit</p>
+<pre><code>* 基于 CoreLocation 的地图工具包
+* 一样是导入框架和猪头文件
+* 所有类型以 MK 开头
+</code></pre><p>##MKMapView</p>
+<pre><code>* 专门用于地图显示
+* 直接加载出 MapView 就能显示出地图, 默认显示中国(大概是因为判断到网络是中国的), 而且是大范围标尺显示
+* 地图类型: 普通地图MapViewMKMapTypeStandard  /   卫星云图MapViewMKMapTypeSatellite  /  混合,普通视图覆盖卫星云图之上MapViewMKMapTypeHybrid,
+* 现在是这些了:
+* MKMapTypeStandard = 0, 普通
+    MKMapTypeSatellite, 卫星
+    MKMapTypeHybrid, 混合
+    MKMapTypeSatelliteFlyover
+    MKMapTypeHybridFlyover
+* 设置用户跟踪模式会马上拿到当前设备位置, 可以跟踪显示当前设备的位置, 自动将这个位置显示在屏幕上
+* 可以设置代理, 监听地图相关的行为
+* 有个更新位置会调用的方法, 传回MKUserLocation
+* MKUserLocation: 可以当成一个用户位置的封装, 其实是对大头针的一个模型,位置信息封装, 也就是当前设备所在位置, 这个蓝色大头针有信息: 位置/标题/子标题/,  里面封装了 CLLocation 地理信息, 还有其他设置, 让大头针的信息多元化, 可以在这里拿到当前位置信息后设置这个的区域, 就壶显示在频幕上
+* 区域中包装了中心, 区域跨度等信息,
+</code></pre><p>##显示特定位置和区域</p>
+<pre><code>* setRegion: Animated:   设定最终用户位置后, 在设定显示区域(包含中心和跨度, 中心可以设置成用户位置, 就会将用户位置显示在中心, ), 就能显示出特定大小的地图,
+</code></pre><p>##添加大头针:</p>
+<pre><code>* 这里地图上的大头针是指在地图上标识目标食物的那个视图控件
+* 往地图上添加一个大头针, 用其方法:   addAnnotation:    annotation 意注释, 可以看成大头针的意思, 它也是为注释而生的,
+* annotation 在里面是大头针的模型, 要做设个模型就要遵守 annotation 协议
+* 设定大头针的位置, 标题/子标题, 添加到题图上, 就能显示出来,
+</code></pre><p>##自定义大头针</p>
+<pre><code>* 默认是使用MKPinAnnotationView来显示, 其是MKAnnotationView的子类, 而MKAnnotationView本身没有图片显示的, 直接用的还会没哟东西显示出来, 用MKPinAnnotationView可以少量的进行些修改, 要想自定义更多, 还是需要自定义一个 view
+* 在自定义 view 时, 可以给模型加上一个 image 属性来设定图钉要显示的 view, 但是有个注意点, 在代理方法中指定返回的是自定义 view 的时候, 当用户定位追踪时也会调用这个方法, 传入的是它的模型, 而这个模型是没有 image 赋值的属性, 所以会报错:  解决: 在代理拿到 view 的方法里判断是否是自定义的 view, 不是即返回 nil, 系统会按照默认的去添加 view
+*  有时候在弹出的视图想丰富化, 貌似自带的没有响应的属性设置自定义的弹出视图, 想自己弹出视图, 可以监听大头针的点击, 自己创建一个 view 弹出来, view 来显示东西, 并设置好位置在图钉之上📌
+*  但是这样的话, view 的位置不在父控件的范围, 点击事件不能被响应, 可以用这个方法监听全局点击, 判断点击的点是否在哪个 view 上, 就用那个 view 来处理点击事件
+*  方法: hitTest:withEvent: 可以拦截整个操作系统的触摸事件, 因为 iOS 底层的事件传递都是用这个方法来传, 拦截这个方法就几乎拦截了所有的触摸事件. 可以拿到点击的点, 判断. 返回一个 view, 那个 view 就会用来做响应点击事件的 view
+*  可以添加 tableView 等等控件, 但是没词点击都会创建一个, 而且每个大头针都会显示出来, 我们可以给这个类做一个单例, 每次出来就改变位置和父控件, 或者通知其他图钉将这个 view 收起
+</code></pre><p>##注意: iOS9已经可以设置 detailView, 可以显示更多东西</p>
+<p>#bug: detailCalloutAccessoryView添加本来没有宽高的东西的时候什么都不显示, —  在使用这个特性时需要添加宽高的限制, 不然显示不出来<br>[v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100]];<br>    [v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200]];</p>
+<p>###对于Swift:</p>
+<pre><code>*  let widthConstraint = NSLayoutConstraint(item: myView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
+myView.addConstraint(widthConstraint)
+
+let heightConstraint = NSLayoutConstraint(item: myView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20)
+myView.addConstraint(heightConstraint)
+</code></pre><p>##画线和导航</p>
+<pre><code>* mapkit 中有个类, 可以获取路线, 即方向请求: MKDirectionsRequest, 设置起点和终点, 用 MKPlaceMark,  这里要用到地理编码了,
+* 注意: 地理编码器同一时间只能进行一项编码任务, 而且是异步的, 所以应该一个完成再编码一个, 将编码嵌套起来,.
+* 拿到路线请求后, 根据请求创建一个 MKDirection 对象, 即方向, 用来计算路径. 从返回的路径(或许有几个)拿出遮盖模型, 添加到 mapVIew 上, addOverlay:
+* 还需要在代理的添加遮盖的方法中返回一个 render,
+</code></pre><p>#bug: 画线出不来, —— 不能用 fillColor!!!! 因为这个线不是闭合的图形!!!!!</p>
+<pre><code>* 要想添加导航功能我们自己不好做, 需要有强大的地图服务支持, 一般我们是打开苹果的官方地图应用,
+</code></pre><p>#集成百度地图:  未做</p>
+<pre><code>* 继承百度地图SDK, 添加.mm 文件(里面有些使用到 c++的东西的, 项目里必须有一个.mm 文件, 没有的还不会链接 C++的东西, ),或者是早 otherLinkerFlags 添加-all_load(表示不管什么类型的文件都链接进来, 更推荐改.mm) , 使用更多的方法可以查 SDK 文档,
+* 使用百度的 map, 用里面的控件, 传入地点, 或者是查找路径就可以, 设置代理可以监听它的执行结果
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/定位/" rel="tag"># 定位</a>
+          
+            <a href="/tags/地图/" rel="tag"># 地图</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/ling-san-xue-de-zhu-jian-ji-lei-de-zhi-shi-dian/" rel="next" title="零散学的逐渐积累的知识点">
+                <i class="fa fa-chevron-left"></i> 零散学的逐渐积累的知识点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/duo-xian-cheng/" rel="prev" title="多线程">
+                多线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/ding-wei-&-di-tu-shi-yong/';
+          this.page.identifier = '2019/02/18/ding-wei-&-di-tu-shi-yong/';
+          this.page.title = '定位&地图使用';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

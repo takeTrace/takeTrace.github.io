@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,rxswift,函数式,异步,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="RxSwift简介 RxSwift是什么，RxSwift是一个库，用于通过使用可观察序列和操作符来组合基于事件的异步代码，从而优化函数体的调度参数。  概念介绍状态, 可变状态: 每个类型内部的状态, 有些是可以改变的, 改变的话会有副作用的风险 命令式编程: 就像 C 一样的指令式的, 没有方法, 只有函数, 这样就能减少其内部存储的可变的状态. 副作用: 涉及到共用的可变状态的改变, 其他用到">
+<meta name="keywords" content="iOS,rxswift,函数式,异步">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxSwift">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/RxSwift/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="RxSwift简介 RxSwift是什么，RxSwift是一个库，用于通过使用可观察序列和操作符来组合基于事件的异步代码，从而优化函数体的调度参数。  概念介绍状态, 可变状态: 每个类型内部的状态, 有些是可以改变的, 改变的话会有副作用的风险 命令式编程: 就像 C 一样的指令式的, 没有方法, 只有函数, 这样就能减少其内部存储的可变的状态. 副作用: 涉及到共用的可变状态的改变, 其他用到">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T17:57:30.043Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxSwift">
+<meta name="twitter:description" content="RxSwift简介 RxSwift是什么，RxSwift是一个库，用于通过使用可观察序列和操作符来组合基于事件的异步代码，从而优化函数体的调度参数。  概念介绍状态, 可变状态: 每个类型内部的状态, 有些是可以改变的, 改变的话会有副作用的风险 命令式编程: 就像 C 一样的指令式的, 没有方法, 只有函数, 这样就能减少其内部存储的可变的状态. 副作用: 涉及到共用的可变状态的改变, 其他用到">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/RxSwift/">
+
+
+
+
+
+  <title>RxSwift | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/RxSwift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RxSwift</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:33:39+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/RxSwift/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/RxSwift/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="RxSwift"><a href="#RxSwift" class="headerlink" title="RxSwift"></a>RxSwift</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>RxSwift是什么，RxSwift是一个库，用于通过使用可观察序列和操作符来组合基于事件的异步代码，从而优化函数体的调度参数。</p>
+</blockquote>
+<h2 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h2><p>状态, 可变状态: 每个类型内部的状态, 有些是可以改变的, 改变的话会有副作用的风险</p>
+<p>命令式编程: 就像 C 一样的指令式的, 没有方法, 只有函数, 这样就能减少其内部存储的可变的状态.</p>
+<p>副作用: 涉及到共用的可变状态的改变, 其他用到的地方有可能会出现意料之外的情况.</p>
+<p>声明代码：在命令式编程中，你可以随意更改状态而不会造成任何副作用。RxSwift结合了命令代码和功能代码最好的方面来为你保驾护航。</p>
+<p>响应式系统：让UI组件根据不同的应用状态保持最新显示。组件基于消息的通信来改进，高可重用性和隔离性，将类的生命周期和实现分开，更易测试。</p>
+<h2 id="Observables"><a href="#Observables" class="headerlink" title="Observables"></a>Observables</h2><p>Observable是Rx的基础，它是泛型定义Observable<t>，我们把它理解成一个被观察对象，它所发出的异步数据流是根据泛型T决定。Observable允许一个或多个观察者订阅，来响应事件进行逻辑并更新UI，或者处理新传入的数据等。<br>Observable符合ObservableType协议，它使Observable可以发射（而观察者可以接收）三种类型的事件：</t></p>
+<p>next事件：此事件会携带最新值以便提供给订阅者使用。<br>completed事件：该事件表示成功结束事件序列。这意味着Observable成功完成了它的生命周期，从此不会再发生任何其他事件。<br>error事件：Observable携带出错信息终止序列，从此不会再发出其他事件。</p>
+<p>有限的observable序列<br>它可以发出零个，一个或者多个值，在最后以成功或者错误而终结</p>
+<p>无限的observable序列<br>说道无限序列，这就会扯到UI事件了，理想状态下它们是在一个runloop里一直无限循环等待触发。比如设备方向转换，屏幕点击，传感器触发等事件。</p>
+<p>这里的UIDevice.rx.orientation是Rx针对UIKit的一个扩展属性，它会提供一个Observable<orientation>的可观察序列，我们订阅它并根据当前的方向更新UI。我们完全可以跳过onError和onCompleted事件，因为这些事件永远不会从这个可观察的事件中发出。</orientation></p>
+<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><p>Rx同流行的函数式编程一样，提供了很多基础的函数，我们只用关心输入和输出即可，一个数据流输如，输出另一个新的数据流：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIDevice</span>.rx.orientation</span><br><span class="line">  .<span class="built_in">filter</span> &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> value != .landscape</span><br><span class="line">  &#125;</span><br><span class="line">.<span class="built_in">map</span> &#123; <span class="number">_</span> <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Portrait is the best!"</span></span><br><span class="line">  &#125;</span><br><span class="line">  .subscribe(onNext: &#123; string <span class="keyword">in</span></span><br><span class="line">    showAlert(text: string)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<p>filter和map只是最基础最基础的操作函数，</p>
+<h2 id="Schedulers"><a href="#Schedulers" class="headerlink" title="Schedulers"></a>Schedulers</h2><p>Schedulers是Rx的调度器，它是用于任务队列调度。RxSwift附带了许多预定义的调度器，涵盖了99％的用例，所以不到万不得已你还是不要手痒自己去创建。</p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>这里非常值得一提的就是，我们并不用担心因为引入RxSwift而破坏原本架构，因为我们的Rx只是处理事件和异步数据序列。你可以继续使用MVC架构，亦或是MVP，MVVM都可以，随你喜欢。甚至你还可以选择实现自己的单向数据流架构也都中。</p>
+<p>微软的MVVM架构是专门为在提供数据绑定的平台上创建的事件驱动软件开发的。 RxSwift和MVVM是一对好基友，在本次学习的最后我们会结合两者完成实战，以及如何使用RxSwift来实现它。<br>MVVM和RxSwift走得很好的原因是，ViewModel允许你公开Observable<t>属性，这样你便能使用少量的胶水代码直接在ViewController中绑定好UIKit空间。这使得绑定模型数据到UI非常简单：</t></p>
+<p>RxSwift是Swift版本的Rx的通用实现。因此，它和Cocoa，UIKit两者没有任何关系。<br>RxCocoa库是RxSwift的小伙伴，它是专门为UIKit和Cocoa开发的库。 除了一些高级类，RxCocoa还为许多UI组件添加响应式扩展，以便您可以订阅各种UI事件。</p>
+<p>ref: <a href="http://www.rockerhx.com/2017/11/20/2017-11-20-RxSwift-Begining-1-Introduction/" target="_blank" rel="noopener">RxSwift从零入手 - 介绍
+</a></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="创建一个Observable"><a href="#创建一个Observable" class="headerlink" title="创建一个Observable"></a>创建一个<code>Observable</code></h3><p>类似就是一个这样的代码</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">unifiedContacts</span><span class="params">(matching predicate: NSPredicate,</span></span></span><br><span class="line"><span class="function"><span class="params">                                keysToFetch keys: [CNKeyDescriptor])</span></span> -&gt; <span class="type">Observable</span>&lt;[<span class="type">CNContact</span>]&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Observable</span>.create &#123; observer <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                observer.onNext(<span class="keyword">try</span> <span class="keyword">self</span>.base.unifiedContacts(matching: predicate, keysToFetch: keys))</span><br><span class="line">                observer.onCompleted()</span><br><span class="line">            &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">                observer.onError(error)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="type">Disposables</span>.create()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="KVO-订阅一个属性"><a href="#KVO-订阅一个属性" class="headerlink" title="KVO 订阅一个属性"></a>KVO 订阅一个属性</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Observable</span>.just(xxxx)</span><br><span class="line">.flatMap &#123;</span><br><span class="line">    $<span class="number">0</span>.rx.observe(类型<span class="type">String</span>.<span class="keyword">self</span>, <span class="string">"key"</span>)</span><br><span class="line">&#125;</span><br><span class="line">.<span class="keyword">subscript</span>(onNext: &#123;value <span class="keyword">in</span></span><br><span class="line">    xxx</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+<p>为了防止诡异的循环引用问题, 可以定义一个 闭包的属性, 当做函数处理订阅事件<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo : (bar: <span class="type">Int</span>) -&gt; () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; bar <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">print</span>(bar)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后就能这样用了<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Observable</span>.just(<span class="number">1</span>)</span><br><span class="line">    .<span class="built_in">map</span> &#123; $<span class="number">0</span> + <span class="number">1</span> &#125;</span><br><span class="line">    .subscribe(onNext: foo)</span><br><span class="line">    .addDisposableTo(disposeBag)</span><br></pre></td></tr></table></figure></p>
+<h1 id="从-0-开始使用-RxSwift"><a href="#从-0-开始使用-RxSwift" class="headerlink" title="从 0 开始使用 RxSwift"></a>从 0 开始使用 RxSwift</h1><p>如果感觉看了 Readme, 看了些文档后就能直接在其中的各种通用用法穿梭, 感觉….我是不行的, 即是写出来了, 也不会有思考怎么使用会好点. 还有没有其他用法, 可不可以换一种方式来简化使用, 嗯, 所以, 我还是从0 开始敲一些代码来加深自己对这种 code 模式的印象</p>
+<p><a href="https://www.jianshu.com/p/d044303c61f3" target="_blank" rel="noopener">RxSwift For Dummies 🐣 Part1</a></p>
+<p>当我们创建的 Observable 是一个冷信号的时候, 只有在订阅之后才会发送信号.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///  创建一个简单的基于 String 的 Observable</span></span><br><span class="line"><span class="keyword">let</span> observable = <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></span><br><span class="line">    observer.onNext(<span class="string">"this.1"</span>)</span><br><span class="line">    observer.onNext(<span class="string">"等待3秒"</span>)</span><br><span class="line">    <span class="type">DispatchQueue</span>.global().asyncAfter(deadline: <span class="type">DispatchTime</span>.now() + <span class="number">3</span>, execute: &#123;</span><br><span class="line">        observer.onNext(<span class="string">"this.2"</span>)</span><br><span class="line">        observer.onNext(<span class="string">"this.3"</span>)</span><br><span class="line">        observer.onCompleted()</span><br><span class="line">        <span class="comment">//  complete 之后的信号不会被发射</span></span><br><span class="line">        observer.onNext(<span class="string">"this.4"</span>)</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">//  这个 `.create` 的f方法表示在 dispose 的时候什么都不做</span></span><br><span class="line"><span class="comment">//    return Disposables.create()</span></span><br><span class="line">    <span class="comment">//  或者自定义一个, 声明在disposed 的时候做些什么</span></span><br><span class="line">    <span class="keyword">let</span> disposed = <span class="type">Disposables</span>.create(with: &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"释放序列"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"关闭数据库"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"清楚缓存"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> disposed</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/rxswift/" rel="tag"># rxswift</a>
+          
+            <a href="/tags/函数式/" rel="tag"># 函数式</a>
+          
+            <a href="/tags/异步/" rel="tag"># 异步</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/migrate-to-swift4/" rel="next" title="migrate-to-swift4">
+                <i class="fa fa-chevron-left"></i> migrate-to-swift4
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/issueOfTrans/" rel="prev" title="issueOfTrans">
+                issueOfTrans <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RxSwift"><span class="nav-number">1.</span> <span class="nav-text">RxSwift</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念介绍"><span class="nav-number">1.2.</span> <span class="nav-text">概念介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observables"><span class="nav-number">1.3.</span> <span class="nav-text">Observables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符"><span class="nav-number">1.4.</span> <span class="nav-text">操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Schedulers"><span class="nav-number">1.5.</span> <span class="nav-text">Schedulers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构"><span class="nav-number">1.6.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.7.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个Observable"><span class="nav-number">1.7.1.</span> <span class="nav-text">创建一个Observable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KVO-订阅一个属性"><span class="nav-number">1.7.2.</span> <span class="nav-text">KVO 订阅一个属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从-0-开始使用-RxSwift"><span class="nav-number">2.</span> <span class="nav-text">从 0 开始使用 RxSwift</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/RxSwift/';
+          this.page.identifier = '2019/02/18/RxSwift/';
+          this.page.title = 'RxSwift';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

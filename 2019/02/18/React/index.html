@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="React文档 中文文档 一个 UP主发的教程还有哔哩哔哩的视频可以看 一个在线练习的环境 环境依赖npm &amp;amp; nodehttps://raw.githubusercontent.com/w0lfschild/app_updates/master/mySIMBL/mySIMBL_master.zip 环境配置开发前后端分离的时候, 在本地起的一个 node 的环境, 一般来说, 在使用 a">
+<meta name="keywords" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/React/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="React文档 中文文档 一个 UP主发的教程还有哔哩哔哩的视频可以看 一个在线练习的环境 环境依赖npm &amp;amp; nodehttps://raw.githubusercontent.com/w0lfschild/app_updates/master/mySIMBL/mySIMBL_master.zip 环境配置开发前后端分离的时候, 在本地起的一个 node 的环境, 一般来说, 在使用 a">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/02/18/React/FileAsset/dva.png">
+<meta property="og:updated_time" content="2019-02-19T18:19:22.158Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React">
+<meta name="twitter:description" content="React文档 中文文档 一个 UP主发的教程还有哔哩哔哩的视频可以看 一个在线练习的环境 环境依赖npm &amp;amp; nodehttps://raw.githubusercontent.com/w0lfschild/app_updates/master/mySIMBL/mySIMBL_master.zip 环境配置开发前后端分离的时候, 在本地起的一个 node 的环境, 一般来说, 在使用 a">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/18/React/FileAsset/dva.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/React/">
+
+
+
+
+
+  <title>React | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/React/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:34:03+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/React/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/React/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><p><a href>文档</a></p>
+<p><a href>中文文档</a></p>
+<p><a href="https://magicly.gitbooks.io/react/content/devenv/create-react-app.html" target="_blank" rel="noopener">一个 UP主发的教程</a><br><a href>还有哔哩哔哩的视频可以看</a></p>
+<p><a href="https://codepen.io/magicly/pen/rzedNb" target="_blank" rel="noopener">一个在线练习的环境</a></p>
+<h2 id="环境依赖"><a href="#环境依赖" class="headerlink" title="环境依赖"></a>环境依赖</h2><p>npm &amp; node<br><a href="https://raw.githubusercontent.com/w0lfschild/app_updates/master/mySIMBL/mySIMBL_master.zip" target="_blank" rel="noopener">https://raw.githubusercontent.com/w0lfschild/app_updates/master/mySIMBL/mySIMBL_master.zip</a></p>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><p>开发前后端分离的时候, 在本地起的一个 node 的环境, 一般来说, 在使用 ant 的框架时, 都是有一些 mock 数据, 这些数据, 请求, 资源文件都是走的 node 提供的服务返回去的, 但是在实际中, 或者在开发中, 需要调用到实际的 API 时, 可能就存在一个跨域访问的问题, 这时候就需要一个 proxy 配置, 将资源文件盒 API 请求都放到一个域中, 通过 nginx 来进行转发</p>
+<p>在服务器端发现跨域访问会被禁止, 这头需要 nginx 告诉服务器我没跨域<br>在浏览器端, 跨域也会被禁止, 这头也需要nginx 告诉它你不要管,</p>
+<p>相关配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">listen       80;</span><br><span class="line">    server_name  admin.id.test.com;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p> 这里是说: nginx 服务监听的端口, 已经监听的域名</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ^~ /api/ &#123;</span><br><span class="line">    proxy_set_header HOST admin.xxx.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里是说, 将地址匹配到的有/api/的话设置如下的参数, 并将 api 取代<br>还有一些其他的设置相关的, 但是现在没时间细看</p>
+</blockquote>
+<p>当前社区贡献的框架及开发模式</p>
+<h2 id="Get-A-Glance"><a href="#Get-A-Glance" class="headerlink" title="Get A Glance"></a>Get A Glance</h2><p>使用 React, 起初还需要搭配一堆的环境配置, 现在她们自己出了一个工具<a href="https://github.com/facebookincubator/create-react-app" target="_blank" rel="noopener">create-react-app</a>自动完成这些配置, 大大降低了萌新启动一个项目的成本</p>
+<h3 id="起一个空项目"><a href="#起一个空项目" class="headerlink" title="起一个空项目"></a>起一个空项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-app</span><br><span class="line"></span><br><span class="line">create-react-app my-app</span><br><span class="line">cd my-app/</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其实可以使用 yarn 来代替 npm</p>
+</blockquote>
+<p>开发完成上线打包:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<h3 id="脚手架"><a href="#脚手架" class="headerlink" title="脚手架"></a>脚手架</h3><p>用于快速构建一个项目</p>
+<h3 id="限制性检查"><a href="#限制性检查" class="headerlink" title="限制性检查"></a>限制性检查</h3><p>良好的风格能减少踩的坑, 便于 debug, 还能将一些低级的错误在 coding 阶段就能暴露出来</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>log 系统<br>redux-log</p>
+<p>IDE</p>
+<p>Chrome</p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><h3 id="dva"><a href="#dva" class="headerlink" title="dva"></a>dva</h3><blockquote>
+<p>简而言之 dva 是基于现有应用架构 (redux + react-router + redux-saga 等)的一层轻量封装</p>
+</blockquote>
+<blockquote>
+<p>dva 是基于现有应用架构 (redux + react-router + redux-saga 等)的一层轻量封装，没有引入任何新概念，全部代码不到 100 行。( Inspired by elm and choo. )</p>
+</blockquote>
+<p><a href="https://juejin.im/entry/5852184b128fe1006b5454c6" target="_blank" rel="noopener">初识Dva</a></p>
+<p><img src="./FileAsset/dva.png" alt="dva 图解"></p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>todo</p>
+<h3 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h3><p><a href="http://yiminghe.me/learning-react/examples/react-intl.html?locale=zh-Hans-CN" target="_blank" rel="noopener">Intl</a></p>
+<p><a href="https://github.com/ant-design/intl-example" target="_blank" rel="noopener">Antd - Intl</a></p>
+<h2 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h2><h3 id="React-Router"><a href="#React-Router" class="headerlink" title="React-Router"></a>React-Router</h3><p>在前端中, 导航也叫路由, 即页面的跳转/重定向</p>
+<p>React 官方维护的一个 React-Router</p>
+<p>常用:</p>
+<p>路由声明:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Router</span> <span class="attr">history</span>=<span class="string">&#123;hashHistory&#125;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">component</span>=<span class="string">&#123;App&#125;/</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>种类:</strong><br>history  属性:<br> 根据 <router> 中的 history 属性, 可以确定使用的是那种路由.<br>    <code>hashHistory</code>: 路由的切换由URL的hash变化决定，即URL的#部分发生变化<br>    如果设为<code>browserHistory</code>，浏览器的路由就不再通过Hash完成了，而显示正常的路径example.com/some/path，背后调用的是浏览器的History API。<br>    但是，这种情况需要对服务器改造。否则用户直接向服务器请求某个子路由，会显示网页找不到的404错误。<br>    如果开发服务器使用的是webpack-dev-server，加上–history-api-fallback参数就可以了。<br>    <code>createMemoryHistory</code>主要用于服务器渲染。它创建一个内存中的history对象，不与浏览器URL互动。</router></p>
+<p>路由可嵌套</p>
+<p>IndexRoute解决根目录没有匹配对应 component 的问题，显式指定Home是根路由的子组件，即指定默认情况下加载的子组件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Router</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">component</span>=<span class="string">&#123;App&#125;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">IndexRoute</span> <span class="attr">component</span>=<span class="string">&#123;Home&#125;/</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"accounts"</span> <span class="attr">component</span>=<span class="string">&#123;Accounts&#125;/</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"statements"</span> <span class="attr">component</span>=<span class="string">&#123;Statements&#125;/</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="路由跳转"><a href="#路由跳转" class="headerlink" title="路由跳转:"></a>路由跳转:</h4><p><strong>path</strong>:</p>
+<p>指定路由的匹配规则, 可省略么, 可用通配符: <code>*</code>, <code>**</code>, <code>:pramName</code><br><code>:paramName</code>: 匹配路由的一个部分, 直到出现<code>/</code>,<code>?</code>, <code>#</code>为止.</p>
+<p>(括号里的表示可选)</p>
+<p>由上到下匹配, 一旦匹配后面的规则就不管了</p>
+<p><strong>redirect</strong><br><code>＜Redirect from=&quot;messages/:id&quot; to=&quot;/messages/:id&quot; /&gt;</code></p>
+<p><code>IndexRedirect</code>组件用于访问根路由的时候，将用户重定向到某个子组件。</p>
+<p><strong>Link</strong><br>Link组件用于取代<a>元素，生成一个链接，允许用户点击后跳转到另一个路由。它基本上就是<a>元素的React 版本，可以接收Router的状态。<br>如果链接到根路由/，不要使用Link组件，而要使用IndexLink组件<br>IndexLink组件会使用路径的精确匹配。</a></a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">IndexLink</span> <span class="attr">to</span>=<span class="string">"/"</span> <span class="attr">activeClassName</span>=<span class="string">"active"</span>&gt;</span></span><br><span class="line">  Home</span><br><span class="line"><span class="tag">&lt;/<span class="name">IndexLink</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>路由外跳转</strong><br>在Router组件之外，导航到路由页面，可以使用浏览器的History API，像下面这样写。</p>
+<p><code>browserHistory.push(&#39;/some/path&#39;);</code></p>
+<h4 id="路由传参-amp-进入页面后路由获取参数"><a href="#路由传参-amp-进入页面后路由获取参数" class="headerlink" title="路由传参 &amp; 进入页面后路由获取参数"></a>路由传参 &amp; 进入页面后路由获取参数</h4><p>URL的查询字符串<code>/foo?bar=baz</code>，可以用<code>this.props.location.query.bar</code>获取。<br>通过<code>:paramName</code>传递匹配的路由, 可以由<code>this.props.params.paramName</code>取出</p>
+<h4 id="路由页面的-hook"><a href="#路由页面的-hook" class="headerlink" title="路由页面的 hook"></a>路由页面的 hook</h4><p>每个路由都有Enter和Leave钩子，用户进入或离开该路由时触发</p>
+<p>Enter</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">"inbox"</span> <span class="attr">component</span>=<span class="string">&#123;Inbox&#125;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Route</span></span></span><br><span class="line"><span class="tag">    <span class="attr">path</span>=<span class="string">"messages/:id"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">onEnter</span>=<span class="string">&#123;</span></span></span><br><span class="line"><span class="tag">      (&#123;<span class="attr">params</span>&#125;, <span class="attr">replace</span>) =&gt;</span> replace(`/messages/$&#123;params.id&#125;`)</span><br><span class="line">    &#125;</span><br><span class="line">  /&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Leave</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Home = withRouter(</span><br><span class="line">  React.createClass(&#123;</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">      <span class="keyword">this</span>.props.router.setRouteLeaveHook(</span><br><span class="line">        <span class="keyword">this</span>.props.route,</span><br><span class="line">        <span class="keyword">this</span>.routerWillLeave</span><br><span class="line">      )</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    routerWillLeave(nextLocation) &#123;</span><br><span class="line">      <span class="comment">// 返回 false 会继续停留当前页面，</span></span><br><span class="line">      <span class="comment">// 否则，返回一个字符串，会显示给用户，让其自己决定</span></span><br><span class="line">      <span class="keyword">if</span> (!<span class="keyword">this</span>.state.isSaved)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'确认要离开？'</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面代码中，setRouteLeaveHook方法为Leave钩子指定routerWillLeave函数。该方法如果返回false，将阻止路由的切换，否则就返回一个字符串，提示用户决定是否要切换。</p>
+</blockquote>
+<p>###</p>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><h3 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h3><p><a href="https://developers.google.cn/maps/documentation/javascript/events?hl=zh-cn" target="_blank" rel="noopener">Google</a></p>
+<p><a href="http://jartto.wang/2017/05/18/use-google-map-in-react/" target="_blank" rel="noopener">博客教程</a></p>
+<p><a href="https://github.com/istarkov/google-map-react" target="_blank" rel="noopener">使用React封装GoogleMap的库</a></p>
+<p><a href="https://github.com/tomchentw/react-google-maps" target="_blank" rel="noopener">star 比较多的</a></p>
+<p>example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &apos;react&apos;;</span><br><span class="line">import GoogleMapReact from &apos;google-map-react&apos;;</span><br><span class="line">const AnyReactComponent = (&#123; text &#125;) =&gt; &lt;div&gt;&#123;text&#125;&lt;/div&gt;;</span><br><span class="line">class SimpleMap extends Component &#123;</span><br><span class="line">  static defaultProps = &#123;</span><br><span class="line">    center: &#123;lat: 59.95, lng: 30.33&#125;,</span><br><span class="line">    zoom: 11</span><br><span class="line">  &#125;;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;GoogleMapReact</span><br><span class="line">        defaultCenter=&#123;this.props.center&#125;</span><br><span class="line">        defaultZoom=&#123;this.props.zoom&#125;</span><br><span class="line">      &gt;</span><br><span class="line">        &lt;AnyReactComponent</span><br><span class="line">          lat=&#123;59.955413&#125;</span><br><span class="line">          lng=&#123;30.337844&#125;</span><br><span class="line">          text=&#123;&apos;Kreyser Avrora&apos;&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      &lt;/GoogleMapReact&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="当前社区贡献的框架及开发模式"><a href="#当前社区贡献的框架及开发模式" class="headerlink" title="当前社区贡献的框架及开发模式"></a>当前社区贡献的框架及开发模式</h2><p><a href="https://www.jianshu.com/p/a0d60a2dba21" target="_blank" rel="noopener">React + DVA + ANTD</a><br>通过 dva 的简单封装, 可以快速的使用 React+redux+ant-design UI库<br>进行了结构化的模式设定, 让开发更有序</p>
+<p><a href="https://juejin.im/entry/5914001fda2f600064e0468a" target="_blank" rel="noopener">一个通过React+Antd的构建国泰管理的完整项目</a></p>
+<h2 id="分层-自己的封装"><a href="#分层-自己的封装" class="headerlink" title="分层 / 自己的封装"></a>分层 / 自己的封装</h2><p>todo</p>
+<h3 id="整个前端的层次"><a href="#整个前端的层次" class="headerlink" title="整个前端的层次"></a>整个前端的层次</h3><p>todo</p>
+<h3 id="基于底层架构之上构建自己对接的服务层"><a href="#基于底层架构之上构建自己对接的服务层" class="headerlink" title="基于底层架构之上构建自己对接的服务层"></a>基于底层架构之上构建自己对接的服务层</h3><p>todo<br>\</p>
+<h4 id="提供自己常用的封装的组件"><a href="#提供自己常用的封装的组件" class="headerlink" title="提供自己常用的封装的组件"></a>提供自己常用的封装的组件</h4><p>todo</p>
+<h4 id="构建通用工具层"><a href="#构建通用工具层" class="headerlink" title="构建通用工具层"></a>构建通用工具层</h4><p>todo</p>
+<h4 id="构建提供一些服务的架子"><a href="#构建提供一些服务的架子" class="headerlink" title="构建提供一些服务的架子"></a>构建提供一些服务的架子</h4><p>todo</p>
+<hr>
+<ul>
+<li><strong>bug resolve in primary</strong></li>
+</ul>
+<p>修改了文件后出不来效果</p>
+<blockquote>
+<p>在路由处指定的 component 没有指定成功, webpack 没有将期望的从 component 打包进去, 因为在路由配置处将 component 指定错了….</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/ji-neng-gou-jian-fang-an/" rel="next" title="技能构建方案">
+                <i class="fa fa-chevron-left"></i> 技能构建方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/flow.frontend/" rel="prev" title="flow.frontend">
+                flow.frontend <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React"><span class="nav-number">1.</span> <span class="nav-text">React</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境依赖"><span class="nav-number">1.1.</span> <span class="nav-text">环境依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境配置"><span class="nav-number">1.1.1.</span> <span class="nav-text">环境配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-A-Glance"><span class="nav-number">1.2.</span> <span class="nav-text">Get A Glance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#起一个空项目"><span class="nav-number">1.2.1.</span> <span class="nav-text">起一个空项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚手架"><span class="nav-number">1.2.2.</span> <span class="nav-text">脚手架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制性检查"><span class="nav-number">1.2.3.</span> <span class="nav-text">限制性检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调试"><span class="nav-number">1.2.4.</span> <span class="nav-text">调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署"><span class="nav-number">1.2.5.</span> <span class="nav-text">部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构"><span class="nav-number">1.3.</span> <span class="nav-text">结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dva"><span class="nav-number">1.3.1.</span> <span class="nav-text">dva</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">1.4.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#国际化"><span class="nav-number">1.4.1.</span> <span class="nav-text">国际化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导航"><span class="nav-number">1.5.</span> <span class="nav-text">导航</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Router"><span class="nav-number">1.5.1.</span> <span class="nav-text">React-Router</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#路由跳转"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">路由跳转:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由传参-amp-进入页面后路由获取参数"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">路由传参 &amp; 进入页面后路由获取参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由页面的-hook"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">路由页面的 hook</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">1.6.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#地图"><span class="nav-number">1.6.1.</span> <span class="nav-text">地图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#当前社区贡献的框架及开发模式"><span class="nav-number">1.7.</span> <span class="nav-text">当前社区贡献的框架及开发模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分层-自己的封装"><span class="nav-number">1.8.</span> <span class="nav-text">分层 / 自己的封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整个前端的层次"><span class="nav-number">1.8.1.</span> <span class="nav-text">整个前端的层次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于底层架构之上构建自己对接的服务层"><span class="nav-number">1.8.2.</span> <span class="nav-text">基于底层架构之上构建自己对接的服务层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提供自己常用的封装的组件"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">提供自己常用的封装的组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建通用工具层"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">构建通用工具层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建提供一些服务的架子"><span class="nav-number">1.8.2.3.</span> <span class="nav-text">构建提供一些服务的架子</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/React/';
+          this.page.identifier = '2019/02/18/React/';
+          this.page.title = 'React';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

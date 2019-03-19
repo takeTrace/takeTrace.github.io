@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,学习,react,react-native,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="React-Native 学习 Docs官方文档  (目前0.52-RC) 国内翻译  (目前0.51) 工具配置可选 sublime, vscode, webstorm 等等自己喜欢的工具, 网上都有配置适合开发 RN 的教程 sublime 环境/插件配置主要是代码提示参考安装各种 配置各 IDE 设置及环境VSCode 配置配置 ESLint WebStom设置React Native代码提">
+<meta name="keywords" content="iOS,学习,react,react-native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-Native 学习">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/React-Native-xue-xi/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="React-Native 学习 Docs官方文档  (目前0.52-RC) 国内翻译  (目前0.51) 工具配置可选 sublime, vscode, webstorm 等等自己喜欢的工具, 网上都有配置适合开发 RN 的教程 sublime 环境/插件配置主要是代码提示参考安装各种 配置各 IDE 设置及环境VSCode 配置配置 ESLint WebStom设置React Native代码提">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T17:56:33.029Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-Native 学习">
+<meta name="twitter:description" content="React-Native 学习 Docs官方文档  (目前0.52-RC) 国内翻译  (目前0.51) 工具配置可选 sublime, vscode, webstorm 等等自己喜欢的工具, 网上都有配置适合开发 RN 的教程 sublime 环境/插件配置主要是代码提示参考安装各种 配置各 IDE 设置及环境VSCode 配置配置 ESLint WebStom设置React Native代码提">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/React-Native-xue-xi/">
+
+
+
+
+
+  <title>React-Native 学习 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/React-Native-xue-xi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React-Native 学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:33:52+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/React-Native-xue-xi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/React-Native-xue-xi/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>React-Native 学习</p>
+<h1 id="Docs"><a href="#Docs" class="headerlink" title="Docs"></a>Docs</h1><p><a href="https://facebook.github.io/react/docs/introducing-jsx.html" target="_blank" rel="noopener">官方文档  (目前0.52-RC)</a></p>
+<p><a href="https://reactnative.cn/docs/0.51/props.html#content" target="_blank" rel="noopener">国内翻译  (目前0.51)</a></p>
+<h1 id="工具配置"><a href="#工具配置" class="headerlink" title="工具配置"></a>工具配置</h1><p>可选 sublime, vscode, webstorm 等等自己喜欢的工具, 网上都有配置适合开发 RN 的教程</p>
+<h2 id="sublime-环境-插件配置"><a href="#sublime-环境-插件配置" class="headerlink" title="sublime 环境/插件配置"></a>sublime 环境/插件配置</h2><p><a href="https://www.jianshu.com/p/16b01b53c851" target="_blank" rel="noopener">主要是代码提示</a><br><a href="https://segmentfault.com/a/1190000003698071" target="_blank" rel="noopener">参考安装各种</a></p>
+<h1 id="配置各-IDE-设置及环境"><a href="#配置各-IDE-设置及环境" class="headerlink" title="配置各 IDE 设置及环境"></a>配置各 IDE 设置及环境</h1><p><a href="https://www.jianshu.com/p/1d3f9cdd15dc" target="_blank" rel="noopener">VSCode 配置</a><br><a href="https://juejin.im/post/58ff0de18d6d810058a69a26" target="_blank" rel="noopener">配置 ESLint</a></p>
+<h3 id="WebStom设置React-Native代码提示"><a href="#WebStom设置React-Native代码提示" class="headerlink" title="WebStom设置React Native代码提示"></a>WebStom设置React Native代码提示</h3><ul>
+<li><p>从gitHub上下载xml插件<br><code>git clone https://github.com/virtoolswebplayer/ReactNative-LiveTemplate</code></p>
+</li>
+<li><p>安装<br><code>将ReactNative.xml复制到 ~/Library/Preferences/WebStorm10/templates ，然后重启 WebStrom。</code></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/89df53f91edd" target="_blank" rel="noopener">在 webstorm 中进行调试</a></p>
+</li>
+</ul>
+<h3 id="或者-sublime-来配置成-IDE-开发"><a href="#或者-sublime-来配置成-IDE-开发" class="headerlink" title="或者 sublime 来配置成 IDE 开发"></a>或者 sublime 来配置成 IDE 开发</h3><p><a href="https://www.jianshu.com/p/16b01b53c851" target="_blank" rel="noopener">主要是代码提示</a><br><a href="https://segmentfault.com/a/1190000003698071" target="_blank" rel="noopener">参考安装各种</a></p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p><code>tips</code><br>可以一起装了这些环境~!!!</p>
+<h2 id="npm-环境"><a href="#npm-环境" class="headerlink" title="npm 环境"></a>npm 环境</h2><p>依赖 npm 的环境, 至于更换环境, 可以使用<code></code><br><a href="https://sebastianblade.com/the-truly-way-to-install-upgrade-npm-dependency-in-china/" target="_blank" rel="noopener">国内快速使用 npm 的方式 / 依赖升级检查</a></p>
+<ul>
+<li>安装 Node.js, 成功后自带有 npm,</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install node  # 需要升级的话就 `brew upgrade node`</span><br></pre></td></tr></table></figure>
+<p>安装 JAVA<br>没装的用brew 装一个新的就行了: <code>brew cask install java</code> 一半是 JAVA8(目前)</p>
+<blockquote>
+<p>当然, 作为开发人员, 估计是早就装了的</p>
+</blockquote>
+<ul>
+<li>安装WatchMan<br>WatchMan是由Facebook提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager可以快速捕捉文件的变化从而实现实时刷新）。</li>
+<li>安装Flow<br>flow是一个 JavaScript 的静态类型检查器。这一语法并不属于ES标准，只是Facebook自家的代码规范。所以新手可以直接跳过（即不需要安装这一工具，也不建议去费力学习flow相关语法）。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install watchman flow</span><br></pre></td></tr></table></figure>
+<h2 id="React-Native安装"><a href="#React-Native安装" class="headerlink" title="React Native安装"></a>React Native安装</h2><ul>
+<li>Yarn、React Native的命令行工具（react-native-cli）<br>Yarn是Facebook提供的替代npm的工具，可以加速node模块的下载。React Native的命令行工具用于执行创建、初始化、更新项目、运行打包服务（packager）等任务。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g yarn react-native-cli</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>warning: 虽说在安装<code>yarn</code>的时候, 提示说你可以用本地安装的方式, 但是这个会自动安装Node.js, 而且不是 NVM 管理, 鉴于现在很多资料都是以 NVM 来做的, 所以还是选择 NVM 管理比较好. 使用本地安装可以使用: <code>brew install yarn --without-node</code>, 但还是直接用 npm 来安装好了</p>
+</blockquote>
+<h3 id="React-Native-的更新"><a href="#React-Native-的更新" class="headerlink" title="React-Native 的更新"></a>React-Native 的更新</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm update -g react-native-cli</span><br></pre></td></tr></table></figure>
+<h2 id="安装-iOS-和-Android-的-IDE"><a href="#安装-iOS-和-Android-的-IDE" class="headerlink" title="安装 iOS 和 Android 的 IDE"></a>安装 iOS 和 Android 的 IDE</h2><ul>
+<li>iOS: XCode</li>
+<li>Android: Android Studio<blockquote>
+<p>Android 安装配置: Custom -&gt; 勾选Performance和Android Virtual Device -&gt; Configure -&gt; SDK Manager -&gt; SDK Platforms -&gt; Show Package Details -&gt; 然后在Android 6.0 (Marshmallow)中勾选Google APIs、Android SDK Platform 23、Intel x86 Atom System Image、Intel x86 Atom_64 System Image以及Google APIs Intel x86 Atom_64 System Image。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>在SDK Tools窗口中，选择Show Package Details，然后在Android SDK Build Tools中勾选Android SDK Build-Tools 23.0.1（必须是这个版本）。然后还要勾选最底部的Android Support Repository。</p>
+</blockquote>
+<blockquote>
+<p>ANDROID_HOME环境变量<br>确保ANDROID_HOME环境变量正确地指向了你安装的Android SDK的路径。具体的做法是把下面的命令加入到~/.bash_profile文件中，使用  vi ~/.bash_profile。<br>如果你不是通过Android Studio安装的sdk，则其路径可能不同，请自行确定清楚。<br><code>export ANDROID_HOME=~/Library/Android/sdk</code><br>然后使用下列命令使其立即生效：<br>source ~/.bash_profile<br>可以使用echo $ANDROID_HOME检查此变量是否已正确设置。</p>
+</blockquote>
+<h2 id="安装安卓模拟器"><a href="#安装安卓模拟器" class="headerlink" title="安装安卓模拟器"></a>安装安卓模拟器</h2><p> 使用 genymotion 会更好<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install genymotion</span><br></pre></td></tr></table></figure></p>
+<h2 id="Gradle-Daemon"><a href="#Gradle-Daemon" class="headerlink" title="Gradle Daemon"></a>Gradle Daemon</h2><p> 开启Gradle Daemon可以极大地提升java代码的增量编译速度。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch ~/.gradle/gradle.properties &amp;&amp; echo "org.gradle.daemon=true" &gt;&gt; ~/.gradle/gradle.properties</span><br></pre></td></tr></table></figure></p>
+<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><p>npm 的源是在国外的, 众所周知, 我们最好换源.<br><a href="https://cnpmjs.org" target="_blank" rel="noopener">参考</a><br><a href="https://npm.taobao.org" target="_blank" rel="noopener">国内参考</a></p>
+<h3 id="可以使用-taobao-封装的工具-cnpm"><a href="#可以使用-taobao-封装的工具-cnpm" class="headerlink" title="可以使用 taobao 封装的工具: cnpm"></a>可以使用 taobao 封装的工具: <code>cnpm</code></h3><h3 id="源管理器"><a href="#源管理器" class="headerlink" title="源管理器"></a>源管理器</h3><p><a href="https://github.com/Pana/nrm" target="_blank" rel="noopener">nrm : 帮组管理 npm 的源</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g nrm</span><br></pre></td></tr></table></figure>
+<p>其中说到要使 yarn 也使用私有源, 可以再 yarnrc 里添加设置源的代码</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><h2 id="什么是React-Native"><a href="#什么是React-Native" class="headerlink" title="什么是React-Native"></a>什么是React-Native</h2><p>它是一个灵活高效的创建 UI 的 js 库, 将各个 UI 的部分进行组件化, 运用一些 XML 类型的标签来告诉 React 需要渲染什么, 当传入这组件内的数据发生变化时, 会立即更新对应的组件的 UI</p>
+<p>通过 render 方法返回一个带参数的 view, 里面的参数称之为 props</p>
+<p>render 方法返回一个 React element 的描述, 然后把这些渲染上去, React element是轻量的, 开发者用一种叫 JSX 的语法来轻松构建这些结构, <div> 等这些标签会被转化为 <code>React.createElement(&#39;div&#39;)</code> 这些语法, 这是在 API 层面的语法, JSX 就类似语法糖. 可以直接用标签就能方便的写出 UI 来</div></p>
+<h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><p>是 JS 的语法扩展, 建议使用他来写 React 的 UI 和组件, 他会提供一些模板, React 会将它编译成 js, 所以它和 js 协同并不会有什么冲突.</p>
+<ul>
+<li>可以在花括号{}中内嵌 js 表达式,</li>
+<li>可以像 XML 一样在标签中设置属性, className=”类名” onclick={() =&gt; alert(‘ok’)</li>
+<li>对 onclick 相当于一个属性 prop来解析</li>
+<li>可以在 construct() 函数中定义一些对组件来说是私有的属性, 状态, 将存储在 this.state 中:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Square extends React.Component &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.state = &#123;</span><br><span class="line">      value: null,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;button className=&quot;square&quot; onClick=&#123;() =&gt; alert(&apos;click&apos;)&#125;&gt;</span><br><span class="line">        &#123;this.props.value&#125;</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>里面更推荐使用 immutable 的方式来改变数据, <code>Immutability Is Important</code>,  因为如果一个数据被直接改变了, 检测他的改变就要遍历其中的每个对象, 而这个是很耗时的. 而通过先把数据 copy 一个出来, 修改了的话通过对比两个对象很容易就能得出<code>改变</code>这个结果.</li>
+<li>在渲染一些 list 的时候, 需要设置一个 key, 用以标识当前的标签, 区别于其他同级标签. <code>&lt;li key={user.id}&gt;{user.name}: {user.taskCount} tasks left&lt;/li&gt;</code>, <code>key</code>是 React 内建的一个特殊的属性, 但创建这个元素的时候, React 会定位这个<code>key</code>, 并在 return 这个标签的时候直接存储,  虽然看起来像一个 prop, 但是在<code>this.props.key</code>中是拿不到这个 key 属性的. 当 React 决定那个子标签需要刷新的时候, React 会自动拿到这个 key, component 没有方法去拿到自己的 key, <strong>这里强烈建议, 当你创建一个动态的 list 的时候, 都加上这个 <code>key</code></strong></li>
+<li>React 会检查这些 key, 一个key 添加的时候, 一个 component 就创建了, 但 key 移除的时候, component 就会被销毁, 如果 key 改变了, 这个 component 就会销毁, 然后重新创建.</li>
+<li>如果没有指定一个 key, React 会 warn 你, 并fall back 使用数组的下标来作为 key, 在某些情况下这是不正确的: 当你重新排列你的 list 时; 当你不是在底部给一个 list 添加一个元素时.</li>
+<li>如果显式的声明<code>key={i(下标)}</code>, 虽然不会有 warning 了, 但问题还是存在. 所以大多数时候不推荐这种方式.</li>
+<li>component 的 key, 不需要全局唯一, 在其 list 的兄弟元素中唯一就行了~</li>
+</ul>
+<hr>
+<h2 id="Functional-Components"><a href="#Functional-Components" class="headerlink" title="Functional Components"></a>Functional Components</h2><p>通过声明函数的形式来声明一个 Component, 里面只需要考虑<code>render</code>这个方法, 对比声明一个<code>React.Component</code>的子类, 声明一个带 props 的参数, 返回一个想要 render 的东西的函数要更简单.<br>你需要把出现 this.props 的地方改成 props, 很多在你 APP 中的 component 能够作为 function 的形式来写, 而且以后 React 会充分利用这种形式.</p>
+<p>我们还需要把<code>onClick={() =&gt; props.onClick()}</code>改成<code>onClick={props.onClick}</code>, 注意: 不能写成<code>onClick={props.onClick()}</code>, 带了括号之后, 在解析这个标签的时候就会立即执行函数了</p>
+<h2 id="构建一个项目"><a href="#构建一个项目" class="headerlink" title="构建一个项目"></a>构建一个项目</h2><p> 使用 React 来初始化一个项目<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native init &lt;项目名称&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后里面就会有 iOS 和 Android 两个平台的项目文件夹, 其他的就是React 需要用到的东西了, 包含 React Native 框架文件</p>
+<h3 id="运行工程文件"><a href="#运行工程文件" class="headerlink" title="运行工程文件"></a>运行工程文件</h3><p>在开发调试阶段, 需要启动一个 http 服务, 来对应对应的修改会及时的显示在运行上, 称为: Debug Server, 在8081端口, App 通过声明函数的形式来声明一个Server 加载 js.</p>
+<h4 id="运行-iOS"><a href="#运行-iOS" class="headerlink" title="运行 iOS"></a>运行 iOS</h4><p>直接使用 XCode 运行时没有出现什么太多的问题<br>再 run 的时候会运行js 的东西, 可能是运行起 Virtual Dom, 将 js 中的组件转换成 Native 的组件</p>
+<h3 id="升级或者降级npm包的版本"><a href="#升级或者降级npm包的版本" class="headerlink" title="升级或者降级npm包的版本"></a>升级或者降级npm包的版本</h3><p><code>npm install --save react-native@0.18</code></p>
+<h3 id="运行再Expo-应用中"><a href="#运行再Expo-应用中" class="headerlink" title="运行再Expo 应用中"></a>运行再Expo 应用中</h3><p><code>expo</code> 是提供一个 app的壳, 可以将你的代码运行在里面, 可以不依赖与 IDE 环境, 也就是说, 不用起 XCode或者 Android Studio, 直接在手机上安装应用就能看到自己的代码, 或者直接跑模拟器</p>
+<h3 id="对应平台的效果"><a href="#对应平台的效果" class="headerlink" title="对应平台的效果"></a>对应平台的效果</h3><ul>
+<li>iOS<br>打开对应 IDE 来查看对应的模拟器. 就像之前各自开发的那样, 只是 React 会把写的 js 文件编译成对应平台的代码</li>
+</ul>
+<p>运行成功后在通过命令行直接 <code>react-native run-ios</code> 可以直接跑通, 估计是前面的 js 安装没弄</p>
+<p>使用 create React Native app:<br>在真机上跑成功, 运行到模拟器时不能安装上去</p>
+<h1 id="Styled-Components"><a href="#Styled-Components" class="headerlink" title="Styled Components"></a>Styled Components</h1><p>一个给在 js 中使用的生成一个 CSS 的一个库, 其可以 i 直接在写 component 的时候声明一个 styled.<br><code>styled.组件名</code>: 生成的就是一个这个 CSS 样式的组件便签, 是简单的标签, 目前只看到可以包裹一个东西, 然后里面家就是这个 CSS 样式生效的东西<br><code>styled(组件名)</code>: 生成在这个组件的基础上生成的适用这个 CSS 样式的标签, 相当于把这个(组件)包含到设个样式的标签中</p>
+<h1 id="Prop-属性"><a href="#Prop-属性" class="headerlink" title="Prop 属性"></a>Prop 属性</h1><h1 id="构建组件"><a href="#构建组件" class="headerlink" title="构建组件"></a>构建组件</h1><p>因网上很多<a href="https://mp.weixin.qq.com/mp/homepage?__biz=MzIxNjEzNjUzOQ==&amp;hid=1&amp;sn=72c8a8629f4aed53032cc3dae91757fd&amp;scene=1&amp;devicetype=iOS10.3.3&amp;version=16051122&amp;lang=zh_CN&amp;nettype=3G+&amp;ascene=7&amp;session_us=gh_1f41d95e4f45&amp;fontScale=100&amp;wx_header=1" target="_blank" rel="noopener">教程</a>, 这里就不一一赘述了, 这里只记录比较值得记录的, 自己比较弱项的东西</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIxNjEzNjUzOQ==&amp;mid=402020148&amp;idx=3&amp;sn=a80f7f67d2d21328e165e2dd23b29fd1&amp;scene=19#wechat_redirect" target="_blank" rel="noopener">view 组件中的属性</a></p>
+<p>return(这里只能有一个 view, view 里可以嵌套多个 view), 只能 return 一个 view component</p>
+<p>每个标签中有一个 prop 属性来指定使用的样式: <code>style={}</code>,<br>每个组件(标签)都可以用各种属性来进行定制, 其中: <code>{}</code>是对象传值必须的, 里面传递的是一个对象</p>
+<p>其中 style 就是设定这个组件样式的属性<br><code>虽然</code>可以在style 中传入 CSS 类似的参数, 但是还是在 styleSheet 中写好参数会更好维护和可读</p>
+<p>使用 Flex 布局能更好的适应不同屏幕上的组件排列</p>
+<h2 id="Flex-布局"><a href="#Flex-布局" class="headerlink" title="Flex 布局"></a>Flex 布局</h2><p>Flex布局主要思想是：让容器有能力让其子项目能够改变其宽度、高度（甚至是顺序），以最佳方式填充可用空间</p>
+<p>  React native中的FlexBox是这个规范的一个<code>子集</code>。</p>
+<p>大部分是处理组件流式布局的方式</p>
+<p>Flex 解决的问题:</p>
+<ul>
+<li>浮动布局</li>
+<li>各种机型屏幕的适配</li>
+<li>水平和垂直居中</li>
+<li>自动分配宽度</li>
+</ul>
+<h3 id="轴"><a href="#轴" class="headerlink" title="轴"></a>轴</h3><p>容器中默认x 轴为主轴, y 轴为交叉轴</p>
+<p>items 默认沿主轴排列</p>
+<h3 id="关于-Flex-的属性"><a href="#关于-Flex-的属性" class="headerlink" title="关于 Flex 的属性"></a>关于 Flex 的属性</h3><h4 id="对于容器-container-中的-Flex-属性"><a href="#对于容器-container-中的-Flex-属性" class="headerlink" title="对于容器 container 中的 Flex 属性"></a>对于容器 container 中的 Flex 属性</h4><ul>
+<li>设定主轴方向<br>flexDirection: <code>row | row-reverse | column | column-reverse</code></li>
+<li>设定主轴方向上 items 的排列方式<br>justifyContent:<code>flex-start | flex-end | center | space-between | space-around</code></li>
+<li>定义项目在交叉轴上如何对齐，可以把其想像成侧轴（垂直于主轴）的“对齐方式”。<br>alignItems:  <code>flex-start | flex-end | center | baseline | stretch</code></li>
+</ul>
+<p>默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。<br>flexWrap: <code>nowrap | wrap | wrap-reverse</code></p>
+<h4 id="对于-item-自己的-flex-属性"><a href="#对于-item-自己的-flex-属性" class="headerlink" title="对于 item 自己的 flex 属性"></a>对于 item 自己的 flex 属性</h4><p>item 自己的 flex, 是在 container 设置了 Flex 的基础上, 相对于同级的其他 item 的排列方式</p>
+<ul>
+<li><p>flex, 主要设置主轴方向上的相对排列<br> “flex-grow”、“flex-shrink”和“flex-basis”三个属性的缩写， 其中第二个和第三个参数（flex-shrink、flex-basis）是可选参数。<br> 默认值为“0 1 auto”。<br> 宽度 ＝ 弹性宽度 * ( flexGrow / sum( flexGorw ) )</p>
+</li>
+<li><p>alignSelf: 主要设置交叉轴的上的相对排列<br>alignItems:  <code>flex-start | flex-end | center | baseline | stretch</code></p>
+</li>
+</ul>
+<h3 id="在React-Native-中使用-Flex"><a href="#在React-Native-中使用-Flex" class="headerlink" title="在React Native 中使用 Flex"></a>在React Native 中使用 Flex</h3><p>获取屏幕宽高, 分辨率</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var Dimensions = require(&apos;Dimensions&apos;);</span><br><span class="line">var &#123;width, height, scale&#125; = Dimensions.get(&apos;window&apos;);</span><br></pre></td></tr></table></figure>
+<h1 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h1><h3 id="Text-有很多属性设置-text-的表现方式-具体直接看文档"><a href="#Text-有很多属性设置-text-的表现方式-具体直接看文档" class="headerlink" title="Text: 有很多属性设置 text 的表现方式, 具体直接看文档"></a>Text: 有很多属性设置 text 的表现方式, 具体直接看文档</h3><h3 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h3><p>从当前项目中加载图片</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image source=&#123;require(&apos;./img/2.png&apos;)&#125; style=&#123;&#123;width: 120, height: 120&#125;&#125;  /&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该图片资源文件的查找和JS模块相似，该会根据填写的图片路径相对于当前的js文件路径进行搜索。<br>   此外，React Naive的Packager会根据平台选择相应的文件，例如:my_icon.ios.png和my_icon.android.png两个文件(命名方式android或者ios)，会分别根据android或者ios平台选择相应的文件。</p>
+</blockquote>
+<p>加载使用APP中的图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image source=&#123;require(&apos;image!icon_homepage_map&apos;)&#125; style=&#123;&#123;width: 50,height:50&#125;&#125;/&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用已经打包在APP中的图片资源(例如:xcode asset文件夹以及Android drawable文件夹)</p>
+</blockquote>
+<p>实时通过网络进行获取的，写法和上面的加载本地资源图片的方式不太一样，这边一定需要指定图片的尺寸大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image source=&#123;&#123;uri:&apos;https://www.baidu.com/img/bd_logo1.png&apos;&#125;&#125; style=&#123;&#123;flex:1,width:200, height:100, resizeMode: Image.resizeMode.cover 或者 Image.resizeMode.contain 或者 Image.resizeMode.stretch&#125;&#125;/&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="组件的触摸事件"><a href="#组件的触摸事件" class="headerlink" title="组件的触摸事件"></a>组件的触摸事件</h3><p>Touchable</p>
+<ul>
+<li>TouchableHighlight<ul>
+<li>activeOpacity</li>
+<li>onHideUnderlay</li>
+<li>onShowUnderlay</li>
+<li>style</li>
+<li>underlayColor</li>
+</ul>
+</li>
+<li>TouchableOpacity<ul>
+<li>activeOpacity</li>
+<li>onPress</li>
+<li>onPressin</li>
+<li>onPressout</li>
+<li>onLongPress</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/react-native/" rel="tag"># react-native</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/prepare-to-face-api/" rel="next" title="prepare-to-face-api">
+                <i class="fa fa-chevron-left"></i> prepare-to-face-api
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/Kali/" rel="prev" title="Kali">
+                Kali <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docs"><span class="nav-number">1.</span> <span class="nav-text">Docs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具配置"><span class="nav-number">2.</span> <span class="nav-text">工具配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sublime-环境-插件配置"><span class="nav-number">2.1.</span> <span class="nav-text">sublime 环境/插件配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置各-IDE-设置及环境"><span class="nav-number">3.</span> <span class="nav-text">配置各 IDE 设置及环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WebStom设置React-Native代码提示"><span class="nav-number">3.0.1.</span> <span class="nav-text">WebStom设置React Native代码提示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#或者-sublime-来配置成-IDE-开发"><span class="nav-number">3.0.2.</span> <span class="nav-text">或者 sublime 来配置成 IDE 开发</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#环境搭建"><span class="nav-number">4.</span> <span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-环境"><span class="nav-number">4.1.</span> <span class="nav-text">npm 环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Native安装"><span class="nav-number">4.2.</span> <span class="nav-text">React Native安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Native-的更新"><span class="nav-number">4.2.1.</span> <span class="nav-text">React-Native 的更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-iOS-和-Android-的-IDE"><span class="nav-number">4.3.</span> <span class="nav-text">安装 iOS 和 Android 的 IDE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装安卓模拟器"><span class="nav-number">4.4.</span> <span class="nav-text">安装安卓模拟器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-Daemon"><span class="nav-number">4.5.</span> <span class="nav-text">Gradle Daemon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#换源"><span class="nav-number">4.6.</span> <span class="nav-text">换源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可以使用-taobao-封装的工具-cnpm"><span class="nav-number">4.6.1.</span> <span class="nav-text">可以使用 taobao 封装的工具: cnpm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源管理器"><span class="nav-number">4.6.2.</span> <span class="nav-text">源管理器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">5.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是React-Native"><span class="nav-number">5.1.</span> <span class="nav-text">什么是React-Native</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSX"><span class="nav-number">5.2.</span> <span class="nav-text">JSX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functional-Components"><span class="nav-number">5.3.</span> <span class="nav-text">Functional Components</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建一个项目"><span class="nav-number">5.4.</span> <span class="nav-text">构建一个项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行工程文件"><span class="nav-number">5.4.1.</span> <span class="nav-text">运行工程文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行-iOS"><span class="nav-number">5.4.1.1.</span> <span class="nav-text">运行 iOS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级或者降级npm包的版本"><span class="nav-number">5.4.2.</span> <span class="nav-text">升级或者降级npm包的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行再Expo-应用中"><span class="nav-number">5.4.3.</span> <span class="nav-text">运行再Expo 应用中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对应平台的效果"><span class="nav-number">5.4.4.</span> <span class="nav-text">对应平台的效果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Styled-Components"><span class="nav-number">6.</span> <span class="nav-text">Styled Components</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Prop-属性"><span class="nav-number">7.</span> <span class="nav-text">Prop 属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建组件"><span class="nav-number">8.</span> <span class="nav-text">构建组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flex-布局"><span class="nav-number">8.1.</span> <span class="nav-text">Flex 布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#轴"><span class="nav-number">8.1.1.</span> <span class="nav-text">轴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于-Flex-的属性"><span class="nav-number">8.1.2.</span> <span class="nav-text">关于 Flex 的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对于容器-container-中的-Flex-属性"><span class="nav-number">8.1.2.1.</span> <span class="nav-text">对于容器 container 中的 Flex 属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于-item-自己的-flex-属性"><span class="nav-number">8.1.2.2.</span> <span class="nav-text">对于 item 自己的 flex 属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在React-Native-中使用-Flex"><span class="nav-number">8.1.3.</span> <span class="nav-text">在React Native 中使用 Flex</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件"><span class="nav-number">9.</span> <span class="nav-text">组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Text-有很多属性设置-text-的表现方式-具体直接看文档"><span class="nav-number">9.0.1.</span> <span class="nav-text">Text: 有很多属性设置 text 的表现方式, 具体直接看文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Image"><span class="nav-number">9.0.2.</span> <span class="nav-text">Image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件的触摸事件"><span class="nav-number">9.0.3.</span> <span class="nav-text">组件的触摸事件</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/React-Native-xue-xi/';
+          this.page.identifier = '2019/02/18/React-Native-xue-xi/';
+          this.page.title = 'React-Native 学习';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

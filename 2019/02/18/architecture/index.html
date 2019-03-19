@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,架构,MVC,MVVM,模式,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="发展到现在, 各种关于 iOS 开发的架构就层出不穷, 那么哪个才是好的?  剧透下…其实没有最好的, 看看自己项目的规模换个常用都爱的逻辑, 看看哪个最合适.  MVVM 改进, 正确使用MVC 的滥用 好的架构总是希望有以下几种特性:  每个对象都有一个特定, 明确的角色 有一个简单的数据流, 单向数据流允许放置一个断点, 查看数据的变化,  架构不依赖某个特定的框架 or 服务. 足够灵活,">
+<meta name="keywords" content="iOS,架构,MVC,MVVM,模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="architecture">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/architecture/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="发展到现在, 各种关于 iOS 开发的架构就层出不穷, 那么哪个才是好的?  剧透下…其实没有最好的, 看看自己项目的规模换个常用都爱的逻辑, 看看哪个最合适.  MVVM 改进, 正确使用MVC 的滥用 好的架构总是希望有以下几种特性:  每个对象都有一个特定, 明确的角色 有一个简单的数据流, 单向数据流允许放置一个断点, 查看数据的变化,  架构不依赖某个特定的框架 or 服务. 足够灵活,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-18T09:39:00.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="architecture">
+<meta name="twitter:description" content="发展到现在, 各种关于 iOS 开发的架构就层出不穷, 那么哪个才是好的?  剧透下…其实没有最好的, 看看自己项目的规模换个常用都爱的逻辑, 看看哪个最合适.  MVVM 改进, 正确使用MVC 的滥用 好的架构总是希望有以下几种特性:  每个对象都有一个特定, 明确的角色 有一个简单的数据流, 单向数据流允许放置一个断点, 查看数据的变化,  架构不依赖某个特定的框架 or 服务. 足够灵活,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/architecture/">
+
+
+
+
+
+  <title>architecture | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/architecture/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">architecture</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:33:22+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/architecture/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/architecture/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>发展到现在, 各种关于 iOS 开发的架构就层出不穷, 那么哪个才是好的?</p>
+<blockquote>
+<p>剧透下…其实没有最好的, 看看自己项目的规模换个常用都爱的逻辑, 看看哪个最合适.</p>
+</blockquote>
+<p><code>MVVM</code> 改进, 正确使用<br><code>MVC</code> 的滥用</p>
+<p>好的架构总是希望有以下几种特性:</p>
+<ul>
+<li>每个对象都有一个特定, 明确的角色</li>
+<li>有一个简单的数据流, 单向数据流允许放置一个断点, 查看数据的变化, </li>
+<li>架构不依赖某个特定的框架 or 服务.</li>
+<li>足够灵活, 修改起来容易; 又不能太灵活, 加点东西要绕很多圈. 也就是简单而不过度设计. 技术性表达的话就是: 架构应该是关注点分离, 具备单一的清晰权责</li>
+</ul>
+<p>测试<br>可测试性是一个架构很重要且很有帮助的能力, 这不是说依赖测试本身, 而是当我们需要进行测试, 接入测试时, 能够很快的进行. 这要求我们避免各种依赖关系, 特别是框架依赖(你换了个框架, 就不能进行测试了? 这将是毁灭性的…)</p>
+<p>关注点分离: 一个对象通常应该只有一种角色, 但是有时候类太多了, 我们往往会违反合格角色, 做一些其他事情, 比如让类充当协调器(coordinate)的角色. 但换个方面看, 我们仍然是单一原则的, 这些类承担的是在不同的子系统中进行沟通交流的责任.</p>
+<p>要写出一个可测试性的应用, 也许会使用 TDD 的方式来编写, 这是就需要首先把测试写了, 才去实现功能. </p>
+<p>在编写 API 的时候, 要朝着易于测试去写, 不然的话测试就会是一件非常痛苦的事.(但这很难, 可能是框架使用出了问题, 让这个事情变得棘手, 不好去推进测试)</p>
+<p>在定制框架时, 我们应该炒河让测试变的简单, 变的易于搭建. 这也以为这让接口变得简单, 以为这我们可以轻松的在系统中交换元素.</p>
+<p>借助红-绿-重构 (red-green-refactor)，这也是 TDD 所采用的一种方法，您首先就需要编写失败测试，然后以最简单的方式进行编译，然后使其以最简单的方式实现，之后再对其进行重构。实际上，您最终变得到了一个更为简洁的实现方式，不仅仅测试如此，对于代码实现而言也是如此。</p>
+<p>这绝对是我在每个项目中都会考虑的事情。如果您必须要创建大量的伪对象 (fake object)，以便测试某个特定功能的话，那么通常是不可行的。这样会导致对象的角色过多，或者系统的依赖关系过于复杂。</p>
+<p>如果应用中有很多依赖与其他的库, 那么我们最好做一层封装, 这样在迁移到第三方提供的服务时会简单的多.</p>
+<h2 id="糟糕的架构"><a href="#糟糕的架构" class="headerlink" title="糟糕的架构"></a>糟糕的架构</h2><p>怎么算糟糕?</p>
+<p>e.g. Swift中某个 controller 有超过3000行的代码, 或者对应的测试代码超过4000行, 那这就很明显了.</p>
+<blockquote>
+<p>作者做了一个脚本判断文件是否过长, 这个好像 swiftlint 也有, 可以插插你看, 作者已经不更新这个脚本了. 估计还能用.</p>
+</blockquote>
+<p>还有, 可以看看项目中是否使用了全局状态或者 Up Delegate(这是什么? 大概是..上层的代理?) 严格来说, 并没有什么理由使用这些, 状态可能会产生一些副作用. 但是使用了 Up Delegate 来管理全局属性, 而不是使用依赖注入, 也部署使用容器. 也没哟使用单例来写的话, 那么这就是个去全局状态. 可以使用一个依赖可视化的工具, 然后看看, 可以看看自己的结构. </p>
+<blockquote>
+<p>(todo: 工具应该在视频里有提到的, 可以看看, 我看了会更新到这里)</p>
+</blockquote>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>某个设计模式只在某个特定场景下很适用, 但并不是你了解了一个设计模式就到处都适用这个设计模式了. </p>
+<p>e.g. 单例模式的滥用是的这个模式让应用架构变得很糟糕</p>
+<p>你需要有足够的经验, 花费足够的时间到应用中, 才会理解什么时候用什么设计模式.<br>我们可以实际一点, 当你发现某个特定的模式不适用于这里, 但是能让代码变得更好更易于测试. 那么我们就可以考虑更换到这个模式来</p>
+<p>比如单例是为了组员征用而创立的, 用于只允许它拥有一个接口. 但是大多数人不会, 特别 iOS, 大家都是他他当成全局状态同步器. 什么都扔进去. </p>
+<p>比如 Logger, 通常会是一个单例, 但是我们不应该暴露出他使用的是单例. </p>
+<p>我们需要记录某一个消息, 但是不想给项目中的每个类都传一个 logger, 我们只是在我们需要时, 能记录消息.</p>
+<p>即使我们使用了单例, 我们也不必将其暴露, 特别是 Swift, 我们可以穿件一个 Loggable 协议, 它有一个内部使用了单例的默认实现. 我们有个类实现 loggable 协议, 我们能立即访问 log 函数, 函数内部用了单例, 这时候应用中其他部分并不知道, 我就可以在测试中改变它, 也可以重写这个实现. 设置可以测试日志是否正确记录我感兴趣的东西.</p>
+<p>单例的滥用, 通常是缺乏依赖注入, 因此我们要让依赖注入变得容易.</p>
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>作者十分推荐大家使用组合模式(Composition), 它能够自然的引导出很好的选择, 遵循组合模式-&gt; 代码会拥有单一原则 -&gt; 代码会遵循 DRY -&gt; 你也会遵循 DRY 来使用 -&gt; 拥有完全可重用的代码, 而且将易于测试. 当用来组合的对象足够小, 其可变性越小, 测试代码也会越小.</p>
+<p>如很多游戏系统是通过组合模式构建的.</p>
+<p>依赖注入</p>
+<p>一旦有了这些小的对象, 为什么不进行依赖注入, 为什么要将其硬编码到一个地方去使用, 而不是将其注入到一个地方使用.<br>如果硬编码, 我们没改动一个小对象的使用, 都将创建一个新的类. 这会死的…</p>
+<p>注入的话, 你也可以注入测试的对象替代这个对象, 达到测试的目的. </p>
+<h2 id="MVVM-的使用"><a href="#MVVM-的使用" class="headerlink" title="MVVM 的使用"></a>MVVM 的使用</h2><p>在保证V View 独立, Model 独立的情况下, 使用一个 ViewModal 组件来结合两个部分. </p>
+<p>通过一种机制, 将 Modal 的数据, 绑定到 View 的对应属性上.<br>e.g.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">M</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> age: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">View</span>: <span class="title">UIView</span> </span>&#123;</span><br><span class="line">    nameLabel: <span class="type">UIlabel</span></span><br><span class="line">    ageLabel: <span class="type">UIlabel</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ViewModal.swift:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">ModalProtocol</span> </span>&#123;</span><br><span class="line">    nameText: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    ageText: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">ViewProtocol</span> </span>&#123;</span><br><span class="line">    nameLabel: <span class="type">UIlabel</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    ageLabel: <span class="type">UIlabel</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">M</span>: <span class="title">ViewProtocol</span> </span>&#123;</span><br><span class="line">    nameText: &#123; <span class="keyword">return</span> <span class="keyword">self</span>.name &#125;</span><br><span class="line">    ageText: &#123; <span class="keyword">return</span> <span class="keyword">self</span>.age &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ViewModal</span>: <span class="title">ViewProtocol</span> </span>&#123;</span><br><span class="line">    view: <span class="type">ViewProtocol</span></span><br><span class="line">    modal: <span class="type">ModalProtocol</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">bind</span><span class="params">()</span></span> &#123;</span><br><span class="line">        view.nameLabel.text = modal.nameText</span><br><span class="line">        view.ageLabel.text = modal.ageText</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更进一步, 可以使用 <code>Sourcery</code> 来自动生成一些模板代码</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">View</span>: <span class="title">AutoView</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Modal</span>: <span class="title">AutoModal</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 额...估计不行....</span></span><br></pre></td></tr></table></figure>
+<p>ref: <a href="https://academy.realm.io/cn/posts/krzysztof-zablocki-mDevCamp-ios-architecture-mvvm-mvc-viper/" target="_blank" rel="noopener">优秀的 iOS 应用架构：MVVM、MVC、VIPER，孰优孰劣？
+</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/架构/" rel="tag"># 架构</a>
+          
+            <a href="/tags/MVC/" rel="tag"># MVC</a>
+          
+            <a href="/tags/MVVM/" rel="tag"># MVVM</a>
+          
+            <a href="/tags/模式/" rel="tag"># 模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/set-up-with-good-practice/" rel="next" title="set-up-with-good-practice">
+                <i class="fa fa-chevron-left"></i> set-up-with-good-practice
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/Swift3-xue-xi/" rel="prev" title="Swift3 学习">
+                Swift3 学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#糟糕的架构"><span class="nav-number">1.</span> <span class="nav-text">糟糕的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式"><span class="nav-number">2.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合"><span class="nav-number">3.</span> <span class="nav-text">组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM-的使用"><span class="nav-number">4.</span> <span class="nav-text">MVVM 的使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/architecture/';
+          this.page.identifier = '2019/02/18/architecture/';
+          this.page.title = 'architecture';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

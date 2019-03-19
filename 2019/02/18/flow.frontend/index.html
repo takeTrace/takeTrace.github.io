@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="布局,前端,H5,响应式,CSS,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="flow.frontend 从 H5 开始学习因本来就是搞移动端的, 而在界面上这两者极为相似, 所以有些概念的契合应该很高, 选择这个入手应该对我来说比较好吧  响应式网页 在不同的屏幕, 不同的终端上都能正常显示的一种手段    有个小码哥的教程, 讲者已经在简书有博客更新, 不过好像没有太全 目前是按照这个视频来学习, 在mdn上拖关于前段的更权威的教程 完成区权威的教程在:mdn官网开始学">
+<meta name="keywords" content="布局,前端,H5,响应式,CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flow.frontend">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/flow.frontend/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="flow.frontend 从 H5 开始学习因本来就是搞移动端的, 而在界面上这两者极为相似, 所以有些概念的契合应该很高, 选择这个入手应该对我来说比较好吧  响应式网页 在不同的屏幕, 不同的终端上都能正常显示的一种手段    有个小码哥的教程, 讲者已经在简书有博客更新, 不过好像没有太全 目前是按照这个视频来学习, 在mdn上拖关于前段的更权威的教程 完成区权威的教程在:mdn官网开始学">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T17:28:44.632Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="flow.frontend">
+<meta name="twitter:description" content="flow.frontend 从 H5 开始学习因本来就是搞移动端的, 而在界面上这两者极为相似, 所以有些概念的契合应该很高, 选择这个入手应该对我来说比较好吧  响应式网页 在不同的屏幕, 不同的终端上都能正常显示的一种手段    有个小码哥的教程, 讲者已经在简书有博客更新, 不过好像没有太全 目前是按照这个视频来学习, 在mdn上拖关于前段的更权威的教程 完成区权威的教程在:mdn官网开始学">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/flow.frontend/">
+
+
+
+
+
+  <title>flow.frontend | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/flow.frontend/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">flow.frontend</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:34:04+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/flow.frontend/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/flow.frontend/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>flow.frontend</p>
+<h1 id="从-H5-开始学习"><a href="#从-H5-开始学习" class="headerlink" title="从 H5 开始学习"></a>从 H5 开始学习</h1><p>因本来就是搞移动端的, 而在界面上这两者极为相似, 所以有些概念的契合应该很高, 选择这个入手应该对我来说比较好吧</p>
+<ul>
+<li>响应式网页<blockquote>
+<p>在不同的屏幕, 不同的终端上都能正常显示的一种手段</p>
+</blockquote>
+</li>
+</ul>
+<p>有个小码哥的教程, 讲者已经在<a href="http://www.jianshu.com/u/4312c933b9db" target="_blank" rel="noopener">简书有博客更新</a>, 不过好像没有太全</p>
+<p>目前是按照这个视频来学习, 在mdn上拖关于前段的更权威的教程</p>
+<h1 id="完成区权威的教程在"><a href="#完成区权威的教程在" class="headerlink" title="完成区权威的教程在:"></a>完成区权威的教程在:</h1><p><a href="https://developer.mozilla.org/zh-CN/docs/Web" target="_blank" rel="noopener">mdn官网</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Learn" target="_blank" rel="noopener">开始学习</a></p>
+<p><html> 的简介: 标签化的语言, 确定网页上的元素的结构<br>CSS: 对网页上元素进行描述, 确定位置, 颜色等信息<br>JS: 可以在浏览器运行的语言.</html></p>
+<p>js的脚本在html, css之后引用. 因为在HTML完成渲染加载后, 才能拿到里面的数据, 放前面的话, 如果脚本出错, 会截断后面的加载运行</p>
+<h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><h3 id="常见的使用的CSS属性"><a href="#常见的使用的CSS属性" class="headerlink" title="常见的使用的CSS属性"></a>常见的使用的CSS属性</h3><h4 id="文字属性"><a href="#文字属性" class="headerlink" title="文字属性"></a>文字属性</h4><ul>
+<li>font:<br>1.规定文字样式的属性<br>格式：font-style: italic;<br>取值：<br>normal ： 正常的， 默认就是正常的<br>italic :  倾斜的<br>快捷键：<br>fs font-style: italic;<br>fsn font-style: normal;</li>
+</ul>
+<p>2.规定文字粗细的属性<br>格式： font-weight: bold;<br>单词取值:<br>bold 加粗<br>bolder  比加粗还要粗<br>lighter 细线， 默认就是细线<br>数字取值：<br>100-900之间整百的数字</p>
+<p>快捷键<br>fw font-weight:;<br>fwb font-weight: bold;<br>fwbr  font-weight: bolder;</p>
+<p>3.规定文字大小的属性<br>格式：font-size: 30px;<br>单位：px（像素 pixel）<br>注意点： 通过font-size设置大小一定要带单位， 也就是一定要写px<br>快捷键<br>fz font-size:;<br>fz30 font-size: 30px;</p>
+<p>4.规定文字字体的属性<br>格式：font-family:”楷体”;<br>注意点：<br>1.如果取值是中文， 需要用双引号或者单引号括起来<br>2.设置的字体必须是用户电脑里面已经安装的字体<br>快捷键<br>ff font-family:;<br>可以给字体设置备选方案<br>格式:font-family:”字体1”, “备选方案1”, …;<br><strong>注意点: 如果想给界面中的英文单独设置字体, 那么英文的字体必须写在中文的前面</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">  p&#123;</span><br><span class="line">            /*</span><br><span class="line">            font-style: italic;</span><br><span class="line">            font-weight: bold;</span><br><span class="line">            font-size: 10px;</span><br><span class="line">            font-family:&quot;楷体&quot;;</span><br><span class="line">            */</span><br><span class="line">            font:bold italic 10px &quot;楷体&quot;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"> 缩写格式:</span><br><span class="line">font: style weight size family;</span><br><span class="line">例如:</span><br><span class="line">font:italic bold 10px &quot;楷体&quot;;</span><br><span class="line"></span><br><span class="line">注意点:</span><br><span class="line">1.在这种缩写格式中有的属性值可以省略</span><br><span class="line">sytle可以省略</span><br><span class="line">weight可以省略</span><br><span class="line">2.在这种缩写格式中style和weight的位置可以交换</span><br><span class="line">3.在这种缩写格式中有的属性值是不可以省略的</span><br><span class="line">size不能省略</span><br><span class="line">family不能省略</span><br><span class="line">4.size和family的位置是不能顺便乱放的</span><br><span class="line">size一定要写在family的前面, 而且size和family必须写在所有属性的最后</span><br></pre></td></tr></table></figure>
+<h4 id="文本属性"><a href="#文本属性" class="headerlink" title="文本属性"></a>文本属性</h4><p>上面是控制文字的了, 这里是控制文本, 即格式, 对齐什么的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">p&#123;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">    text-align: left;</span><br><span class="line">    text-indent: 2em;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">1.文本装饰的属性</span><br><span class="line">格式:text-decoration: underline;</span><br><span class="line">取值:</span><br><span class="line">underline 下划线 | line-through 删除线 | overline 上划线</span><br><span class="line">none 什么都没有, 最常见的用途就是用于去掉超链接的下划线</span><br><span class="line">快捷键:</span><br><span class="line">td  text-decoration: none;</span><br><span class="line">tdu text-decoration: underline;</span><br><span class="line">tdl text-decoration: line-through;</span><br><span class="line">tdo text-decoration: overline;</span><br><span class="line"></span><br><span class="line">2.文本水平对齐的属性</span><br><span class="line">格式: text-align: right;</span><br><span class="line">取值:</span><br><span class="line">left 左 | right 右 | center 中</span><br><span class="line">快捷键</span><br><span class="line">ta text-align: left;</span><br><span class="line">tar text-align: right;</span><br><span class="line">tac text-align: center;</span><br><span class="line"></span><br><span class="line">3.文本缩进的属性</span><br><span class="line">格式: text-indent: 2em;</span><br><span class="line">取值:</span><br><span class="line">2em, 其中em是单位, 一个em代表缩进一个文字的宽度</span><br><span class="line">快捷键</span><br><span class="line">ti text-indent:;</span><br><span class="line">ti2e text-indent: 2em;</span><br></pre></td></tr></table></figure>
+<h4 id="颜色属性"><a href="#颜色属性" class="headerlink" title="颜色属性"></a>颜色属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">p&#123;</span><br><span class="line">    /*color: red;*/</span><br><span class="line">    /*color: rgb(255,0,0);*/</span><br><span class="line">    /*color: rgba(255,0,0,1);*/</span><br><span class="line">    color: #FF0000;</span><br><span class="line">    color: #F00;</span><br><span class="line">    /*color: rgba(255,0,0,0.2);*/</span><br><span class="line">    color: #ffee00;</span><br><span class="line">    color: #fe0;</span><br><span class="line">    color: #769abb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1.5十六进制缩写</span><br><span class="line">在CSS中只要十六进制的颜色每两位的值都是一样的, 那么就可以简写为一位</span><br><span class="line">例如:</span><br><span class="line">#FFEE00 == #FE0</span><br><span class="line"></span><br><span class="line">注意点:</span><br><span class="line">1.如果当前颜色对应的两位数字不一样, 那么就不能简写</span><br><span class="line">#123456;</span><br><span class="line"></span><br><span class="line">2.如果两位相同的数字不是属于同一个颜色的, 也不能简写</span><br><span class="line">#122334</span><br></pre></td></tr></table></figure>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><p>就是对于元素的定位, 有广泛的适用性, 即设定的选定会选定当前文档的符合条件的所有元素, 然后在这个元素应用设定的CSS</p>
+<p>可以选择的是</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">标签 &#123;&#125;; // 称为标签选择器</span><br><span class="line">.class &#123;&#125;; // 类选择器, 文档中可以有多个相同的class, 在HTML中每个标签可以同时绑定多个类名格式:&lt;标签名称 class="类名1 类名2 ..."&gt;</span><br><span class="line">#id &#123;&#125;;	// id选择器, 一般html文档中的id设置的值是唯一的, id的命名规范和很多语言的变量是一样的, 一般情况下如果仅仅是为了设置样式, 我们不会使用id ,因为在前端开发中id是留给js使用的</span><br><span class="line"><span class="selector-id">#id</span> <span class="selector-class">.class</span> <span class="selector-tag">p</span> <span class="selector-tag">a</span> &#123;&#125;; 后代选择器, 可以一直像查找路径一样找下去, 满足这个后代路径的所有标签, 不一定是连续的</span><br><span class="line"><span class="selector-id">#id</span>&gt;<span class="selector-class">.class</span>&gt;<span class="selector-tag">p</span>&gt;<span class="selector-tag">a</span> &#123;&#125;; 子元素选择器, 之间需要用&gt;符号连接, 并且不能有空格, 和上面不同, 连下去的是子元素</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-id">#id</span><span class="selector-class">.class</span> &#123;&#125;; 交集选择器, 相当于 &amp;&amp; 的关系来筛选元素, 之间没有空格, 所以一般标签写前面</span><br><span class="line">p,#id,.class &#123;&#125;; 并集选择器, 相当于 || 来选择元素, 用逗号链接</span><br><span class="line"><span class="selector-tag">p</span>+<span class="selector-tag">a</span> &#123;&#125;; 相邻兄弟选择器, 作用: 给指定选择器后面紧跟的那个选择器选中的标签设置属性(<span class="selector-tag">CSS2</span>)</span><br><span class="line"><span class="selector-tag">p</span>~<span class="selector-tag">a</span> &#123;&#125;; 相邻兄弟选择器, 作用: 给指定选择器后面的所有选择器选中的所有标签设置属性(<span class="selector-tag">CSS3</span>)</span><br><span class="line">p:only-child &#123;&#125;; // 1.同级别的第几个</span><br><span class="line">				 // :first-child 选中同级别中的第一个标签</span><br><span class="line">				 // :last-child 选中同级别中的最后一个标签</span><br><span class="line">				 // :nth-child(n) 选中同级别中的第n个标签</span><br><span class="line">				 // :nth-last-child(n) 选中同级别中的倒数第n个标签</span><br><span class="line">				 // :only-child 选中父元素中唯一的标签</span><br><span class="line">				 // 注意点: 不区分类型</span><br><span class="line"></span><br><span class="line">				 // 2.同类型的第几个</span><br><span class="line">				 // :first-of-type 选中同级别中同类型的第一个标签</span><br><span class="line">				 // :last-of-type  选中同级别中同类型的最后一个标签</span><br><span class="line">				 // :nth-of-type(n) 选中同级别中同类型的第n个标签</span><br><span class="line">				 // :nth-last-of-type(n)  选中同级别中同类型的倒数第n个标签</span><br><span class="line">				 // :only-of-type 选中父元素中唯一类型的某个标签</span><br><span class="line">				 // :nth-child(odd) 选中同级别中的所有奇数</span><br><span class="line">				 //	:nth-child(even) 选中同级别中的所有偶数</span><br><span class="line"></span><br><span class="line">				 //	:nth-child(xn+y)</span><br><span class="line">				 //	x和y是用户自定义的, 而n是一个计数器, 从0开始递增</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-attr">[attribute=value]</span> &#123;&#125;;  根据指定的属性名称找到对应的标签, 然后设置属性, 也可以限定值</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:nth-child(odd)</span> &#123;&#125; 选中同级别中的所有奇数</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:nth-child(even)</span> &#123;&#125; 选中同级别中的所有偶数</span><br><span class="line"></span><br><span class="line">// 关于另一个属性选择器的用法</span><br><span class="line">&lt;!<span class="selector-tag">--</span></span><br><span class="line">1.属性的取值是以什么开头的</span><br><span class="line"><span class="selector-attr">[attribute|=value]</span> <span class="selector-tag">CSS2</span></span><br><span class="line"><span class="selector-attr">[attribute^=value]</span> <span class="selector-tag">CSS3</span></span><br><span class="line">两者之间的区别:</span><br><span class="line"><span class="selector-tag">CSS2</span>中的只能找到<span class="selector-tag">value</span>开头,并且<span class="selector-tag">value</span>是被<span class="selector-tag">-</span>和其它内容隔开的</span><br><span class="line"><span class="selector-tag">CSS3</span>中的只要是以<span class="selector-tag">value</span>开头的都可以找到, 无论有没有被<span class="selector-tag">-</span>隔开</span><br><span class="line"></span><br><span class="line">2.属性的取值是以什么结尾的</span><br><span class="line"><span class="selector-attr">[attribute$=value]</span> <span class="selector-tag">CSS3</span></span><br><span class="line"></span><br><span class="line">3.属性的取值是否包含某个特定的值得</span><br><span class="line"><span class="selector-attr">[attribute~=value]</span> <span class="selector-tag">CSS2</span></span><br><span class="line"><span class="selector-attr">[attribute*=value]</span> <span class="selector-tag">CSS3</span></span><br><span class="line">两者之间的区别:</span><br><span class="line"><span class="selector-tag">CSS2</span>中的只能找到独立的单词, 也就是包含<span class="selector-tag">value</span>,并且<span class="selector-tag">value</span>是被空格隔开的</span><br><span class="line"><span class="selector-tag">CSS3</span>中的只要包含<span class="selector-tag">value</span>就可以找到</span><br><span class="line"><span class="selector-tag">--</span>&gt;</span><br><span class="line">&lt;img src="" alt="wwwabcmmm"&gt;</span><br><span class="line">&lt;img src="" alt="www-abc-mmm"&gt;</span><br><span class="line">&lt;img src="" alt="www abc mmm"&gt;</span><br><span class="line"></span><br><span class="line">// 通配符选择器: * &#123;&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="CSS-的特性"><a href="#CSS-的特性" class="headerlink" title="CSS 的特性"></a>CSS 的特性</h3><h4 id="继承性"><a href="#继承性" class="headerlink" title="继承性"></a>继承性</h4><p>作用: 给父元素设置一些属性, 子元素也可以使用, 这个我们就称之为继承性<br>注意点:</p>
+<ol>
+<li>并不是所有的属性都可以继承, 只有以color/font-/text-/line-开头的属性才可以继承</li>
+<li>在CSS的继承中不仅仅是儿子可以继承, 只要是后代都可以继承</li>
+<li>继承性中的特殊性</li>
+<li>1a标签的文字颜色和下划线是不能继承的</li>
+<li>2h标签的文字大小是不能继承的</li>
+</ol>
+<h4 id="层叠性"><a href="#层叠性" class="headerlink" title="层叠性"></a>层叠性</h4><p>作用: 层叠性就是CSS处理冲突的一种能力</p>
+<p>注意点:<br>层叠性只有在多个选择器选中”同一个标签”, 然后又设置了”相同的属性”, 才会发生层叠性</p>
+<h4 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h4><p>作用:当多个选择器选中同一个标签, 并且给同一个标签设置相同的属性时, 如何层叠就由优先级来确定<br>优先级判断的三种方式</p>
+<ol>
+<li>间接选中就是指继承<br>如果是间接选中, 那么就是谁离目标标签比较近就听谁的</li>
+<li>相同选择器(直接选中)<br>如果都是直接选中, 并且都是同类型的选择器, 那么就是谁写在后面就听谁的</li>
+<li>不同选择器(直接选中)<br>如果都是直接选中, 并且不是相同类型的选择器, 那么就会按照选择器的优先级来层叠<br>id&gt;类&gt;标签&gt;通配符&gt;继承&gt;浏览器默认</li>
+</ol>
+<h5 id="优先级之-“-important”"><a href="#优先级之-“-important”" class="headerlink" title="优先级之 “!important”"></a>优先级之 “!important”</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*&#123;</span><br><span class="line">            color: blue !important;</span><br><span class="line">            font-size:10px;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>作用: 用于提升某个直接选中标签的选择器中的某个属性的优先级的, 可以将被指定的属性的优先级提升为最高</p>
+<p>注意点:<br>1.!important只能用于直接选中, 不能用于间接选中<br>2.通配符选择器选中的标签也是直接选中的<br>3.!important只能提升被指定的属性的优先级, 其它的属性的优先级不会被提升<br>4.!important必须写在属性值得分号前面<br>5.!important前面的感叹号不能省略</p>
+<h4 id="优先级之权重问题"><a href="#优先级之权重问题" class="headerlink" title="优先级之权重问题"></a>优先级之权重问题</h4><p>1.什么是优先级的权重?<br>作用: 当多个选择器混合在一起使用时, 我们可以通过计算权重来判断谁的优先级最高</p>
+<p>2.权重的计算规则<br>2.1首先先计算选择器中有多少个id, id多的选择器优先级最高<br>2.2如果id的个数一样, 那么再看类名的个数, 类名个数多的优先级最高<br>2.3如果类名的个数一样, 那么再看标签名称的个数, 标签名称个数多的优先级最高<br>2.4如果id个数一样, 类名个数也一样, 标签名称个数也一样, 那么就不会继续往下计算了, 那么此时谁写在后面听谁的<br>也就是说优先级如果一样, 那么谁写在后面听谁的</p>
+<p>注意点:<br>1.只有选择器是直接选中标签的才需要计算权重, 否则一定会听直接选中的选择器的</p>
+<h3 id="常用属性"><a href="#常用属性" class="headerlink" title="常用属性"></a>常用属性</h3><blockquote>
+<p>据我观察, 它的属性缩写, 其实就是将属性中的属性通过一定的顺序写在一起, 这样就直接写值, 不用写属性的属性名了</p>
+</blockquote>
+<ul>
+<li>background-color:</li>
+<li>background-image: url(images/girl.jpg);</li>
+<li>background-repeat: 属性, 就是专门用于控制背景图片的平铺方式的,取值:repeat 默认,在水平和垂直都需要平铺, no-repeat 在水平和垂直都不需要平铺, repeat-x 只在水平方向平铺, repeat-y 只在垂直方向平铺</li>
+<li>background-position: 背景定位, 取值: left | top | bottom | right, 水平 垂直, 注意点:<br>同一个标签可以同时设置背景颜色和背景图片, 如果颜色和图片同时存在, 那么图片会覆盖颜色</li>
+<li>border: 边框的宽度 边框的样式 边框的颜色;</li>
+<li>margin &amp; padding: 边距, 注意: 在默认布局的垂直方向上, 默认情况下外边距是不会叠加的, 会出现合并现象, 谁的外边距比较大就听谁的</li>
+</ul>
+<p>1.什么是CSS盒子模型?<br>CSS盒子模型仅仅是一个形象的比喻, HTML中所有的标签都是盒子</p>
+<p>结论<br>1.在HTML中所有的标签都可以设置<br>宽度/高度  == 指定可以存放内容的区域<br>内边距  == 填充物<br>边框  == 手机盒子自己<br>外边距  == 盒子和盒子之间的间隙</p>
+<p>注意点:<br>1.如果两个盒子是嵌套关系, 那么设置了里面一个盒子顶部的外边距, 外面一个盒子也会被顶下来<br>2.如果外面的盒子不想被一起定下来,那么可以给外面的盒子添加一个边框属性<br>3.在企业开发中, 一般情况下如果需要控制嵌套关系盒子之间的距离, 应该首先考虑padding, 其次再考虑margin<br>margin本质上是用于控制兄弟关系之间的间隙的</p>
+<p>注意点:<br>1.在嵌套关系的盒子中, 我们可以利用margin: 0 auto;的方式来让里面的盒子在外面的盒子中水平居中<br>2.margin: 0 auto; 只对水平方向有效, 对垂直方向无效</p>
+<h4 id="清空默认边距"><a href="#清空默认边距" class="headerlink" title="清空默认边距"></a>清空默认边距</h4><p>1.为什么要清空默认边距(外边距和内边距)<br>在企业开发中为了更好的控制盒子的宽高和计算盒子的宽高等等, 所以在企业开发中, 编写代码之前第一件事情就是清空默认的边距</p>
+<p>2.如何清空默认的边距<br>格式<br>*{<br>    margin: 0;<br>    padding: 0;<br>}</p>
+<p>3.注意点<br>通配符选择器会找导(遍历)当前界面中所有的标签, 所以性能不好<br>企业开发中可以从这个网址中拷贝<br><a href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css" target="_blank" rel="noopener">http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css</a></p>
+<ul>
+<li>背景属性缩写的格式: background: 背景颜色 背景图片 平铺方式 关联方式 定位方式;</li>
+<li>background-attachment: 这个属性就是专门用于修改关联方式的, 取值: scroll(随屏幕滚动) | fixed(固定不滚动背景)</li>
+<li>CSS精灵图: 合成图片的一种技术, 即请求返回一整张图, 然后根据需要其中的那张图片的位置, 设置元素的背景, 然后设置位置, 使得元素的展示正好可以展示这个图片</li>
+</ul>
+<h4 id="浮动出现的副作用的清除"><a href="#浮动出现的副作用的清除" class="headerlink" title="浮动出现的副作用的清除"></a>浮动出现的副作用的清除</h4><p>因为在浮动时, 不能撑起父元素的高度, 在浮动时, 根据浮动的规则会有一些不想要的情况, 这里就需要排除这些情况</p>
+<h5 id="设置高度"><a href="#设置高度" class="headerlink" title="设置高度"></a>设置高度</h5><pre><code>1.清除浮动的第一种方式
+给前面一个父元素设置高度
+
+注意点:
+在企业开发中, 我们能不写高度就不写高度, 所以这种方式用得很少
+</code></pre><h5 id="设置hidden"><a href="#设置hidden" class="headerlink" title="设置hidden"></a>设置hidden</h5><pre><code>可以通过overflow: hidden;让里面的盒子设置margin-top之后, 外面的盒子不被顶下来
+
+1.在标准流中内容的高度可以撑起父元素的高度
+2.在浮动流中浮动的元素是不可以撑起父元素的高度的
+</code></pre><h5 id="设置clear属性"><a href="#设置clear属性" class="headerlink" title="设置clear属性"></a>设置clear属性</h5><pre><code>1.清除浮动的第二种方式
+给后面的盒子添加clear属性
+
+clear属性取值:
+none: 默认取值, 按照浮动元素的排序规则来排序(左浮动找左浮动, 右浮动找右浮动)
+left: 不要找前面的左浮动元素
+right: 不要找前面的右浮动元素
+both: 不要找前面的左浮动元素和右浮动元素
+
+注意点:
+当我们给某个元素添加clear属性之后, 那么这个属性的margin属性就会失效
+</code></pre><h5 id="隔墙法"><a href="#隔墙法" class="headerlink" title="隔墙法"></a>隔墙法</h5><pre><code>1.清除浮动的第三种方式
+隔墙法
+
+2.外墙法
+2.1在两个盒子中间添加一个额外的块级元素
+2.2给这个额外添加的块级元素设置clear: both;属性
+
+注意点:
+外墙法它可以让第二个盒子使用margin-top属性
+外墙法不可以让第一个盒子使用margin-bottom属性
+
+3.内墙法
+3.1在第一个盒子中所有子元素最后添加一个额外的块级元素
+3.2给这个额外添加的块级元素设置clear: both;属性
+
+注意点:
+内墙法它可以让第二个盒子使用margin-top属性
+内墙法它可以让第一个盒子使用margin-bottom属性
+
+4.外墙法和内墙法区别?
+外墙法不能撑起第一个盒子的高度, 而内墙法可以撑起第一个盒子的高度
+
+5.在企业开发中不常用隔墙法来清除浮动
+</code></pre><h5 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h5><pre><code>1.什么是伪元素选择器?
+伪元素选择器作用就是给指定标签的内容前面添加一个子元素或者给指定标签的内容后面添加一个子元素
+
+2.格式:
+标签名称::before{
+    属性名称:值;
+}
+给指定标签的内容前面添加一个子元素
+
+标签名称::after{
+    属性名称:值;
+}
+给指定标签的内容后面添加一个子元素
+
+1.清除浮动的第四种方式
+利用伪元素选择器清除浮动
+本质上就是内墙法, 只不过是直接通过CSS代码添加了内墙, 其它特性和内墙法都一样
+
+注意点:
+IE6中不支持这种方式, 为了兼容IE6必须给前面的盒子添加*zoom:1;属性
+</code></pre><h3 id="定位方式"><a href="#定位方式" class="headerlink" title="定位方式"></a>定位方式</h3><p>定位流分类</p>
+<ol>
+<li>相对定位 relative</li>
+<li>绝对定位 absolute</li>
+<li>固定定位 fixed</li>
+<li>静态定位</li>
+</ol>
+<h5 id="相对定位"><a href="#相对定位" class="headerlink" title="相对定位"></a>相对定位</h5><p>position: relative;</p>
+<p>2.什么是相对定位?<br>相对定位就是相对于自己以前在标准流中的位置来移动</p>
+<p>3.相对定位注意点<br>3.1相对定位是不脱离标准流的, 会继续在标准流中占用一份空间<br>3.2在相对定位中同一个方向上的定位属性只能使用一个<br>3.3由于相对定位是不脱离标准流的, 所以在相对定位中是区分块级元素/行内元素/行内块级元素<br>3.4由于相对定位是不脱离标准流的, 并且相对定位的元素会占用标准流中的位置, 所以当给相对定位的元素设置margin/padding等属性的时会影响到标准流的布局</p>
+<p>4.相对定位应用场景<br>4.1用于对元素进行微调<br>4.2配合后面学习的绝对定位来使用</p>
+<h5 id="绝对定位"><a href="#绝对定位" class="headerlink" title="绝对定位"></a>绝对定位</h5><p>position: absolute;</p>
+<p>1.什么是绝对定位?<br>绝对定位就是相对于body来定位</p>
+<p>2.绝对定位注意点<br>2.1绝对定位的元素是脱离标准流的<br>2.2绝对定位的元素是不区分块级元素/行内元素/行内块级元素</p>
+<h6 id="绝对定位-参考点"><a href="#绝对定位-参考点" class="headerlink" title="绝对定位-参考点"></a>绝对定位-参考点</h6><p>1.规律<br>1.默认情况下所有的绝对定位的元素, 无论有没有祖先元素, 都会以body作为参考点</p>
+<p>2.如果一个绝对定位的元素有祖先元素, 并且祖先元素也是定位流, 那么这个绝对定位的元素就会以定位流的那个祖先元素作为参考点<br>2.1只要是这个绝对定位元素的祖先元素都可以<br>2.2指的定位流是指绝对定位/相对定位/固定定位<br>2.3定位流中只有静态定位不行</p>
+<p>3.如果一个绝对定位的元素有祖先元素, 并且祖先元素也是定位流, 而且祖先元素中有多个元素都是定位流, 那么这个绝对定位的元素会以离它最近的那个定位流的祖先元素为参考点</p>
+<h6 id="绝对定位-注意点"><a href="#绝对定位-注意点" class="headerlink" title="绝对定位-注意点"></a>绝对定位-注意点</h6><p>1.如果一个绝对定位的元素是以body作为参考点, 那么其实是以网页首屏的宽度和高度作为参考点, 而不是以整个网页的宽度和高度作为参考点</p>
+<p>2.一个绝对定位的元素会忽略祖先元素的padding</p>
+<h6 id="绝对定位-子绝父相"><a href="#绝对定位-子绝父相" class="headerlink" title="绝对定位-子绝父相"></a>绝对定位-子绝父相</h6><p>相对定位弊端:<br>相对定位不会脱离标准流, 会继续在标准流中占用一份空间, 所以不利于布局界面</p>
+<p>position: relative;<br>left: -42px;<br>top: -18px;</p>
+<p>绝对定位弊端:<br>默认情况下绝对定位的元素会以body作为参考点, 所以会随着浏览器的宽度高度的变化而变化</p>
+<p>position: absolute;<br>left: 526px;<br>top: 90px;</p>
+<p>子绝父相<br>子元素用绝对定位, 父元素用相对定位</p>
+<h6 id="绝对定位-水平居中"><a href="#绝对定位-水平居中" class="headerlink" title="绝对定位-水平居中"></a>绝对定位-水平居中</h6><p>1.如何让绝对定位的元素水平居中<br>只需要设置绝对定位元素的left:50%;<br>然后再设置绝对定位元素的 margin-left: -元素宽度的一半px;</p>
+<h5 id="固定定位"><a href="#固定定位" class="headerlink" title="固定定位"></a>固定定位</h5><p>1.什么是固定定位?<br>固定定位和前面学习的背景关联方式很像, 背景定位可以让背景图片不随着滚动条的滚动而滚动, 而固定定位可以让某个盒子不随着滚动条的滚动而滚动</p>
+<p>注意点:<br>1.固定定位的元素是脱离标准流的, 不会占用标准流中的空间<br>2.固定定位和绝对定位一样不区分行内/块级/行内块级</p>
+<h5 id="z-index-属性"><a href="#z-index-属性" class="headerlink" title="z-index 属性"></a>z-index 属性</h5><p>1.什么是z-index属性?<br>默认情况下所有的元素都有一个默认的z-index属性, 取值是0.<br>z-index属性的作用是专门用于控制定位流元素的覆盖关系的</p>
+<p>1.默认情况下定位流的元素会盖住标准流的元素<br>2.默认情况下定位流的元素后面编写的会盖住前面编写的<br>3.如果定位流的元素设置了z-index属性, 那么谁的z-index属性比较大, 谁就会显示在上面</p>
+<p>注意点:<br>1.从父现象<br>1.1如果两个元素的父元素都没有设置z-index属性, 那么谁的z-index属性比较大谁就显示在上面<br>1.2如果两个元素的父元素设置了z-index属性, 那么子元素的z-index属性就会失效, 也就是说谁的父元素的z-index属性比较大谁就会显示在上面</p>
+<h5 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h5><p>1.通过我们的观察发现a标签存在一定的状态<br>1.1默认状态, 从未被访问过<br>1.2被访问过的状态<br>1.3鼠标长按状态<br>1.4鼠标悬停在a标签上状态</p>
+<p>2.什么是a标签的伪类选择器?<br>a标签的伪类选择器是专门用来修改a标签不同状态的样式的</p>
+<p>3.格式<br>:link 修改从未被访问过状态下的样式<br>:visited 修改被访问过的状态下的样式<br>:hover 修改鼠标悬停在a标签上状态下的样式<br>:active 修改鼠标长按状态下的样式</p>
+<p>4.注意点<br>4.1a标签的伪类选择器可以单独出现也可以一起出现<br>4.2a标签的伪类选择器如果一起出现, 那么有严格的顺序要求<br>编写的顺序必须要个的遵守爱恨原则 love hate<br>4.3如果默认状态的样式和被访问过状态的样式一样, 那么可以缩写</p>
+<p>1.在企业开发中编写a标签的伪类选择器最好写在标签选择器的后面<br>2.在企业开发中和a标签盒子相关的属性都写在标签选择器中(显示模式/宽度/高度/padding/margin)<br>3.在企业开发中和a标签文字/背景相关的都写在伪类选择器中</p>
+<h5 id="过度效果"><a href="#过度效果" class="headerlink" title="过度效果"></a>过度效果</h5><p>1,过渡三要素<br>1.1必须要有属性发生变化<br>1.2必须告诉系统哪个属性需要执行过渡效果<br>1.3必须告诉系统过渡效果持续时长</p>
+<p>2.注意点<br>当多个属性需要同时执行过渡效果时用逗号隔开即可<br>transition-property: width, background-color;<br>transition-duration: 5s, 5s;</p>
+<p>/<em>告诉系统过渡动画的运动的速度</em>/<br>transition-timing-function: linear; 取值有: ease, ease-in, ease-out, ease-in-out.</p>
+<h1 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h1><h2 id="常用的一些函数"><a href="#常用的一些函数" class="headerlink" title="常用的一些函数"></a>常用的一些函数</h2><ul>
+<li>document 对象: 即当前页面的文档</li>
+<li>querySelector: 选择器, 可以选择文档中的某个元素节点: document.querySelector(‘选择器语言’),</li>
+<li>localStorage: 本地缓存, 可以存储一些数据: localStorage.setItem(‘key’, value)</li>
+<li>prompt: 交互函数, 带有一个输入框的弹窗, 可以让用户输入信息, 返回值就是用户的输入: prompt(‘showing string’)</li>
+</ul>
+<h2 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h2><p>配置相关软件不针对 <em>.appservice.open.weixin.qq.com 和 </em>.debug.open.weixin.qq.com 进行代理</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/布局/" rel="tag"># 布局</a>
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/H5/" rel="tag"># H5</a>
+          
+            <a href="/tags/响应式/" rel="tag"># 响应式</a>
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/React/" rel="next" title="React">
+                <i class="fa fa-chevron-left"></i> React
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/intervalTask/" rel="prev" title="intervalTask">
+                intervalTask <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从-H5-开始学习"><span class="nav-number">1.</span> <span class="nav-text">从 H5 开始学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完成区权威的教程在"><span class="nav-number">2.</span> <span class="nav-text">完成区权威的教程在:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS"><span class="nav-number">3.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的使用的CSS属性"><span class="nav-number">3.0.1.</span> <span class="nav-text">常见的使用的CSS属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文字属性"><span class="nav-number">3.0.1.1.</span> <span class="nav-text">文字属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文本属性"><span class="nav-number">3.0.1.2.</span> <span class="nav-text">文本属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#颜色属性"><span class="nav-number">3.0.1.3.</span> <span class="nav-text">颜色属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择器"><span class="nav-number">3.1.</span> <span class="nav-text">选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-的特性"><span class="nav-number">3.1.1.</span> <span class="nav-text">CSS 的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#继承性"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">继承性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#层叠性"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">层叠性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优先级"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">优先级</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优先级之-“-important”"><span class="nav-number">3.1.1.3.1.</span> <span class="nav-text">优先级之 “!important”</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优先级之权重问题"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">优先级之权重问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用属性"><span class="nav-number">3.1.2.</span> <span class="nav-text">常用属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#清空默认边距"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">清空默认边距</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮动出现的副作用的清除"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">浮动出现的副作用的清除</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#设置高度"><span class="nav-number">3.1.2.2.1.</span> <span class="nav-text">设置高度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置hidden"><span class="nav-number">3.1.2.2.2.</span> <span class="nav-text">设置hidden</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置clear属性"><span class="nav-number">3.1.2.2.3.</span> <span class="nav-text">设置clear属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#隔墙法"><span class="nav-number">3.1.2.2.4.</span> <span class="nav-text">隔墙法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#伪元素选择器"><span class="nav-number">3.1.2.2.5.</span> <span class="nav-text">伪元素选择器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位方式"><span class="nav-number">3.1.3.</span> <span class="nav-text">定位方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#相对定位"><span class="nav-number">3.1.3.0.1.</span> <span class="nav-text">相对定位</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绝对定位"><span class="nav-number">3.1.3.0.2.</span> <span class="nav-text">绝对定位</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#绝对定位-参考点"><span class="nav-number">3.1.3.0.2.1.</span> <span class="nav-text">绝对定位-参考点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#绝对定位-注意点"><span class="nav-number">3.1.3.0.2.2.</span> <span class="nav-text">绝对定位-注意点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#绝对定位-子绝父相"><span class="nav-number">3.1.3.0.2.3.</span> <span class="nav-text">绝对定位-子绝父相</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#绝对定位-水平居中"><span class="nav-number">3.1.3.0.2.4.</span> <span class="nav-text">绝对定位-水平居中</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#固定定位"><span class="nav-number">3.1.3.0.3.</span> <span class="nav-text">固定定位</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#z-index-属性"><span class="nav-number">3.1.3.0.4.</span> <span class="nav-text">z-index 属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#伪类选择器"><span class="nav-number">3.1.3.0.5.</span> <span class="nav-text">伪类选择器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#过度效果"><span class="nav-number">3.1.3.0.6.</span> <span class="nav-text">过度效果</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#JS"><span class="nav-number">4.</span> <span class="nav-text">JS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的一些函数"><span class="nav-number">4.1.</span> <span class="nav-text">常用的一些函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序"><span class="nav-number">4.2.</span> <span class="nav-text">小程序</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/flow.frontend/';
+          this.page.identifier = '2019/02/18/flow.frontend/';
+          this.page.title = 'flow.frontend';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

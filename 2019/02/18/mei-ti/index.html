@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,媒体,音乐播放,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="媒体 #音效播放 * 短音频: 即音效, 只有1,2秒.... * 长音频: 如背景音乐, * 每个音效文件都对应一个 id, 根据文件路径来创建一个id, 之后不想要这个音效了就通过这个 id 把音效销毁 dispose * 短音频: 用 AudioeServicesPlaySystemSound  * 长音频: AVAudioPlayer, 这个最好是在停止之后就移除, 重新播放再重新创建一个">
+<meta name="keywords" content="iOS,媒体,音乐播放">
+<meta property="og:type" content="article">
+<meta property="og:title" content="媒体">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/mei-ti/index.html">
+<meta property="og:site_name" content="一团线">
+<meta property="og:description" content="媒体 #音效播放 * 短音频: 即音效, 只有1,2秒.... * 长音频: 如背景音乐, * 每个音效文件都对应一个 id, 根据文件路径来创建一个id, 之后不想要这个音效了就通过这个 id 把音效销毁 dispose * 短音频: 用 AudioeServicesPlaySystemSound  * 长音频: AVAudioPlayer, 这个最好是在停止之后就移除, 重新播放再重新创建一个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T17:46:08.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="媒体">
+<meta name="twitter:description" content="媒体 #音效播放 * 短音频: 即音效, 只有1,2秒.... * 长音频: 如背景音乐, * 每个音效文件都对应一个 id, 根据文件路径来创建一个id, 之后不想要这个音效了就通过这个 id 把音效销毁 dispose * 短音频: 用 AudioeServicesPlaySystemSound  * 长音频: AVAudioPlayer, 这个最好是在停止之后就移除, 重新播放再重新创建一个">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/mei-ti/">
+
+
+
+
+
+  <title>媒体 | 一团线</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一团线</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">my someeeeeee blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/mei-ti/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="takeTrace">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一团线">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">媒体</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T12:33:07+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/mei-ti/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/18/mei-ti/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>媒体</p>
+<p>#音效播放</p>
+<pre><code>* 短音频: 即音效, 只有1,2秒....
+* 长音频: 如背景音乐,
+* 每个音效文件都对应一个 id, 根据文件路径来创建一个id, 之后不想要这个音效了就通过这个 id 把音效销毁 dispose
+* 短音频: 用 AudioeServicesPlaySystemSound
+
+* 长音频: AVAudioPlayer, 这个最好是在停止之后就移除, 重新播放再重新创建一个 player,
+* 最好封装一个工具类去管理播放音乐
+</code></pre><h1 id="音乐播放器"><a href="#音乐播放器" class="headerlink" title="音乐播放器:"></a>音乐播放器:</h1><pre><code>* 用播放长音频的控件, 在点击 cell 时跳到播放控制器, 将模型传入,
+* 播放 view 拿到模型后设置界面, 并根据模型来播放音乐
+* *
+* 细节处理:
+* 进度条: 设置 timer 来调用 player.currentTime 拿到当前播放时间, 设置进度条的位置
+* 细节很多啊...自己看代码吧,....
+*
+</code></pre><p>##后台播放:</p>
+<pre><code>* UIApplicationDelegate 中注册后台播放, 并在 info.plist 中表明是音乐应用,
+* 后台时如果是打开本播放器同时还播放着其他歌曲, 需要播放哪一个? 在 VAudioPlayer 里有标明需要结束哪个的模式
+* 请求够哦太模式选音乐会获得更多的后台时间
+* // 音频会话
+AVAudioSession *session = [AVAudioSession sharedInstance];
+
+// 设置会话类型（播放类型、播放模式,会自动停止其他音乐的播放）
+[session setCategory:AVAudioSessionCategorySoloAmbient error:nil];
+
+// 激活会话
+[session setActive:YES error:nil];
+</code></pre><p>##更新锁屏播放信息</p>
+<pre><code>* 使用媒体播放信息中心 MPNowPlayingInfoCenter, 设置其中的 nowPlayingInfo字典, 往字典里加条目 MPMediaItem... 给字典增加对应的内容
+* 设置好字典后, 还不行, 在设置锁屏媒体中心时会自动生成三个音乐控制按钮, 要对这三个按钮进行远程监听, 完成这些按钮的远程控制, 才会将信息放在锁屏上展示
+    * 开始监听远程事件,
+    1. 首先要成为第一响应者, (FirstResponder) 这是必备条件
+    2. 在应用层面, 开始接收远程控制事件, 默认这样只调用这句没用, 但是它默认会调用本应用内的第一响应者, 所以上一步的作用在这里,
+    3. 在第一步中, 除了声明第一响应者外 , 还要在控制器中实现 canBecomeFirstResponder 方法, 才嫩真正成为应用的第一响应者.
+    4. 再实现远程控制接收事件的方法, 传入的事件可以拿到它的类型, iOS 就三种类型, 触摸/加速度/远程, 往下有子事件, 可以 switch 判断其方法
+    5. 在 info 字典里还可以添加几个属性, 来让锁屏显示播放的进度: playbackDuration,
+* 设置好后可以显示且监听远程事件了, 而且设置播放时间后会显示 总时长, 且会显示计数当前时长, 这个其实是它有个定时器在显示信息的一刻开始计时, 但是点击暂停并没有停止计时器, 在我们点击播放重新开始后重新设置锁屏信息, 且传入当前播放到的时间(即已经播放的时间: elapsedPlayBacktime), 才能正确显示当前播放进度
+</code></pre><p>#bug(音乐后台播放, 锁屏显示界面): 真机也显示不了, 而且后台也不能播放 —-  iOS9更新后, 或者是 xcode 的更新, 需要在 tagets -&gt; capabilities 下设置interApp Audio 打开, 还有backgroundModes勾选相应的, 远程控制事件也需要配置 info 了现在!!!<a href="http://i.stack.imgur.com/GRx6h.png" target="_blank" rel="noopener">http://i.stack.imgur.com/GRx6h.png</a></p>
+<p>##显示锁屏歌词</p>
+<pre><code>* 在更新了当前显示歌词的时候, quarz2d 来绘制出当前歌词的前后几条歌词, 再将这个图片放到锁频信息上更新锁屏信息即可
+</code></pre><p>##解码</p>
+<pre><code>* 音频文件的播放需要解码, 分为硬解和软解, 硬解比较省电, 但是一次只能解码一个资源
+* 有时候需要自己对音频进行转换, , 我们优先使用能支持软硬解的格式, 可以使用一些终端工具: afconvert...
+</code></pre><p>#流媒体播放</p>
+<pre><code>* 接收远程传输流来播放,
+* 可以下完再播, 相当于发请求下载到本地后再播放就完了
+* 边下边播, 不简单, 需要知道很多音频的东西, 因为播放一个不完整的文件需要很多信息, 但是这个已经有很牛的工具, , 我们可以直接用
+* audio_queue.cpp, 网上大多数流媒体播放都是用这个工具的
+* 苹果提供了一些播放流媒体的控件, AVPlayer, MPMoviePlayerController, MPMoviePlayerViewController,  但是这些对于缓冲都拿不到, 不是太好
+* AVPlayer: 直接设置播放的 URL, 然后play 就好
+* 如果仅仅是想播放一下的话, 用自带的这几个就好, 想要更复杂的, 个性化的话, 就要用第三方的框架轻松实现,(废话, 谁会做这么简单)
+* DOUAudioStreamer:豆瓣出品 / StreamingKit / FreeStreamer ----这些在 github 上都开源的, 豆瓣国人出品, 而且更强大, 件事使用
+</code></pre><h1 id="bug-访问-http-出错-用xcode7之后-会默认拒绝自认证的链接-导致微博项目不能访问授权页面-在info-plist中加入"><a href="#bug-访问-http-出错-用xcode7之后-会默认拒绝自认证的链接-导致微博项目不能访问授权页面-在info-plist中加入" class="headerlink" title="bug(访问 http 出错): 用xcode7之后, 会默认拒绝自认证的链接, 导致微博项目不能访问授权页面, 在info.plist中加入:"></a>bug(访问 http 出错): 用xcode7之后, 会默认拒绝自认证的链接, 导致微博项目不能访问授权页面, 在info.plist中加入:</h1><p><key>NSAppTransportSecurity</key></p>
+<p><dict><br>    <key>NSAllowsArbitraryLoads</key><br>    <true><br></true></dict><br>或者想添加例外或者更多连接网络方面: <a href="http://stackoverflow.com/questions/31216758/how-can-i-add-nsapptransportsecurity-to-my-info-plist-file/31629980#31629980" target="_blank" rel="noopener">http://stackoverflow.com/questions/31216758/how-can-i-add-nsapptransportsecurity-to-my-info-plist-file/31629980#31629980</a></p>
+<p>##使用豆瓣流媒体框架播放留媒体</p>
+<pre><code>* 导入项目文件
+* import 头文件(它本身依赖的框架 xcode 自动已经包含进去了)
+* 其 DOUBANAudioStreamer 就是它的流媒体播放器
+*
+</code></pre><p>#KVO : key value observing</p>
+<ul>
+<li>谁来监听某个 key 的 value 的变化, 只要这个 key 的 value 发生变化, 就会通知 taget</li>
+<li>只要添加了监听器, 在改声明的类里 dealloc 就要移除监听器</li>
+<li>当监听到时, 会调用监听器的observeValueForKeyPath:ofObject:change:context: 我们可以拿到 变化的值, 这样就监听了某些一致在变化的属性, 来可视化</li>
+<li>监听时设置的 option 可以设置成获得最新值或者是 old 值, 会传到回调方法的 change 字典中</li>
+</ul>
+<p>#bug: 监听 KVO 监听不到回调, —- 有些属性不能使用 KVO, 要设置对了属性才会回调方法</p>
+<p>#bug:  控件设置不起作用, label 不显示字, 进度条不动 —- 设置 UI 控件的代码不是在主线程执行, 拿不到主线程的 UI 控件来设置</p>
+<p>#bug: 速度显示不出来, —- 速度本来设置是 NSUinteger, 需要转换为 double 再进行计算, 不然证书计算最后是0</p>
+<p>#视频播放,</p>
+<pre><code>* 苹果提供的几个工具流媒体和本地都能放,
+* 添加 URL, 创建好后添加视频 view 到我们的界面上, 就可以看到画面了
+* *
+* *
+* VLC 和 ffmpeg 是解码库, 非常强大, 几乎可以播放任何格式, VlC 在 ff 的基础上封装了更多更强大的东西, 但是一般不直接用里面所有东西, 因为太大了, 什么平台什么都包括, 很多我们用不上, 可以使用简单的抽取
+* 对 ff 抽取出需要的进行脚本编译, 拿出来的东西放到项目里用, 或者我们用第三方框架,他们是基于这些做好的简单的使用, kxMovie
+* 在编译 VLC 的时候, 执行脚本要加 -s 才能编译出给模拟器用的文件 (需要翻墙才能下载完成的 VLC 库, 才能正确完整的编译出东西来)
+</code></pre><h2 id="VLC"><a href="#VLC" class="headerlink" title="VLC"></a>VLC</h2><pre><code>* 将 MobileVLCKit 拉进项目, 导入猪头文件: MobileVLCKit
+* 创建播放器 VLCMediaPlayer, 设置它要播放的 media 文件
+* 设置可绘制的载体, 即其认为视频可以绘制到的地方 .drawable
+* 直接运行会报错, 它还依赖于其他库, 需要将这些库导入: libiconv, libstdc++, audiotoolbox, libbz2,
+* 完了还会报错 no symbol architech i386 ----- std:...  这些是缺少.mm 文件, 改个文件成.mm
+* 完了还报错 --- 在 taget -&gt; BuildSetting -&gt;搜 c++ st将C++StandLib 改成 libc++(GNU C++...)的库
+* 完了就可以运行出视频文件播放了,
+* *
+* 官方实例程序有很多功能, 想通过 wifi 将东西放到手机上, 可以通过这个实例程序学些东西
+* 编译官方 workspace, sh 文件名.sh    加-s 是编译模拟器版本, 不然就是只能在真机上用
+* @@@@@@@@@@@@@ 诶.....编译不通过...  还要自己找方法解决, 以下载官方客户端和源码, 正在研究编译....新进展, 编译通过: 丑姑娘心编译一次, 提示找不到 iosSDK7.2, 从 xcode5.1拷贝过去后再编译仍然不识别, 只能修改编译 sh 文件, 将7.2改为目前的9.2, 再次编译, 成功, 仍然失败!提示有条指令失败, 但是 sh 文件中找不到这个指令, 应该是次生指令, 但是看到之前缺失的文件编译成功, 设置BundleIdentifile 后从新 build 程序, 提示失败:bitcode 和什么不能同时使用, 就找 bitcode - no, 编译成功!! 运行在真机, 成功!!!!
+* 里面默认的播放器没有控制按钮, 需要自己加, MJ 弄了一个
+</code></pre><p>#录音:</p>
+<pre><code>* 关于语音识别, 自带的很难用, 一般用第三方, 很多都是用讯飞语音
+* 录音用自带的就够了
+* 使用 AVFoundation -&gt; AVAudioRecorder, 设置存放路径 URL, (记得 URL 是有哦协议头的), setting 可以不放东西, 就会是默认, 本来是放一些对录音的设置,
+* record 录音或恢复录音, stop 停止录音并保存到 url 中
+* *   设置格式 caf
+* 自动停止录音: 需要监听分贝, 当达到某值时开始录音(或者只能停止录音?开始还需要点击?)
+* 开启分贝监听功能, --- meteringEnable, averagePowerForChannel:来拿到平均分贝,也许需要设置 setting 的字典, 不是!! 其实是调用updateMeters获取分贝, 即更新最新分贝才会根据这些更新的分贝来算出平均值,
+* 可以用 timer.duration 来获取2次刷新之间的间隔, 秒为单位, 直接累加到记录持续时间的属性就行,
+* 在拿到分贝的时候判断, 安静时就记录时间, 有说话时就清零时间, 当时间达到2秒时就停止录音并关掉定时器
+* 或者用 nstimer 定时器, 在2秒的时候监听分贝, 静音的话就判断准备停止, =1就2秒后调用停止方法,=0就设准备停止=1, 非静音就延迟2秒, 并准备停止=0, 或者结合上面用就不用设准备停止的标记
+* 有很多播放音频的第三方, 可以稍微了解下来使用
+</code></pre><p> 这里的媒体通过加载网络资源进行流媒体的获取和播放</p>
+<h1 id="加载视频数据"><a href="#加载视频数据" class="headerlink" title="加载视频数据"></a>加载视频数据</h1><pre><code>通过发送请求, 获取 data, 对 Data进行数据解析, 拿出字典后转换为模型, 其他的和以前一样, 在设置 cell.imageView 时将 url 补全, 通过 SDWebImage 来设置图片,
+想做播放的可以试试 meadiaPlayer 库里的类, 或者 AVFoundation
+传输的数据可能是 xml, 可以试试解析 xml, 可以用 NSXMLParser
+</code></pre><h2 id="注意点-设置-cell-的图片时不要有中文名"><a href="#注意点-设置-cell-的图片时不要有中文名" class="headerlink" title="注意点: 设置 cell 的图片时不要有中文名"></a>注意点: 设置 cell 的图片时不要有中文名</h2><pre><code>封装 UIView 分类, 方便设置 frame 或者其他结构体的属性, 因为这个很常用,
+</code></pre><h2 id="完善播放器的基本细节"><a href="#完善播放器的基本细节" class="headerlink" title="完善播放器的基本细节"></a>完善播放器的基本细节</h2><pre><code>当应用退到后台时, 播放器会自动dismiss,    --- 当程序进入后台的时候, 会发送通知, 当 movieController 收到通知后就会自动销毁自己, 不想这样的话可以自定义这个 controller, 来移除对这个通知的监听观察
+*** Terminating app due to uncaught exception &apos;NSRangeException&apos;, reason: &apos;Cannot remove an observer &lt;YCMovieController 0xb6aa0e0&gt; for the key path &quot;UIApplicationDidEnterBackgroundNotification&quot; from &lt;NSNotificationCenter 0xb718180&gt; because it is not registered as an observer.&apos;
+取消监听的方法应该是消息名:name, 不是某个 keyPath 的监听
+    移除通知后, 每次进去视频播放还在, 只是进度会退回去1,2秒, 其实这个还不错, 不想这样的话, 需要做点具体的操作
+    在 MPMoviePlyerViewController 中, 有 MPMoviePlayerController, 因为它才能播放视频, 很多设置其实是对它的设置
+
+完善: 将常用的比较繁琐的代码封装起来, 弄成一个分类放到自己的工具类中, 以后就会很爽了
+
+小结:
+    http 请求的过程  及 方法
+        GET: 请求行中包含资源连接, 用户数据, 参数有限制
+        POST: 请求体中包含用户数据, 参数无限制
+    客户端 ---发送请求---&gt; 服务器
+        信息包括:请求行: 请求方式, http 协议版本, 资源链接
+                 请求头: 客户端的一些数据
+                 请求体: 客户端发送过去的实体数据, 二进制
+    客户端 &lt;--接收响应---  服务器
+                状态行(叫法而已, 相应行也行): 状态码, 状态英文, 协议版本
+                相应头: 服务器信息, 返回数据的一些信息: 类型, 长度
+                实体内容(响应体): 返回的具体数据
+    发送请求的方法,
+    NSURLConnection
+        同步,
+        异步
+            直接发送
+            代理方法: 代理方法其实都一样, 除非指定Immediatly = NO, 不然创建好对象就会直接发送请求,
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/媒体/" rel="tag"># 媒体</a>
+          
+            <a href="/tags/音乐播放/" rel="tag"># 音乐播放</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/yu-wang-luo-da-jiao-dao/" rel="next" title="与网络打交道">
+                <i class="fa fa-chevron-left"></i> 与网络打交道
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/18/an-zhuang-cacoaPods-he-shi-yong/" rel="prev" title="安装 cacoaPods 和使用">
+                安装 cacoaPods 和使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">takeTrace</p>
+              <p class="site-description motion-element" itemprop="description">log my study of tech/finance/other/think</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#音乐播放器"><span class="nav-number">1.</span> <span class="nav-text">音乐播放器:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bug-访问-http-出错-用xcode7之后-会默认拒绝自认证的链接-导致微博项目不能访问授权页面-在info-plist中加入"><span class="nav-number">2.</span> <span class="nav-text">bug(访问 http 出错): 用xcode7之后, 会默认拒绝自认证的链接, 导致微博项目不能访问授权页面, 在info.plist中加入:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VLC"><span class="nav-number">2.1.</span> <span class="nav-text">VLC</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载视频数据"><span class="nav-number">3.</span> <span class="nav-text">加载视频数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意点-设置-cell-的图片时不要有中文名"><span class="nav-number">3.1.</span> <span class="nav-text">注意点: 设置 cell 的图片时不要有中文名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完善播放器的基本细节"><span class="nav-number">3.2.</span> <span class="nav-text">完善播放器的基本细节</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">takeTrace</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://!罗里吧嗦.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2019/02/18/mei-ti/';
+          this.page.identifier = '2019/02/18/mei-ti/';
+          this.page.title = '媒体';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://!罗里吧嗦.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

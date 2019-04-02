@@ -447,7 +447,7 @@
 <h2 id="容器的基本操作"><a href="#容器的基本操作" class="headerlink" title="容器的基本操作"></a>容器的基本操作</h2><ul>
 <li>启动容器</li>
 </ul>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> IMAGE [COMMAND] [ARG...]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> IMAGE [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure>
 <p>在新容器中执行命令:</p>
 <p>run: 构建一个容器: [通常我们在终端中执行的命令]<br>[COMMAND]: 在容器启动时执行的命令</p>
 <p>直接这样就是一次性的运行就结束了</p>
@@ -477,7 +477,7 @@
 <h2 id="守护式容器"><a href="#守护式容器" class="headerlink" title="守护式容器"></a>守护式容器</h2><blockquote>
 <p>常用命令:</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动一个容器</span></span><br><span class="line">docker run -it(交互式) -d(守护式)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看运行中容器的 <span class="built_in">log</span></span></span><br><span class="line">docker logs</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看运行中容器的正在运行的线程</span></span><br><span class="line">docker top NAME/HASH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 新开一个线程</span></span><br><span class="line">docker exec NAME/HASH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 停止正在运行的容器</span></span><br><span class="line"> docker stop/kill</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span> 启动一个容器</span><br><span class="line">docker run -it(交互式) -d(守护式)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看运行中容器的 log</span><br><span class="line">docker logs</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看运行中容器的正在运行的线程</span><br><span class="line">docker top NAME/HASH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 新开一个线程</span><br><span class="line">docker exec NAME/HASH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 停止正在运行的容器</span><br><span class="line"> docker stop/kill</span><br></pre></td></tr></table></figure>
 <p>以上这些容器在结束运行后就会停止, 而我们需要长时间运行的容器, 就是这个守护式容器</p>
 <p>特点:</p>
 <ul>
@@ -980,7 +980,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-count">127</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -991,7 +991,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1002,7 +1002,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">191</span>
+                  <span class="site-state-item-count">193</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

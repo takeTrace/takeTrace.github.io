@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="一团线">
 <meta property="og:description" content="iOSView 的操作将一个后创建的控件插入到前面创建的控件的下面的方法insertSubview（通过该方法可以调整子控件在subView中的顺序）bringSubviewToFront可以将一个控件放到subviews的最上面sendSubviewToBack可以将子空间放到subviews的最下面 文／袁俊亮技术博客（简书作者）原文链接：http://www.jianshu.com/p/d6">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-19T17:29:46.215Z">
+<meta property="og:updated_time" content="2019-03-24T15:50:24.605Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flow">
 <meta name="twitter:description" content="iOSView 的操作将一个后创建的控件插入到前面创建的控件的下面的方法insertSubview（通过该方法可以调整子控件在subView中的顺序）bringSubviewToFront可以将一个控件放到subviews的最上面sendSubviewToBack可以将子空间放到subviews的最下面 文／袁俊亮技术博客（简书作者）原文链接：http://www.jianshu.com/p/d6">
@@ -2018,9 +2018,11 @@ assert(condition, message)
 </li>
 <li>当传值时会类型推断, 如果知道是某个类型的话可以省略那个类型, 直接.xxx</li>
 </ul>
-<p>#bug: 注意变量名不要写的和类名一样!!!!!!!!!注意!!!, 要先设大小! 再设位置!, 不然会有意想不到的情况, 先设位置再设大小会根据 frame.y 又缩放回去….</p>
-<p>#bug: var btns: Array<uibutton>? = <a href>UIButton</a>, 数组的可选类型</uibutton></p>
-<p>#bug: fatalError(“init(coder:) has not been implemented”)因为这个方法是必须要求实现, 当不需要这个方法时, 可以将这个方法声明为便利构造方法, 调用 self.init 或者其他指定构造方法,</p>
+<ul>
+<li>bug: 注意变量名不要写的和类名一样!!!!!!!!!注意!!!, 要先设大小! 再设位置!, 不然会有意想不到的情况, 先设位置再设大小会根据 frame.y 又缩放回去….</li>
+<li>bug: var btns: Array<uibutton>? = <a href>UIButton</a>, 数组的可选类型</uibutton></li>
+<li>bug: fatalError(“init(coder:) has not been implemented”)因为这个方法是必须要求实现, 当不需要这个方法时, 可以将这个方法声明为便利构造方法, 调用 self.init 或者其他指定构造方法,</li>
+</ul>
 <p>#技巧: 需要只设置一次但是又只能在重复调用的方法中设置时, 用<br>struct TokenContainer {<br>            static var token : dispatch_once_t = 0<br>        }</p>
 <pre><code>dispatch_once(&amp;TokenContainer.token)
 </code></pre><p>在 OC 中会自己设置一个值, Swift 中没有, 所以要自己加锁</p>
@@ -2043,9 +2045,12 @@ assert(condition, message)
     * 这样别人看不到源代码也你能直接用, .a 只能放源码二进制文件, 不能放图片等其他资源, 所以要另外提供才行
 
     * 这里再补充一下查看静态库.a对处理器架构的支持，先cd到.a文件的路径下，命令行输入：lipo -info xxxxx.a
-</code></pre><p>#bug: 有时候旧文件改动了, 连接出静态库可能有些头文件也要暴露出来,  使用方法也变了!!看看作者文档或主页!!卡了半天!!!, 生成静态库没问题!</p>
-<p>#在使用静态库时应该也设定 Building 参数 OtherLinker -ObjC</p>
-<p>#bug:  有时候等半天没自动补全, 以为是方法错了, 其实是 xcode 的问题<br>-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0<br>Terminating app due to uncaught exception ‘NSInvalidArgumentException’, reason: ‘-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0’</p>
+</code></pre><ul>
+<li><p>bug: 有时候旧文件改动了, 连接出静态库可能有些头文件也要暴露出来,  使用方法也变了!!看看作者文档或主页!!卡了半天!!!, 生成静态库没问题!<br>#在使用静态库时应该也设定 Building 参数 OtherLinker -ObjC</p>
+</li>
+<li><p>bug:  有时候等半天没自动补全, 以为是方法错了, 其实是 xcode 的问题<br>-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0<br>Terminating app due to uncaught exception ‘NSInvalidArgumentException’, reason: ‘-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0’</p>
+</li>
+</ul>
 <h1 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h1><p><a href="https://www.gitbook.com/book/xianjun/xcode7_framework_and_static_lib/details" target="_blank" rel="noopener">参考文章</a></p>
 <p>##制作.framework</p>
 <pre><code>* 创建项目选择 bundle -&gt; 进到 targets.BuildSettings -&gt; 搜索 pack -&gt; packaging.wrapperExtension -&gt; 修改扩展名 bundle 成 framework -&gt; architectures.baseSDK选 iOS -&gt; 回到导航栏.info.plist.bundleOsTypeCode改 BNDL 成FMWk -&gt; 拉入文件(包括媒体资源也可以拉进去, framework 可以放进媒体资源) -&gt; 进到 BuildSetting 设置暴露的头文件 -&gt; 选择真机编译 -&gt; 有时 product 处还是红色, 但可能已经生成了, 在 deriveData 缓存文件里, /Users/mac/Library/Developer/Xcode, 找到对应项目.build.pruduct,就在里面
@@ -2053,7 +2058,11 @@ assert(condition, message)
 * 可能会出现编译时i386报错, 不好解决, 这时用别人的制作 framework的框架,
 * universal-framework, 运行脚本安装后, 可以在新建文件的地方看到 framework 选项, 创建好后设置暴露文件, 编译就可以了, 但是可能还是会出现点问题, runscript 编译报错, 删掉后可通过, 但是加载不出资源文件:单独添加资源文件到项目目录里.
 </code></pre><p>##更新: xcode7.2已经自带这个 framework 模板</p>
-<p>#bug: Undefined symbols for architecture x86_64:<br>  “_OBJC_CLASS_$_MJRefreshBackNormalFooter”, referenced from:<br>      objc-class-ref in ViewController.o<br>  “_OBJC_CLASS_$_MJRefreshNormalHeader”, referenced from:<br>      objc-class-ref in ViewController.o<br>ld: symbol(s) not found for architecture x86_64<br>clang: error: linker command failed with exit code 1 (use -v to see invocation)<br>——–搞错了, 将真机的文件拉进去了….<br>——–其实, 步奏都没错, 只是在 xcode7中要把静态库链接到 embed link 没有做….</p>
+<ul>
+<li>bug: Undefined symbols for architecture x86_64:<br>“_OBJC_CLASS_$_MJRefreshBackNormalFooter”, referenced from:<pre><code>objc-class-ref in ViewController.o
+</code></pre>“_OBJC_CLASS_$_MJRefreshNormalHeader”, referenced from:<pre><code>objc-class-ref in ViewController.o
+</code></pre>ld: symbol(s) not found for architecture x86_64<br>clang: error: linker command failed with exit code 1 (use -v to see invocation)<br>——–搞错了, 将真机的文件拉进去了….<br>——–其实, 步奏都没错, 只是在 xcode7中要把静态库链接到 embed link 没有做….</li>
+</ul>
 <p>#——–其实, 在 Xcode7.2后做的挺完善, 步奏没那么麻烦了, 也自动做了很多设置, 记得最后要在 embed 链接 framework</p>
 <p>##最常用的还是.a 的静态库, 原生,稳定. 制作时注意: 如果静态库中需要暴露的头文件比较多, 应该设置一个主头文件, 一般和库同名,包含所有需要暴露的头文件名</p>
 <p>##在程序发布阶段, 应该用发布阶段的静态库, 之前生成的都是调试 Debug 阶段的, 发布应该生成 Release</p>
@@ -2081,16 +2090,18 @@ assert(condition, message)
 __字段: NSLocationWhenInUseUsageDescription 或者 NSLocationAlwaysUsageDescription__,
 iOS8之后，如果想要定位，必须调用 __requestWhenInUseAuthorization__ 或 __requestAlwaysAuthorization__方法。可参考http://www.jianshu.com/p/ef6994767cbb
 * 可以设置某个区域的监控, 当进入这个区域或离开这个区域就通知代理
-</code></pre><p>#bug:  reason: ‘Delegate must respond to locationManager:didFailWithError:’–必须实现设个方法</p>
-<p>##CLGeocoder</p>
-<pre><code>* 地理编码: 将地名编码成坐标, 经纬度等信息, 根据地名可以获得具体位置信息
-* 反地理编码: 根据坐标经纬度等信息, 得出具体位置信息
-* 只用创建一个对象就可以用, 调用 geocoder &amp; reverseGeocoder 就可以进行地理编解码
-* 完了后会调用 block, 传2个参数, 查到信息的话会返回一个 CLPlaceMark:地标, 里面包装了很多信息, 可以打印看看
-* *
-* 反地理编码: 用法和地理编码差不多, 根据经纬度拿到地标
-*
-</code></pre><p>#Map Kit</p>
+</code></pre><ul>
+<li>bug:  reason: ‘Delegate must respond to locationManager:didFailWithError:’–必须实现设个方法<br>##CLGeocoder<ul>
+<li>地理编码: 将地名编码成坐标, 经纬度等信息, 根据地名可以获得具体位置信息</li>
+<li>反地理编码: 根据坐标经纬度等信息, 得出具体位置信息</li>
+<li>只用创建一个对象就可以用, 调用 geocoder &amp; reverseGeocoder 就可以进行地理编解码</li>
+<li>完了后会调用 block, 传2个参数, 查到信息的话会返回一个 CLPlaceMark:地标, 里面包装了很多信息, 可以打印看看</li>
+<li>*</li>
+<li>反地理编码: 用法和地理编码差不多, 根据经纬度拿到地标<br>*</li>
+</ul>
+</li>
+</ul>
+<p>#Map Kit</p>
 <pre><code>* 基于 CoreLocation 的地图工具包
 * 一样是导入框架和猪头文件
 * 所有类型以 MK 开头
@@ -2124,21 +2135,28 @@ iOS8之后，如果想要定位，必须调用 __requestWhenInUseAuthorization__
 *  方法: hitTest:withEvent: 可以拦截整个操作系统的触摸事件, 因为 iOS 底层的事件传递都是用这个方法来传, 拦截这个方法就几乎拦截了所有的触摸事件. 可以拿到点击的点, 判断. 返回一个 view, 那个 view 就会用来做响应点击事件的 view
 *  可以添加 tableView 等等控件, 但是没词点击都会创建一个, 而且每个大头针都会显示出来, 我们可以给这个类做一个单例, 每次出来就改变位置和父控件, 或者通知其他图钉将这个 view 收起
 </code></pre><p>##注意: iOS9已经可以设置 detailView, 可以显示更多东西</p>
-<p>#bug: detailCalloutAccessoryView添加本来没有宽高的东西的时候什么都不显示, —  在使用这个特性时需要添加宽高的限制, 不然显示不出来<br>[v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100]];<br>    [v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200]];</p>
-<p>###对于Swift:</p>
-<pre><code>*  let widthConstraint = NSLayoutConstraint(item: myView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
-myView.addConstraint(widthConstraint)
-
-let heightConstraint = NSLayoutConstraint(item: myView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20)
-myView.addConstraint(heightConstraint)
-</code></pre><p>##画线和导航</p>
+<ul>
+<li><p>bug: detailCalloutAccessoryView添加本来没有宽高的东西的时候什么都不显示, —  在使用这个特性时需要添加宽高的限制, 不然显示不出来<br>[v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100]];<br>  [v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200]];<br>###对于Swift:</p>
+<ul>
+<li><p>let widthConstraint = NSLayoutConstraint(item: myView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)<br>myView.addConstraint(widthConstraint)</p>
+<p>let heightConstraint = NSLayoutConstraint(item: myView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20)<br>myView.addConstraint(heightConstraint)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>##画线和导航</p>
 <pre><code>* mapkit 中有个类, 可以获取路线, 即方向请求: MKDirectionsRequest, 设置起点和终点, 用 MKPlaceMark,  这里要用到地理编码了,
 * 注意: 地理编码器同一时间只能进行一项编码任务, 而且是异步的, 所以应该一个完成再编码一个, 将编码嵌套起来,.
 * 拿到路线请求后, 根据请求创建一个 MKDirection 对象, 即方向, 用来计算路径. 从返回的路径(或许有几个)拿出遮盖模型, 添加到 mapVIew 上, addOverlay:
 * 还需要在代理的添加遮盖的方法中返回一个 render,
-</code></pre><p>#bug: 画线出不来, —— 不能用 fillColor!!!! 因为这个线不是闭合的图形!!!!!</p>
-<pre><code>* 要想添加导航功能我们自己不好做, 需要有强大的地图服务支持, 一般我们是打开苹果的官方地图应用,
-</code></pre><p>#集成百度地图:  未做</p>
+</code></pre><ul>
+<li><p>bug: 画线出不来, —— 不能用 fillColor!!!! 因为这个线不是闭合的图形!!!!!</p>
+<ul>
+<li>要想添加导航功能我们自己不好做, 需要有强大的地图服务支持, 一般我们是打开苹果的官方地图应用,</li>
+</ul>
+</li>
+</ul>
+<p>#集成百度地图:  未做</p>
 <pre><code>* 继承百度地图SDK, 添加.mm 文件(里面有些使用到 c++的东西的, 项目里必须有一个.mm 文件, 没有的还不会链接 C++的东西, ),或者是早 otherLinkerFlags 添加-all_load(表示不管什么类型的文件都链接进来, 更推荐改.mm) , 使用更多的方法可以查 SDK 文档,
 * 使用百度的 map, 用里面的控件, 传入地点, 或者是查找路径就可以, 设置代理可以监听它的执行结果
 </code></pre><h3 id="导入百度地图-Swift3"><a href="#导入百度地图-Swift3" class="headerlink" title="导入百度地图: Swift3"></a>导入百度地图: Swift3</h3><ol>
@@ -2161,7 +2179,7 @@ myView.addConstraint(heightConstraint)
 </ol>
 </li>
 </ol>
-<p>####bug: 在设置 mapview 后 app 的整个界面都打不开…. 打断点, 发现在设置 frame 的时候死循环好像, 过不去, 可能是在 viewdidload 方法里这个 View 还没加载完? 因为是从 AppDelegate 调用的, 取消这个调用, 让他生命周期自己走就可以了.</p>
+<p>###- bug: 在设置 mapview 后 app 的整个界面都打不开…. 打断点, 发现在设置 frame 的时候死循环好像, 过不去, 可能是在 viewdidload 方法里这个 View 还没加载完? 因为是从 AppDelegate 调用的, 取消这个调用, 让他生命周期自己走就可以了.</p>
 <p>#音效播放</p>
 <pre><code>* 短音频: 即音效, 只有1,2秒....
 * 长音频: 如背景音乐,
@@ -2199,10 +2217,13 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
     4. 再实现远程控制接收事件的方法, 传入的事件可以拿到它的类型, iOS 就三种类型, 触摸/加速度/远程, 往下有子事件, 可以 switch 判断其方法
     5. 在 info 字典里还可以添加几个属性, 来让锁屏显示播放的进度: playbackDuration,
 * 设置好后可以显示且监听远程事件了, 而且设置播放时间后会显示 总时长, 且会显示计数当前时长, 这个其实是它有个定时器在显示信息的一刻开始计时, 但是点击暂停并没有停止计时器, 在我们点击播放重新开始后重新设置锁屏信息, 且传入当前播放到的时间(即已经播放的时间: elapsedPlayBacktime), 才能正确显示当前播放进度
-</code></pre><p>#bug(音乐后台播放, 锁屏显示界面): 真机也显示不了, 而且后台也不能播放 —-  iOS9更新后, 或者是 xcode 的更新, 需要在 tagets -&gt; capabilities 下设置interApp Audio 打开, 还有backgroundModes勾选相应的, 远程控制事件也需要配置 info 了现在!!!<a href="http://i.stack.imgur.com/GRx6h.png" target="_blank" rel="noopener">http://i.stack.imgur.com/GRx6h.png</a></p>
-<p>##显示锁屏歌词</p>
-<pre><code>* 在更新了当前显示歌词的时候, quarz2d 来绘制出当前歌词的前后几条歌词, 再将这个图片放到锁频信息上更新锁屏信息即可
-</code></pre><p>##解码</p>
+</code></pre><ul>
+<li>bug(音乐后台播放, 锁屏显示界面): 真机也显示不了, 而且后台也不能播放 —-  iOS9更新后, 或者是 xcode 的更新, 需要在 tagets -&gt; capabilities 下设置interApp Audio 打开, 还有backgroundModes勾选相应的, 远程控制事件也需要配置 info 了现在!!!<a href="http://i.stack.imgur.com/GRx6h.png" target="_blank" rel="noopener">http://i.stack.imgur.com/GRx6h.png</a><br>##显示锁屏歌词<ul>
+<li>在更新了当前显示歌词的时候, quarz2d 来绘制出当前歌词的前后几条歌词, 再将这个图片放到锁频信息上更新锁屏信息即可</li>
+</ul>
+</li>
+</ul>
+<p>##解码</p>
 <pre><code>* 音频文件的播放需要解码, 分为硬解和软解, 硬解比较省电, 但是一次只能解码一个资源
 * 有时候需要自己对音频进行转换, , 我们优先使用能支持软硬解的格式, 可以使用一些终端工具: afconvert...
 </code></pre><p>#流媒体播放</p>
@@ -2228,9 +2249,11 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
 <li>当监听到时, 会调用监听器的observeValueForKeyPath:ofObject:change:context: 我们可以拿到 变化的值, 这样就监听了某些一致在变化的属性, 来可视化</li>
 <li>监听时设置的 option 可以设置成获得最新值或者是 old 值, 会传到回调方法的 change 字典中</li>
 </ul>
-<p>#bug: 监听 KVO 监听不到回调, —- 有些属性不能使用 KVO, 要设置对了属性才会回调方法</p>
-<p>#bug:  控件设置不起作用, label 不显示字, 进度条不动 —- 设置 UI 控件的代码不是在主线程执行, 拿不到主线程的 UI 控件来设置</p>
-<p>#bug: 速度显示不出来, —- 速度本来设置是 NSUinteger, 需要转换为 double 再进行计算, 不然证书计算最后是0</p>
+<ul>
+<li>bug: 监听 KVO 监听不到回调, —- 有些属性不能使用 KVO, 要设置对了属性才会回调方法</li>
+<li>bug:  控件设置不起作用, label 不显示字, 进度条不动 —- 设置 UI 控件的代码不是在主线程执行, 拿不到主线程的 UI 控件来设置</li>
+<li>bug: 速度显示不出来, —- 速度本来设置是 NSUinteger, 需要转换为 double 再进行计算, 不然证书计算最后是0</li>
+</ul>
 <p>#视频播放,</p>
 <pre><code>* 苹果提供的几个工具流媒体和本地都能放,
 * 添加 URL, 创建好后添加视频 view 到我们的界面上, 就可以看到画面了
@@ -2290,12 +2313,14 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
 *      有开始 | 结束 | 中断   一般摇一摇结束后做事情
 *      实现这些方法, 摇一摇就做完了.....
 *
-</code></pre><p>#bug: 控件显示不出来: —- 设置的 frame = 父控件的 frame, xy 比较大, 就在控件中看不见了, 应该设置 bounds</p>
-<p>##获取更多硬件信息</p>
-<pre><code>* 设备型号 | 内存信息 | 硬盘信息 | 进程信息(appStore 下的说是能杀进程的都是假的, 调用的大量私有 API 才能杀进程, 这样的应用不会上架, webView也不能监听加载进度, 只能监听加载成功或失败) | 在项目include 中的底层 C 文件中有很多信息,
-* 可以直接用别人封装好 C 的东西, 来获取这些信息, 没什么技术含量, 存耗时间的活 : iOS-System-Services | uidevice-extension
-*
-</code></pre><p>#关于私有API</p>
+</code></pre><ul>
+<li>bug: 控件显示不出来: —- 设置的 frame = 父控件的 frame, xy 比较大, 就在控件中看不见了, 应该设置 bounds<br>##获取更多硬件信息<ul>
+<li>设备型号 | 内存信息 | 硬盘信息 | 进程信息(appStore 下的说是能杀进程的都是假的, 调用的大量私有 API 才能杀进程, 这样的应用不会上架, webView也不能监听加载进度, 只能监听加载成功或失败) | 在项目include 中的底层 C 文件中有很多信息,</li>
+<li>可以直接用别人封装好 C 的东西, 来获取这些信息, 没什么技术含量, 存耗时间的活 : iOS-System-Services | uidevice-extension<br>*</li>
+</ul>
+</li>
+</ul>
+<p>#关于私有API</p>
 <pre><code>* 存在, 但是敲没有提示的类, 敲不出来, 提示报错的, 就是私有, 不然敲的出来的都不是私有的
 * 但是可以通过转换类来使用, 但是使用了私有的, 可能就上不了架, 不建议这么使用  :  Class c = NSClassFromString();
 *
@@ -2316,8 +2341,10 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
 * 在发送数据的方法中将数据转成二进制 data, 通过 session 会话发送数据 [self.session sendDataToAllPeers:datawithDataMode:GKSendDataReliable error:nil];
 * 在接收数据的方法中(即之前设置 session 的 handler的方法)将二进制转成对应数据进行处理即可
 *
-</code></pre><p>#bug: 一方点击连接后, 另一方没有反应, 还是在列表状态么没有弹出是否接收的提示</p>
-<p>#bug: 点击接受后, 没有任何反应了, connecting 一下后就连接失败</p>
+</code></pre><ul>
+<li>bug: 一方点击连接后, 另一方没有反应, 还是在列表状态么没有弹出是否接收的提示</li>
+<li>bug: 点击接受后, 没有任何反应了, connecting 一下后就连接失败</li>
+</ul>
 <p>#Core Bluetooth</p>
 <pre><code>* 每个蓝牙设备都是通过 Service 和Characteristic来展示自己,  你做为外设, 总要给中心提供点什么才能交互吧
 * 一个设备至少有一个服务每个服务下包含若干特征
@@ -2339,7 +2366,9 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
 * 可以在搜索附近设备的时候传入服务 UUID 数组, 就只会发现有这些服务的设备, 不好使就传 nil, 就会发现所有设备
 *
 </code></pre><p>##使用场景: BLE + iBeacon 有很大的想象空间, 但是国内目前应用还不广泛</p>
-<p>#bug(centralManager 创建后没有反应):  创建后会自动去发现周围设备, 但是不能调用代理方法—– 创建时没有设置代理</p>
+<ul>
+<li>bug(centralManager 创建后没有反应):  创建后会自动去发现周围设备, 但是不能调用代理方法—– 创建时没有设置代理</li>
+</ul>
 <p>#社交分享</p>
 <pre><code>* 在很多应用中都有一个分享的按钮, 可以将当前内容和自己的用分享到其他平台进行推广
 * 让更多人了解自己的App. 是当前互联网应用程序推广的重要手段之一
@@ -2394,7 +2423,9 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
 <pre><code>* 在进入应用后判断情形, 是点击通知进来的就跳转到通知指向的详情界面, 通过设定一个 segue, 在判断时候调用这个 segue 所在控制器来跳转到这个 segue,并将通知传递过去,
 * 通知还可以添加额外信息, 设置 userInfo, 用字典传递数据
 * 有时候在后台到前台的时候需要看到启动图片的, 可以给通知设置属性: alertLaunchImage: 把启动图片的名字传进去, 只能是启动图片的那里
-</code></pre><p>#bug: 在前台时, 通知发出应用接收到时, 也会跳转到详情页 —- 通知不管怎么样都会发出, 而且没关闭应用的话会调用 APP 代理接收到通知的方法, 这里会直接条过去, 应该加个判断,application.applicationState, 从后台进前台的话调用这个方法时是非激活的, 所以当在激活状态时就直接 return, 不做任何事</p>
+</code></pre><ul>
+<li>bug: 在前台时, 通知发出应用接收到时, 也会跳转到详情页 —- 通知不管怎么样都会发出, 而且没关闭应用的话会调用 APP 代理接收到通知的方法, 这里会直接条过去, 应该加个判断,application.applicationState, 从后台进前台的话调用这个方法时是非激活的, 所以当在激活状态时就直接 return, 不做任何事</li>
+</ul>
 <p>#未做</p>
 <p>#远程推送</p>
 <pre><code>* 在应用在线时, 可能与应用本身的服务器建立了长连接, 这样可以直接通过服务器互发消息, 但是应用一旦关闭, 就不能与服务器进行长连接, 消息就推送不过去,
@@ -2447,7 +2478,9 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
 *
 * UISplitViewController
 * *
-</code></pre><p>#bug: 在 xib 或 storybord 里拖线的时候, 加载对象的时候选最前或最后的时候, 或错, 就是拿到的对象错了</p>
+</code></pre><ul>
+<li>bug: 在 xib 或 storybord 里拖线的时候, 加载对象的时候选最前或最后的时候, 或错, 就是拿到的对象错了</li>
+</ul>
 <p>#iOS版本判断: [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9,3,0}];</p>
 <p>#QZone</p>
 <pre><code>* 先做个登录界面
@@ -2507,8 +2540,10 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
 * 在 collectionView 的 Storyboard 中有默认的一个 cell., 也可以多拖几个 cell 进去, 设定其 reuseIdentifier, 就能在使用 collectionView 的时候从缓存池中找这个标识的 cell,没有就会从 StoryBoard 中找来加载, 在这个 collectionVIew 中定义的 cell 就被它识别了, 所以不用注册, 要是是代码或者 xib 创建的话, CollectionView 不知道其存在, 就不能使用它, 需要 CollectionView 注册这个 cell 才能使用
 </code></pre><p>#问题: 大众被收, 美团没 API,可以尝试开发其他接口的程序<br>Github：GitHub API v3<br>Weibo：API - 微博API<br>Twitter：<a href="https://dev.twitter.com/" target="_blank" rel="noopener">https://dev.twitter.com/</a><br>Dribbble：Dribbble Developer<br>Angelist：API - AngelList<br>Nytimes：<a href="http://developer.nytimes.com/docs" target="_blank" rel="noopener">http://developer.nytimes.com/docs</a><br>（这个是从西乔的文章听说的），使用这个API，开发者可以调用到几百万份结构化过的数据，从1981 年至今，纽约时报报道的事件，畅销书，甚至房地产等等。<br>Instagram：<a href="https://www.instagram.com/developer/" target="_blank" rel="noopener">https://www.instagram.com/developer/</a></p>
 <p>什么还嫌不够，来吧，想要什么API 搜索吧。。。<br>APIs.io - the API search engine<br>ProgrammableWeb</p>
-<p>#bug: CUICatalog: Invalid asset supplied: (null), or invalid scale factor:1.000..<br>———–  当设置图片传空壶有这个警告或者传入的图片找不到</p>
-<p>#bug: 当点击菜单按钮时, 崩溃, reason: ‘-[UITableView _contentOffsetForScrollingToRowAtIndexPath:atScrollPosition:]: row (2) beyond bounds (0) for section (0).’ —–<br>——-点击菜单后, 里面有对 tableView selectRow 的操作, 滚动到某一行, 但是这行不存在, 因为这个 tableView 的数据没有, 所以在初始化的时候必须要有数据, 才能这样操作</p>
+<ul>
+<li>bug: CUICatalog: Invalid asset supplied: (null), or invalid scale factor:1.000..<br>———–  当设置图片传空壶有这个警告或者传入的图片找不到</li>
+<li>bug: 当点击菜单按钮时, 崩溃, reason: ‘-[UITableView _contentOffsetForScrollingToRowAtIndexPath:atScrollPosition:]: row (2) beyond bounds (0) for section (0).’ —–<br>——-点击菜单后, 里面有对 tableView selectRow 的操作, 滚动到某一行, 但是这行不存在, 因为这个 tableView 的数据没有, 所以在初始化的时候必须要有数据, 才能这样操作</li>
+</ul>
 <p>##iPad 的自动布局, 设置 collectionView 的 item 间距等</p>
 <pre><code>* 一般自动布局的话我们是调整约束, 在collectionViewController 中可以通过 self.collectionViewLayout 或者 self.collectionView.collectionViewLayout, 拿到的是父类,抽象类, 我们需要转成 UICollectionViewFlowLayout 才能设置更多的属性
 * .minimumLineSpacing, 最小行间距
@@ -2576,8 +2611,12 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
 <li><a href="http://www.cnblogs.com/yan520/p/5583362.html" target="_blank" rel="noopener">http://www.cnblogs.com/yan520/p/5583362.html</a>, 像这个里的问题又有了…..</li>
 <li><a href="http://www.jianshu.com/p/6e5c0f78200a/comments/2274069" target="_blank" rel="noopener">http://www.jianshu.com/p/6e5c0f78200a/comments/2274069</a><br>*</li>
 </ul>
-<p>#bug: linker command failed with exit code 1 (use -v to see invocation)<br>    之前项目里有文件和 pod install里的库是一样的, 删掉就好</p>
-<p>#bug: 用 UITextVIew 做富文本连接点击识别时, 获取链接的范围总是几乎{1, 0}之类的,<br>    — 需要将 textView 加到一个 view 中作为子控件, textView 自己不能交互, 用父控件的触摸事件来定位点击rect 和点</p>
+<ul>
+<li><p>bug: linker command failed with exit code 1 (use -v to see invocation)<br>  之前项目里有文件和 pod install里的库是一样的, 删掉就好</p>
+</li>
+<li><p>bug: 用 UITextVIew 做富文本连接点击识别时, 获取链接的范围总是几乎{1, 0}之类的,<br>  — 需要将 textView 加到一个 view 中作为子控件, textView 自己不能交互, 用父控件的触摸事件来定位点击rect 和点</p>
+</li>
+</ul>
 <p>#还没学到的, 视频里漏了的知识点:  未做</p>
 <pre><code>- 网络 socket
 - xmpp
@@ -2590,42 +2629,67 @@ AVAudioSession *session = [AVAudioSession sharedInstance];
 </code></pre><h1 id="UItableViewCell-的高度自适应"><a href="#UItableViewCell-的高度自适应" class="headerlink" title="UItableViewCell 的高度自适应"></a>UItableViewCell 的高度自适应</h1><pre><code>* 将 cell 中的子控件都设置上约束, 让 cell 上四边都和子控件有约束, 在 iOS8之前, 可以像上面那样获取 label 的高度, 再设置 cell 的高, 也可以用一个模板 cell, 里面是约束好的控件, 将内容填入, 再 sizetoFit.... 就能拿到自适应的高
 * iOS8开始, 只要设置好了约束, 在 tabelView 设置 estimateHei, 预估高度, 还有 rowheight= UITableViewAutomaticDimension;就可以了,,,,,,heiorrowAtIndexPath 这个代理方法都不用实现
 *  可以用 beginUpdate  / endUpdate 来更新 tableView
-</code></pre><p>#bug: 将做好的显示属性文本的控件加到一个 view(containView) 上时, 虽然 view 可以根据里面 textView 的变化改变 size, 但是在更外满一层使用这个控件的 view, 不能根据containView 的 size 改变而改变, 只能拿到这个 containview 的高, 加上其自己本来能自动布局的高,</p>
+</code></pre><ul>
+<li>bug: 将做好的显示属性文本的控件加到一个 view(containView) 上时, 虽然 view 可以根据里面 textView 的变化改变 size, 但是在更外满一层使用这个控件的 view, 不能根据containView 的 size 改变而改变, 只能拿到这个 containview 的高, 加上其自己本来能自动布局的高,</li>
+</ul>
 <p>#注意: 在自定义控件的时候, 最好 initWithFrame 和 initWithCoder 一起实现, 将初始化代码放在 setup 类似的方法里在上面两个方法中调用, 免得在 xib 使用时没有调用其初始化方法,</p>
-<p>#bug: systemLayoutSizeFittingSize:UILayoutFittingCompressedSize的坑:</p>
-<pre><code>* 在使用这个方法时, 只能自适应其中固定了尺寸宽高的控件, 像自己做的这个显示富文本的控件, 放在一耳光 view 里了, 默认 view 没有自动适应内容高度, 所以外面在fit 的时候, 就不会将这个 view 考虑在内, 或者考虑为0, 所以需要自己拿到改变的高自己计算高度,
-</code></pre><p>#注意: sizeThatFits的坑: 这个如果宽度不够, 一样只会取最少的返回, 所以要固定宽的话, 也要另外设置</p>
-<p>#bug: SQL 数据库要搜索的字段是TEXT的话,  执行语句里要加上’’,</p>
-<p>#bug: [_NSInlineData firstObject]: unrecognized selector sent to instance 0x7bae9200<br>    AFN 按理说返回的是 json并自动会转成字典或数组, 但是有时候会成这个会成这个类….奇怪<br>    可能是发送请求的时候共用了一个 manager, 在这个发送请求未返回时, 其他的操作又设定了这个的 responseSeriarazer 设定为其他的了</p>
-<p>#bug: 登录操作 POST 参数到对应地址后返回的是相当于加载主页的内容</p>
+<ul>
+<li><p>bug: systemLayoutSizeFittingSize:UILayoutFittingCompressedSize的坑:</p>
+<ul>
+<li>在使用这个方法时, 只能自适应其中固定了尺寸宽高的控件, 像自己做的这个显示富文本的控件, 放在一耳光 view 里了, 默认 view 没有自动适应内容高度, 所以外面在fit 的时候, 就不会将这个 view 考虑在内, 或者考虑为0, 所以需要自己拿到改变的高自己计算高度,<br>#注意: sizeThatFits的坑: 这个如果宽度不够, 一样只会取最少的返回, 所以要固定宽的话, 也要另外设置</li>
+</ul>
+</li>
+<li><p>bug: SQL 数据库要搜索的字段是TEXT的话,  执行语句里要加上’’,</p>
+</li>
+</ul>
+<ul>
+<li>bug: [_NSInlineData firstObject]: unrecognized selector sent to instance 0x7bae9200<br>  AFN 按理说返回的是 json并自动会转成字典或数组, 但是有时候会成这个会成这个类….奇怪<br>  可能是发送请求的时候共用了一个 manager, 在这个发送请求未返回时, 其他的操作又设定了这个的 responseSeriarazer 设定为其他的了</li>
+<li>bug: 登录操作 POST 参数到对应地址后返回的是相当于加载主页的内容</li>
+</ul>
 <p>#注意: 由于Stack View自动为我们管理Auto Layout constraints，我们只能调用layoutIfNeeded来实现动画。</p>
 <p>#问题: scrollView 在使用自动布局时, 设置了上下左右后还是会提示有错, 有约束没有设置, 而且运行后有时滚动不了,<br>    先猜想: 其布局和普通控件不一样, 果然, 它除了 pin 在四周的设置外, 还会根据子控件来设置其 contentSize, 没有足够的约束来计算的话就会报错, 可以在 scrollView 里设置一个 contentView 来填充其内部, 所有要在滚动视图的子控件都加在 contentView 中, 而且子控件要连贯其上下或者左右来设置约束, 这样这个 contetntView 就会根据内部的子控件来计算 size, scrollView 是根据这个 contentView 来算 contentSize, 如果不想哪个方向滚动, 可以设置 contentView 的高/宽 = scrollView.高/宽, 相当于 contentSize 的高.宽被设定死了, 在高/宽方向不滚动<br>    Google 后发现其底部和右边的约束是对其 contentSize 的设置, 即约束里的 width 和 height 是对其滚动范围的设置<br><a href="https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithScrollViews.html" target="_blank" rel="noopener">https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithScrollViews.html</a></p>
-<p>#bug: 代码设置 contentOffset = xx, 无效, setContentOffset:animated:方法无效<br>cao !!其实是有效果的1!!! 在更换了 xib 文件中的控件时忘了重新联建 scrollVIew! 到时其 = nil;<br>在网上找到些这些问题的方法, 记录下, 以后要是真碰到了无效的话试试.</p>
-<pre><code>1. 强制回主线程操作:
-dispatch_async(dispatch_get_main_queue(), ^{
-     这里设置 offset
-});
-</code></pre><ol start="2">
+<ul>
+<li><p>bug: 代码设置 contentOffset = xx, 无效, setContentOffset:animated:方法无效<br>cao !!其实是有效果的1!!! 在更换了 xib 文件中的控件时忘了重新联建 scrollVIew! 到时其 = nil;<br>在网上找到些这些问题的方法, 记录下, 以后要是真碰到了无效的话试试.</p>
+<ol>
+<li>强制回主线程操作:<br>dispatch_async(dispatch_get_main_queue(), ^{<br>  这里设置 offset<br>});<ol start="2">
 <li>pagingEnable = no;, 设置完 offset 再设置回来</li>
 <li>delegate = no; 设置完 offset 再设置回来</li>
 </ol>
-<p>#bug: 这是在搜上面的问题时顺便搜到的, 以后可能有用, 问题是当 pop 回 scrollview 时, 里面的控件和 tabbar 会有奇怪的布局现象, 解决方法:<br>    In iOS 7/8/9 simple self.automaticallyAdjustsScrollViewInsets = NO; solved the problem in my case.<br>    原文连接: <a href="http://stackoverflow.com/questions/17404682/uiscrollviews-origin-changes-after-popping-back-to-the-uiviewcontroller" target="_blank" rel="noopener">http://stackoverflow.com/questions/17404682/uiscrollviews-origin-changes-after-popping-back-to-the-uiviewcontroller</a></p>
+</li>
+</ol>
+</li>
+<li><p>bug: 这是在搜上面的问题时顺便搜到的, 以后可能有用, 问题是当 pop 回 scrollview 时, 里面的控件和 tabbar 会有奇怪的布局现象, 解决方法:<br>  In iOS 7/8/9 simple self.automaticallyAdjustsScrollViewInsets = NO; solved the problem in my case.<br>  原文连接: <a href="http://stackoverflow.com/questions/17404682/uiscrollviews-origin-changes-after-popping-back-to-the-uiviewcontroller" target="_blank" rel="noopener">http://stackoverflow.com/questions/17404682/uiscrollviews-origin-changes-after-popping-back-to-the-uiviewcontroller</a></p>
+</li>
+</ul>
 <h1 id="关于-css-xpath-选择器"><a href="#关于-css-xpath-选择器" class="headerlink" title="关于 css/xpath 选择器"></a>关于 css/xpath 选择器</h1><p><a href="http://www.cnblogs.com/ziyunfei/archive/2012/10/05/2710631.html" target="_blank" rel="noopener">http://www.cnblogs.com/ziyunfei/archive/2012/10/05/2710631.html</a></p>
-<p>#bug: library not found for -l AFNetworking</p>
-<pre><code>1. 在使用了 pod 后打开的是 xcproject, 而不是 xcworkspace, 因为这些路径自动加入是 workspace 的事,
-2. 在没有使用 pod 的时候, 检查在那个Library Search Paths需要有这个库的路径
-3. 没有使用 pod 的话, 也要看这里有没有包含有这个库的路径, 不然会报找不到的错误
-</code></pre><p>#bug&amp;warning: 关于 textView 内容更新及其尺寸的更新<br>    在内容更新后, 会自动更新内容, 但是设置的大小, 要先[self.attView sizeToFit], 或 sizeThatFit:方法重新计算, 其容器才能根据这个 textView自动计算出来的尺寸设置其他东西, 而且要在外层</p>
+<ul>
+<li><p>bug: library not found for -l AFNetworking</p>
+<ol>
+<li>在使用了 pod 后打开的是 xcproject, 而不是 xcworkspace, 因为这些路径自动加入是 workspace 的事,</li>
+<li>在没有使用 pod 的时候, 检查在那个Library Search Paths需要有这个库的路径</li>
+<li>没有使用 pod 的话, 也要看这里有没有包含有这个库的路径, 不然会报找不到的错误</li>
+</ol>
+</li>
+<li><p>bug&amp;warning: 关于 textView 内容更新及其尺寸的更新<br>  在内容更新后, 会自动更新内容, 但是设置的大小, 要先[self.attView sizeToFit], 或 sizeThatFit:方法重新计算, 其容器才能根据这个 textView自动计算出来的尺寸设置其他东西, 而且要在外层</p>
+</li>
+</ul>
 <h1 id="关于-View-布局的注意-当-view"><a href="#关于-View-布局的注意-当-view" class="headerlink" title="关于 View 布局的注意, 当 view"></a>关于 View 布局的注意, 当 view</h1><p>//        [la setNeedsLayout];  //  可以, 这个方法会调用其中的 updateConstrains 和 layoutSubviews 方法<br>//        [la setNeedsDisplay];   //  不行, 只会调用updateConstraints<br>//        [la setNeedsUpdateConstraints];   //  不行, 只会调用updateConstraints<br>                [self invalidateIntrinsicContentSize] // 当改变了内部内容的尺寸时, 要调用这个</p>
 <p>##所以, 当想要都调用 View 中两个方法的话, 只能使用setNeedsLayout</p>
 <p>#textView 布局注意</p>
 <pre><code>- 在设置好宽度后, 直接 sizeToFit 就可以或者 sizeThatFit:, 但是在 view 中直接用textVIew的话好像不行, 要自定义一个 tetxView, 在 layoutSubView 中实现重新设置 size 才可以...
 - 目前在 textView 的属性文本中添加的图片如果修改了尺寸的话, 好像它还是按照原来的尺寸来适应这个高度, 还要设置 attach.bounds 才能按照这个 bounds 来布局
-</code></pre><p>#bug: 在编译RegexKitLite的时候，报错如下：<br>Undefined symbols for architecture i386:<br>“_uregex_open”, referenced from:<br>_rkl_getCachedRegex in RegexKitLite.o<br>…<br>– 解决办法：<br>在项目的编译设置中找到Other Linker Flags，然后在后面字段空白处双击，添加“-licucore”就可以了。</p>
-<p>#bug: 在用 analysis 时候(不小心点中的)发现在 AFN 里使用 rechability 的时候有内存泄露,<br>搜到的方法:  <a href="https://github.com/tonymillion/Reachability/issues/114" target="_blank" rel="noopener">https://github.com/tonymillion/Reachability/issues/114</a></p>
-<p>#bug:  换了 TYAttributed 后, 在显示 headerView 正常, 但是显示cell 的时候会不显示文字, 且cell 的计算高度会递增<br> <del>目前根据一些测试猜测: 计算高度的时候用的是同一个 cell, 里面的控件可能对高度进行了缓存, 导致没次算的时候都会有上面一些的影响</del><br>进一步发现, 还是自己的代码写的不够严谨, 在封装好的 Label 中, 对内部 TYAttributed 的使用是 append 富文本, 如果一致使用同一个, 就会一直拼接上去, 最后 attributedString 会越来越长, 造成计算的高度越来越大.<br><strong>注意自定义控件的时候会有复用的可能</strong></p>
-<p>#bug:  单独抽出这个 cell 及 YCAttributedLabel 来测试时, 产生一样不识别, 且都挤在第一行上.</p>
-<p>#bug: 想在异步线程完成用自适应的方法计算出高度时,<br>2016-10-18 17:20:33.133 tableViewtest[40456:2268670] This application is modifying the autolayout engine from a background thread, which can lead to engine corruption and weird crashes.  This will cause an exception in a future release.</p>
+</code></pre><ul>
+<li><p>bug: 在编译RegexKitLite的时候，报错如下：<br>Undefined symbols for architecture i386:<br>“_uregex_open”, referenced from:<br>_rkl_getCachedRegex in RegexKitLite.o<br>…<br>– 解决办法：<br>在项目的编译设置中找到Other Linker Flags，然后在后面字段空白处双击，添加“-licucore”就可以了。</p>
+</li>
+<li><p>bug: 在用 analysis 时候(不小心点中的)发现在 AFN 里使用 rechability 的时候有内存泄露,<br>搜到的方法:  <a href="https://github.com/tonymillion/Reachability/issues/114" target="_blank" rel="noopener">https://github.com/tonymillion/Reachability/issues/114</a></p>
+</li>
+<li><p>bug:  换了 TYAttributed 后, 在显示 headerView 正常, 但是显示cell 的时候会不显示文字, 且cell 的计算高度会递增<br><del>目前根据一些测试猜测: 计算高度的时候用的是同一个 cell, 里面的控件可能对高度进行了缓存, 导致没次算的时候都会有上面一些的影响</del><br>进一步发现, 还是自己的代码写的不够严谨, 在封装好的 Label 中, 对内部 TYAttributed 的使用是 append 富文本, 如果一致使用同一个, 就会一直拼接上去, 最后 attributedString 会越来越长, 造成计算的高度越来越大.<br><strong>注意自定义控件的时候会有复用的可能</strong></p>
+</li>
+<li><p>bug:  单独抽出这个 cell 及 YCAttributedLabel 来测试时, 产生一样不识别, 且都挤在第一行上.</p>
+</li>
+<li><p>bug: 想在异步线程完成用自适应的方法计算出高度时,<br>2016-10-18 17:20:33.133 tableViewtest[40456:2268670] This application is modifying the autolayout engine from a background thread, which can lead to engine corruption and weird crashes.  This will cause an exception in a future release.</p>
+</li>
+</ul>
 <p>不然异步线程进行自动布局的相关操作</p>
 <h1 id="RunTime"><a href="#RunTime" class="headerlink" title="RunTime"></a>RunTime</h1><p><a href="http://www.jianshu.com/p/404b3e2dd599" target="_blank" rel="noopener">简书的一篇教程</a><br>runtime 是 OC 底层的实现, 也是 OC 在其上封装的面向对象的基石, 所有的 OC 代码, 在编译的时候都被转成 runtime 的代码, OC 的动态特性也是因为 runtime,</p>
 <p>它可以</p>
@@ -2699,7 +2763,9 @@ dispatch_async(dispatch_get_main_queue(), ^{
 </ul>
 </li>
 </ul>
-<p>#bug: 使用哦不继承_msgSend() 提示参数过多,<br>// xcode6之前,苹果运行使用objc_msgSend.而且有参数提示<br>// xcode6苹果不推荐我们使用runtime<br>// 解决消息机制方法提示步骤<br>// 查找build setting -&gt; 搜索msg, 设为 NO<br>// 最终生成消息机制,编译器做的事情<br>// 最终代码,需要把当前代码重新编译,用xcode编译器,clang<br>// clang -rewrite-objc main.m 查看最终生成代码</p>
+<ul>
+<li>bug: 使用哦不继承_msgSend() 提示参数过多,<br>// xcode6之前,苹果运行使用objc_msgSend.而且有参数提示<br>// xcode6苹果不推荐我们使用runtime<br>// 解决消息机制方法提示步骤<br>// 查找build setting -&gt; 搜索msg, 设为 NO<br>// 最终生成消息机制,编译器做的事情<br>// 最终代码,需要把当前代码重新编译,用xcode编译器,clang<br>// clang -rewrite-objc main.m 查看最终生成代码</li>
+</ul>
 <h1 id="core-data"><a href="#core-data" class="headerlink" title="core data"></a>core data</h1><p>Core Data是应用模型、持久化和大量对象图查找的最佳选择<br>它是专门针对模型层做的一个框架.<br><a href="https://objccn.io/issue-4-1/" target="_blank" rel="noopener">深入点的分析及 Demo</a><br><a href="http://nshipster.cn/core-data-libraries-and-utilities/" target="_blank" rel="noopener">推荐开源库</a><br><a href="http://www.jianshu.com/p/880dd63c5f5e" target="_blank" rel="noopener">快速使用</a><br><a href="http://www.jianshu.com/p/6e048f7c5812" target="_blank" rel="noopener">快速使用2</a><br><a href="http://www.cocoachina.com/ios/20160801/17248.html" target="_blank" rel="noopener">其他资料</a></p>
 <p>在这之前, 要使用 coredata, 需要有这么一个环境来保存你项目中所需要的所有需要被 coredata 管理的模型类, 要有这个环境, 也就是使用这个 coredata 这个专门针对模型层的框架, 需要在项目中新建一个Coredata Model 对象, 里面会给你新建实体, 相当于你设置的模型类, 类中的其他对象属性就相当于里面的相关实体. ….目前暂时不知道怎么设置实体间的继承关系</p>
 <p>使用它主要有这几个类需要了解, 可以这么理解, 和之前学的比较能接上轨</p>
@@ -2707,9 +2773,11 @@ dispatch_async(dispatch_get_main_queue(), ^{
 <li>将需要的组件创建出来形成的 coredata 堆栈</li>
 <li>NSManagedObjectModel:  整个框架的操作通过这个 Model 类来先访问我们创建的对象模型图, 刚我们创建的文件里的实体连接了对应的类, 那个模型文件还要放到内存来操作, 对没有访问过的模型, 有的话就从这里拿而不会去调用 SQL 数据库, 但是, 一般我们只是把它加载进来, 不去对其直接操作</li>
 <li>NSPersistentStoreCoordinator: 持久化存储调度器, 沟通模型图逻辑关系管理的 Context 和操作底层数据库实现的store, 可以说是枢纽吧, 同时, 还需要设置一个数据库, 添加操作数据库的 URL, 没有的话会自己创建</li>
-<li>NSManagedObjectContext: 这个 Context 用于管理模型图的逻辑关系, 其通过调度者 cordinator 来与存储部分进行交流, 一般我们对模型对象的保存就是通过这个操作的<br>-</li>
+<li><p>NSManagedObjectContext: 这个 Context 用于管理模型图的逻辑关系, 其通过调度者 cordinator 来与存储部分进行交流, 一般我们对模型对象的保存就是通过这个操作的<br>-</p>
+</li>
+<li><p>bug: [NSError init] called; this results in an invalid NSError instance. It will raise an exception in a future release. Please call errorWithDomain:code:userInfo: or initWithDomain:code:userInfo:. This message shown only once.<br>看来直接 init 的 NSError 不好哦, 以后可能会出问题</p>
+</li>
 </ul>
-<p>#bug: [NSError init] called; this results in an invalid NSError instance. It will raise an exception in a future release. Please call errorWithDomain:code:userInfo: or initWithDomain:code:userInfo:. This message shown only once.<br>看来直接 init 的 NSError 不好哦, 以后可能会出问题</p>
 <p>要用提到的那个方法</p>
 <h1 id="Crashlytics"><a href="#Crashlytics" class="headerlink" title="Crashlytics"></a>Crashlytics</h1><p>在参考另一个 V2ex 客户端的作者的源码的时候, 发现里面使用了这个东西, 不知道是什么, 查了一下, 这下又长见识了~</p>
 <p><a href="http://www.infoq.com/cn/articles/crashlytics-crash-statistics-tools" target="_blank" rel="noopener">iOS 开发工具——统计 Crash 的工具 Crashlytics</a></p>
@@ -2928,10 +2996,16 @@ dispatch_async(dispatch_get_main_queue(), ^{
 <li>可以直接运行analyze, 快速发现release bug in code,, 继承过程中父类方法缺失等问题<br><a href="https://www.raywenderlich.com/97886/instruments-tutorial-with-swift-getting-started" target="_blank" rel="noopener">更多profile的介绍</a></li>
 </ol>
 <h2 id="视图调试"><a href="#视图调试" class="headerlink" title="视图调试"></a>视图调试</h2><p>在程序运行时, 点击调试栏三个矩形叠加的按钮‘Debug View Hierarchy‘, 可以显示View的层级结构</p>
-<p>#bug: 当一个控件更新他的frame时, 比如使用动画, 而在创建这个View时是使用了autolayout的方法设置的frame,在这个View更新时会使用autolayout的方案生成frame, 但是这个先后顺序不确定, 有时候设置的View.frame后达不到想要的效果, 所以在使用autoLayout布局时, 改变对应的地方时最好也要使用autoLayout. 不然一开始偶是哟个frame的方式设定位置.</p>
-<p>#bug: 设置tableView的sectionHeader的高度时, 出现设置无效的情况<br>在plain的情况下, 需要在代理方法中指定高, 在grouped的时, 需要2个都指定, footer &amp; header. 且返回的高度不能是0</p>
-<p>#bug: 根据View的frame设置位置时, 会出现不是自己要的情况<br>当有导航栏时且View是在导航栏bottom开始时, 一开始View是原始大小, 显示出来后view的大小位置改变了, 所以计算出来的东西不同预期</p>
-<p>#bug: 在使用协议构造一个context的时候, 当传递到netApi时, context没了, 发生了野指针错误<br>使用的协议是非引用型的, 在传递的过程中可能会丢失, 使Protocol: NSObjectProtocol, 解决问题.<br>在OC中使用创建class 或者是Protocol, 还是继承自自有的NSObject和NSObjectProtocol比较好, 因为他们对这个框架的使用做了最基础的功能和限定</p>
+<ul>
+<li><p>bug: 当一个控件更新他的frame时, 比如使用动画, 而在创建这个View时是使用了autolayout的方法设置的frame,在这个View更新时会使用autolayout的方案生成frame, 但是这个先后顺序不确定, 有时候设置的View.frame后达不到想要的效果, 所以在使用autoLayout布局时, 改变对应的地方时最好也要使用autoLayout. 不然一开始偶是哟个frame的方式设定位置.</p>
+</li>
+<li><p>bug: 设置tableView的sectionHeader的高度时, 出现设置无效的情况<br>在plain的情况下, 需要在代理方法中指定高, 在grouped的时, 需要2个都指定, footer &amp; header. 且返回的高度不能是0</p>
+</li>
+<li><p>bug: 根据View的frame设置位置时, 会出现不是自己要的情况<br>当有导航栏时且View是在导航栏bottom开始时, 一开始View是原始大小, 显示出来后view的大小位置改变了, 所以计算出来的东西不同预期</p>
+</li>
+<li><p>bug: 在使用协议构造一个context的时候, 当传递到netApi时, context没了, 发生了野指针错误<br>使用的协议是非引用型的, 在传递的过程中可能会丢失, 使Protocol: NSObjectProtocol, 解决问题.<br>在OC中使用创建class 或者是Protocol, 还是继承自自有的NSObject和NSObjectProtocol比较好, 因为他们对这个框架的使用做了最基础的功能和限定</p>
+</li>
+</ul>
 <h1 id="bug-刷新令牌的时候-显示返回empty"><a href="#bug-刷新令牌的时候-显示返回empty" class="headerlink" title="bug: 刷新令牌的时候, 显示返回empty"></a>bug: 刷新令牌的时候, 显示返回empty</h1><p>在请求过后Presenter就释放了, 返回后没有东西持有, 造成不读取数据的情况.<br>resolve: 设置一个closure, 在返回时候调用来释放自己(对于不需要的进行持有的对象)</p>
 <h1 id="bug-在一个controller里-自定义约束的cell正常-在另一个controller里面约束崩溃-其中一个是传有数据的-猜想是这个的问题"><a href="#bug-在一个controller里-自定义约束的cell正常-在另一个controller里面约束崩溃-其中一个是传有数据的-猜想是这个的问题" class="headerlink" title="bug: 在一个controller里, 自定义约束的cell正常, 在另一个controller里面约束崩溃, 其中一个是传有数据的, 猜想是这个的问题"></a>bug: 在一个controller里, 自定义约束的cell正常, 在另一个controller里面约束崩溃, 其中一个是传有数据的, 猜想是这个的问题</h1><p>这里面因为plus的机型上的是三倍屏, 当设置的约束有0.5时, 在@2x的时候, 正好是1px, 这个在@3x的时候会变成在0.33333…0.66666之间, 也就是在1px和2px之间, 得到的计算结果是2px, 和原先字啊@2x视图中设置时候的1px产生了冲突.<br>尽量不要有0.5像素的东西设置在约束里.</p>
 <h1 id="bug-在试过持有preseter后发现获取refreshToken仍然获取不到"><a href="#bug-在试过持有preseter后发现获取refreshToken仍然获取不到" class="headerlink" title="bug: 在试过持有preseter后发现获取refreshToken仍然获取不到."></a>bug: 在试过持有preseter后发现获取refreshToken仍然获取不到.</h1><p>resolve: 在更新后只设置了tokenBean的RefreshToken, UserBean的Token没有设置上去, 而从Secure里拿到的是UserInfo. 更新时把RefreshToken设置给userbean就行,.</p>
@@ -2972,7 +3046,9 @@ dispatch_async(dispatch_get_main_queue(), ^{
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">After ios 10 you have to define all the system feature access in inof.plist as below:</span><br><span class="line"></span><br><span class="line">`Calendar`</span><br><span class="line">	Key    :  Privacy - Calendars Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) calendar events</span><br><span class="line">Reminder :</span><br><span class="line">	Key    :   Privacy - Reminders Usage Description</span><br><span class="line">	Value  :   $(PRODUCT_NAME) reminder use</span><br><span class="line">Contact :</span><br><span class="line">	Key    :   Privacy - Contacts Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) contact use</span><br><span class="line">Photo :</span><br><span class="line">	Key    :  Privacy - Photo Library Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) photo use</span><br><span class="line">Bluetooth Sharing :</span><br><span class="line">	Key    :  Privacy - Bluetooth Peripheral Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) Bluetooth Peripheral use</span><br><span class="line">Microphone :</span><br><span class="line">	Key    :  Privacy - Microphone Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) microphone use</span><br><span class="line">Camera :</span><br><span class="line">	Key    :  Privacy - Camera Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) camera use</span><br><span class="line">Location :</span><br><span class="line">	Key    :  Privacy - Location Always Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) location use</span><br><span class="line"></span><br><span class="line">	Key    :  Privacy - Location When In Use Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) location use</span><br><span class="line">Heath :</span><br><span class="line">	Key    :  Privacy - Health Share Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) heath share use</span><br><span class="line"></span><br><span class="line">	Key    :  Privacy - Health Update Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) heath update use</span><br><span class="line">HomeKit :</span><br><span class="line">	Key    :  Privacy - HomeKit Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) home kit use</span><br><span class="line">Media Library :</span><br><span class="line">	Key    :  Privacy - Media Library Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) media library use</span><br><span class="line">Motion :</span><br><span class="line">	Key    :  Privacy - Motion Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) motion use</span><br><span class="line">Speech Recognition :</span><br><span class="line">	Key    :  Privacy - Speech Recognition Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) speech use</span><br><span class="line">SiriKit :</span><br><span class="line">	Key    :  Privacy - Siri Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) siri use</span><br><span class="line">TV Provider :</span><br><span class="line">	Key    :  Privacy - TV Provider Usage Description</span><br><span class="line">	Value  :  $(PRODUCT_NAME) tvProvider use</span><br><span class="line">You can get detail information in this link.</span><br></pre></td></tr></table></figure>
 <h2 id="可以直接打开-plist-的源码-复制粘贴响应的权限-key-value-会快一些"><a href="#可以直接打开-plist-的源码-复制粘贴响应的权限-key-value-会快一些" class="headerlink" title="可以直接打开 plist 的源码, 复制粘贴响应的权限 key-value 会快一些"></a>可以直接打开 plist 的源码, 复制粘贴响应的权限 key-value 会快一些</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">相机权限描述：</span><br><span class="line">    &lt;key&gt;NSCameraUsageDescription&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;cameraDesciption&lt;/string&gt;</span><br><span class="line">通信录：</span><br><span class="line">    &lt;key&gt;NSContactsUsageDescription&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;contactsDesciption&lt;/string&gt;</span><br><span class="line">麦克风：</span><br><span class="line">    &lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;microphoneDesciption&lt;/string&gt;</span><br><span class="line">相机：</span><br><span class="line">    &lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt;</span><br><span class="line">    &lt;string&gt;photoLibraryDesciption&lt;/string&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="关于使用其他库时出现的-code-sign-问题"><a href="#关于使用其他库时出现的-code-sign-问题" class="headerlink" title="关于使用其他库时出现的 code sign 问题"></a>关于使用其他库时出现的 code sign 问题</h1><p>原因在于在创建这个项目时, 别人用了他们的签名, 在使用时, 我们的签名出现了冲突或找不到作者的前面<br>– 可以修改项目的 identifier, 用自己的 com.自己.项目名, 差不多就这样, 还不行的还找到 info 的 general 项的 code signing, 搞搞</p>
-<p>#bug: 在跑别人的项目中时: The current deployment target does not support automated <strong>weak references<br>说明：因为</strong>weak是只支持ios5级以后的项目。</p>
+<ul>
+<li>bug: 在跑别人的项目中时: The current deployment target does not support automated <strong>weak references<br>说明：因为</strong>weak是只支持ios5级以后的项目。</li>
+</ul>
 <p>解决方法：有些可以通过设置ios最低版本号解决，但有些还是解决不了，可以通过在podfile文件中在platform ：ios这行，加一个ios的版本（5.0以上）：应该可以解决（至少我是通过这种方法解决的）</p>
 <p><a href="http://www.jianshu.com/p/40ea4ef761c6" target="_blank" rel="noopener">参考</a></p>
 <h1 id="关于Swift的属性问题"><a href="#关于Swift的属性问题" class="headerlink" title="关于Swift的属性问题"></a>关于Swift的属性问题</h1><p>更清晰了一点: 关于存储实现, 可以有属性监听器didSet, 这样就可以设置值的时候做一些操作</p>

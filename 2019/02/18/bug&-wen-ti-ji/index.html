@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="一团线">
 <meta property="og:description" content="bug &amp;amp; 问题集 多线程引发的安全问题当有多条线程同时操作一个数据的时候, 会引发数据安全的问题     同一时间(CPU 上如 A 比较块一点), A读取了数据 data, 迟一点, B 也读取了, 然后 A 改动后写回去, 迟一点, B 也改动了写回去, 最终只有 B 操作的结果有效, A 就白操作了, 数据就不对了  方法: 给数据加锁, 当 A 读取时, 先加一把锁, 再读取,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-19T17:11:25.068Z">
+<meta property="og:updated_time" content="2019-03-24T15:48:27.737Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bug &amp; 问题集">
 <meta name="twitter:description" content="bug &amp;amp; 问题集 多线程引发的安全问题当有多条线程同时操作一个数据的时候, 会引发数据安全的问题     同一时间(CPU 上如 A 比较块一点), A读取了数据 data, 迟一点, B 也读取了, 然后 A 改动后写回去, 迟一点, B 也改动了写回去, 最终只有 B 操作的结果有效, A 就白操作了, 数据就不对了  方法: 给数据加锁, 当 A 读取时, 先加一把锁, 再读取,">
@@ -431,44 +431,70 @@ showView.transform = translateForm;
 </ul>
 </li>
 </ul>
-<p>#bug: 注意变量名不要写的和类名一样!!!!!!!!!注意!!!, 要先设大小! 再设位置!, 不然会有意想不到的情况, 先设位置再设大小会根据 frame.y 又缩放回去….</p>
-<p>#bug: var btns: Array<uibutton>? = <a href>UIButton</a>, 数组的可选类型</uibutton></p>
-<p>#bug: fatalError(“init(coder:) has not been implemented”)因为这个方法是必须要求实现, 当不需要这个方法时, 可以将这个方法声明为便利构造方法, 调用 self.init 或者其他指定构造方法,</p>
+<ul>
+<li>bug: 注意变量名不要写的和类名一样!!!!!!!!!注意!!!, 要先设大小! 再设位置!, 不然会有意想不到的情况, 先设位置再设大小会根据 frame.y 又缩放回去….</li>
+<li>bug: var btns: Array<uibutton>? = <a href>UIButton</a>, 数组的可选类型</uibutton></li>
+<li>bug: fatalError(“init(coder:) has not been implemented”)因为这个方法是必须要求实现, 当不需要这个方法时, 可以将这个方法声明为便利构造方法, 调用 self.init 或者其他指定构造方法,</li>
+</ul>
 <p>#技巧: 需要只设置一次但是又只能在重复调用的方法中设置时, 用<br>struct TokenContainer {<br>            static var token : dispatch_once_t = 0<br>        }</p>
 <pre><code>dispatch_once(&amp;TokenContainer.token)
 </code></pre><p>在 OC 中会自己设置一个值, Swift 中没有, 所以要自己加锁</p>
 <p>在 Swift 中用//MARK: - 代替 OC 的#pragma mark-    Xcode now supports //MARK:, //TODO: and //FIXME landmarks to annotate your code and lists them in the jump bar</p>
-<p>#bug: 有时候旧文件改动了, 连接出静态库可能有些头文件也要暴露出来,  使用方法也变了!!看看作者文档或主页!!卡了半天!!!, 生成静态库没问题!</p>
-<p>#在使用静态库时应该也设定 Building 参数 OtherLinker -ObjC</p>
-<p>#bug:  有时候等半天没自动补全, 以为是方法错了, 其实是 xcode 的问题<br>-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0<br>Terminating app due to uncaught exception ‘NSInvalidArgumentException’, reason: ‘-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0’</p>
+<ul>
+<li><p>bug: 有时候旧文件改动了, 连接出静态库可能有些头文件也要暴露出来,  使用方法也变了!!看看作者文档或主页!!卡了半天!!!, 生成静态库没问题!<br>#在使用静态库时应该也设定 Building 参数 OtherLinker -ObjC</p>
+</li>
+<li><p>bug:  有时候等半天没自动补全, 以为是方法错了, 其实是 xcode 的问题<br>-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0<br>Terminating app due to uncaught exception ‘NSInvalidArgumentException’, reason: ‘-[MJRefreshHeader setMj_h:]: unrecognized selector sent to instance 0x79f1aee0’</p>
 <pre><code>设备－－&gt;分配数据空间，选择一个固定空间,比如E:\\virtualboxshare
-</code></pre><p>在虚拟机里</p>
+</code></pre></li>
+</ul>
+<p>在虚拟机里</p>
 <p>##更新: xcode7.2已经自带这个 framework 模板</p>
-<p>#bug: Undefined symbols for architecture x86_64:<br>  “_OBJC_CLASS_$_MJRefreshBackNormalFooter”, referenced from:<br>      objc-class-ref in ViewController.o<br>  “_OBJC_CLASS_$_MJRefreshNormalHeader”, referenced from:<br>      objc-class-ref in ViewController.o<br>ld: symbol(s) not found for architecture x86_64<br>clang: error: linker command failed with exit code 1 (use -v to see invocation)<br>——–搞错了, 将真机的文件拉进去了….<br>——–其实, 步奏都没错, 只是在 xcode7中要把静态库链接到 embed link 没有做….</p>
-<p>#——–其实, 在 Xcode7.2后做的挺完善, 步奏没那么麻烦了, 也自动做了很多设置, 记得最后要在 embed 链接 framework</p>
-<p>#bug:  reason: ‘Delegate must respond to locationManager:didFailWithError:’–必须实现设个方法</p>
+<ul>
+<li>bug: Undefined symbols for architecture x86_64:<br>“_OBJC_CLASS_$_MJRefreshBackNormalFooter”, referenced from:<pre><code>objc-class-ref in ViewController.o
+</code></pre>“_OBJC_CLASS_$_MJRefreshNormalHeader”, referenced from:<pre><code>objc-class-ref in ViewController.o
+</code></pre>ld: symbol(s) not found for architecture x86_64<br>clang: error: linker command failed with exit code 1 (use -v to see invocation)<br>——–搞错了, 将真机的文件拉进去了….<br>——–其实, 步奏都没错, 只是在 xcode7中要把静态库链接到 embed link 没有做….<br>#——–其实, 在 Xcode7.2后做的挺完善, 步奏没那么麻烦了, 也自动做了很多设置, 记得最后要在 embed 链接 framework</li>
+</ul>
+<ul>
+<li>bug:  reason: ‘Delegate must respond to locationManager:didFailWithError:’–必须实现设个方法</li>
+</ul>
 <p>##注意: iOS9已经可以设置 detailView, 可以显示更多东西</p>
-<p>#bug: detailCalloutAccessoryView添加本来没有宽高的东西的时候什么都不显示, —  在使用这个特性时需要添加宽高的限制, 不然显示不出来<br>[v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100]];<br>    [v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200]];</p>
-<p>###对于Swift:</p>
-<pre><code>*  let widthConstraint = NSLayoutConstraint(item: myView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
-myView.addConstraint(widthConstraint)
-
-let heightConstraint = NSLayoutConstraint(item: myView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20)
-myView.addConstraint(heightConstraint)
-</code></pre><p>#bug: 画线出不来, —— 不能用 fillColor!!!! 因为这个线不是闭合的图形!!!!!<br>CGPathRef 是非闭合的图形的话, 用 fill 来上色会失效, 因为逻辑上没有可以填充的一块区域</p>
-<p>#bug(音乐后台播放, 锁屏显示界面): 真机也显示不了, 而且后台也不能播放 —-  iOS9更新后, 或者是 xcode 的更新, 需要在 tagets -&gt; capabilities 下设置interApp Audio 打开, 还有backgroundModes勾选相应的, 远程控制事件也需要配置 info 了现在!!!<a href="http://i.stack.imgur.com/GRx6h.png" target="_blank" rel="noopener">http://i.stack.imgur.com/GRx6h.png</a></p>
+<ul>
+<li><p>bug: detailCalloutAccessoryView添加本来没有宽高的东西的时候什么都不显示, —  在使用这个特性时需要添加宽高的限制, 不然显示不出来<br>[v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100]];<br>  [v addConstraint:[NSLayoutConstraint constraintWithItem:v attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200]];<br>###对于Swift:</p>
+<ul>
+<li><p>let widthConstraint = NSLayoutConstraint(item: myView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)<br>myView.addConstraint(widthConstraint)</p>
+<p>let heightConstraint = NSLayoutConstraint(item: myView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20)<br>myView.addConstraint(heightConstraint)</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>bug: 画线出不来, —— 不能用 fillColor!!!! 因为这个线不是闭合的图形!!!!!<br>CGPathRef 是非闭合的图形的话, 用 fill 来上色会失效, 因为逻辑上没有可以填充的一块区域</p>
+</li>
+<li><p>bug(音乐后台播放, 锁屏显示界面): 真机也显示不了, 而且后台也不能播放 —-  iOS9更新后, 或者是 xcode 的更新, 需要在 tagets -&gt; capabilities 下设置interApp Audio 打开, 还有backgroundModes勾选相应的, 远程控制事件也需要配置 info 了现在!!!<a href="http://i.stack.imgur.com/GRx6h.png" target="_blank" rel="noopener">http://i.stack.imgur.com/GRx6h.png</a></p>
+</li>
+</ul>
 <h1 id="bug-访问-http-出错-用xcode7之后-最低支持版本-iOS8-会默认拒绝自认证的链接-导致微博项目不能访问授权页面-在info-plist中加入"><a href="#bug-访问-http-出错-用xcode7之后-最低支持版本-iOS8-会默认拒绝自认证的链接-导致微博项目不能访问授权页面-在info-plist中加入" class="headerlink" title="bug(访问 http 出错): 用xcode7之后, 最低支持版本 iOS8, 会默认拒绝自认证的链接, 导致微博项目不能访问授权页面, 在info.plist中加入:"></a>bug(访问 http 出错): 用xcode7之后, 最低支持版本 iOS8, 会默认拒绝自认证的链接, 导致微博项目不能访问授权页面, 在info.plist中加入:</h1><p><key>NSAppTransportSecurity</key></p>
 <p><dict><br>    <key>NSAllowsArbitraryLoads</key><br>    <true><br></true></dict><br>或者想添加例外或者更多连接网络方面: <a href="http://stackoverflow.com/questions/31216758/how-can-i-add-nsapptransportsecurity-to-my-info-plist-file/31629980#31629980" target="_blank" rel="noopener">http://stackoverflow.com/questions/31216758/how-can-i-add-nsapptransportsecurity-to-my-info-plist-file/31629980#31629980</a></p>
-<p>#bug: 监听 KVO 监听不到回调, —- 有些属性不能使用 KVO, 要设置对了属性才会回调方法</p>
-<p>#bug:  控件设置不起作用, label 不显示字, 进度条不动 —- 设置 UI 控件的代码不是在主线程执行, 拿不到主线程的 UI 控件来设置</p>
-<p>#bug: 速度显示不出来, —- 速度本来设置是 NSUinteger, 需要转换为 double 再进行计算, 不然整数计算最后是0</p>
-<p>#bug: 控件显示不出来: —- 设置的 frame = 父控件的 frame, xy 比较大, 就在控件中看不见了, 应该设置 bounds</p>
-<h1 id="GameKit"><a href="#GameKit" class="headerlink" title="GameKit"></a>GameKit</h1><h1 id="bug-一方点击连接后-另一方没有反应-还是在列表状态么没有弹出是否接收的提示"><a href="#bug-一方点击连接后-另一方没有反应-还是在列表状态么没有弹出是否接收的提示" class="headerlink" title="bug: 一方点击连接后, 另一方没有反应, 还是在列表状态么没有弹出是否接收的提示"></a>bug: 一方点击连接后, 另一方没有反应, 还是在列表状态么没有弹出是否接收的提示</h1><h1 id="bug-点击接受后-没有任何反应了-connecting-一下后就连接失败"><a href="#bug-点击接受后-没有任何反应了-connecting-一下后就连接失败" class="headerlink" title="bug: 点击接受后, 没有任何反应了, connecting 一下后就连接失败"></a>bug: 点击接受后, 没有任何反应了, connecting 一下后就连接失败</h1><h2 id="CoreBluetooth"><a href="#CoreBluetooth" class="headerlink" title="CoreBluetooth"></a>CoreBluetooth</h2><p>#bug(centralManager 创建后没有反应):  创建后会自动去发现周围设备, 但是不能调用代理方法—– 创建时没有设置代理</p>
+<ul>
+<li>bug: 监听 KVO 监听不到回调, —- 有些属性不能使用 KVO, 要设置对了属性才会回调方法</li>
+<li>bug:  控件设置不起作用, label 不显示字, 进度条不动 —- 设置 UI 控件的代码不是在主线程执行, 拿不到主线程的 UI 控件来设置</li>
+<li><p>bug: 速度显示不出来, —- 速度本来设置是 NSUinteger, 需要转换为 double 再进行计算, 不然整数计算最后是0</p>
+</li>
+<li><p>bug: 控件显示不出来: —- 设置的 frame = 父控件的 frame, xy 比较大, 就在控件中看不见了, 应该设置 bounds</p>
+</li>
+</ul>
+<h1 id="GameKit"><a href="#GameKit" class="headerlink" title="GameKit"></a>GameKit</h1><h1 id="bug-一方点击连接后-另一方没有反应-还是在列表状态么没有弹出是否接收的提示"><a href="#bug-一方点击连接后-另一方没有反应-还是在列表状态么没有弹出是否接收的提示" class="headerlink" title="bug: 一方点击连接后, 另一方没有反应, 还是在列表状态么没有弹出是否接收的提示"></a>bug: 一方点击连接后, 另一方没有反应, 还是在列表状态么没有弹出是否接收的提示</h1><h1 id="bug-点击接受后-没有任何反应了-connecting-一下后就连接失败"><a href="#bug-点击接受后-没有任何反应了-connecting-一下后就连接失败" class="headerlink" title="bug: 点击接受后, 没有任何反应了, connecting 一下后就连接失败"></a>bug: 点击接受后, 没有任何反应了, connecting 一下后就连接失败</h1><h2 id="CoreBluetooth"><a href="#CoreBluetooth" class="headerlink" title="CoreBluetooth"></a>CoreBluetooth</h2><ul>
+<li>bug(centralManager 创建后没有反应):  创建后会自动去发现周围设备, 但是不能调用代理方法—– 创建时没有设置代理</li>
+</ul>
 <p>##注意: 凡是看到copy / new / create / retain / 的东西, 又没有专程O OC 来进行 ARC 管理的, 都要在用完后 release, 用: CFRelease(xxx)</p>
 <p>#推送通知:</p>
 <p>##注意: 在 iOS8之后,需要应用注册用户通知设置, 而在 iOS10过期, 使用UNNotificationRequest 代替</p>
-<p>#bug: 在前台时, 通知发出应用接收到时, 也会跳转到详情页 —- 通知不管怎么样都会发出, 而且没关闭应用的话会调用 APP 代理接收到通知的方法, 这里会直接条过去, 应该加个判断,application.applicationState, 从后台进前台的话调用这个方法时是非激活的, 所以当在激活状态时就直接 return, 不做任何事</p>
-<p>#bug: 在 xib 或 storybord 里拖线的时候, 加载对象的时候选最前或最后的时候, 出错, 就是拿到的对象错了, 查看下是不是 xib / storyboard 文件里不止一个控件, 搞清楚自己要的在第几位</p>
+<ul>
+<li>bug: 在前台时, 通知发出应用接收到时, 也会跳转到详情页 —- 通知不管怎么样都会发出, 而且没关闭应用的话会调用 APP 代理接收到通知的方法, 这里会直接条过去, 应该加个判断,application.applicationState, 从后台进前台的话调用这个方法时是非激活的, 所以当在激活状态时就直接 return, 不做任何事</li>
+</ul>
+<ul>
+<li>bug: 在 xib 或 storybord 里拖线的时候, 加载对象的时候选最前或最后的时候, 出错, 就是拿到的对象错了, 查看下是不是 xib / storyboard 文件里不止一个控件, 搞清楚自己要的在第几位</li>
+</ul>
 <h1 id="2016年12月18日"><a href="#2016年12月18日" class="headerlink" title="2016年12月18日"></a>2016年12月18日</h1><p>在用 pod 安装 baiduMapKitSDK 的时候, 出现失败提示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[!] Error installing BaiduMapKit</span><br><span class="line">[!] /usr/bin/git clone https://github.com/BaiduLBS/BaiduMapKit.git /var/folders/qp/zd_ttf394yxbkkb1s9tqvgth0000gn/T/d20161218-16747-zk3x4o --template= --single-branch --depth 1 --branch 3.1.0</span><br><span class="line"></span><br><span class="line">Cloning into &apos;/var/folders/qp/zd_ttf394yxbkkb1s9tqvgth0000gn/T/d20161218-16747-zk3x4o&apos;...</span><br><span class="line">error: RPC failed; curl 18 transfer closed with outstanding read data remaining</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure></p>
 <p>解决搜索</p>
 <ol>
